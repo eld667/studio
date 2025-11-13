@@ -3,8 +3,25 @@
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+import { ProjectCard } from "@/app/ProjectCard";
+
+const projects = [
+  {
+    title: "Placeholder Project 1",
+    description: "This is a placeholder for a future project. We will update this later.",
+    imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Project+1",
+  },
+  {
+    title: "Placeholder Project 2",
+    description: "This is a placeholder for a future project. We will update this later.",
+    imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Project+2",
+  },
+  {
+    title: "Placeholder Project 3",
+    description: "This is a placeholder for a future project. We will update this later.",
+    imageUrl: "https://placehold.co/600x400/1e293b/ffffff?text=Project+3",
+  },
+];
 
 function OurWork() {
   return (
@@ -19,25 +36,13 @@ function OurWork() {
         Our Work
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[1, 2, 3].map((item) => (
-          <Link href="#" key={item}>
-            <div
-              className="bg-gray-900 border border-white/10 p-6 filter transition-all duration-300 ease-in-out hover:scale-103 hover:drop-shadow-[0_0_8px_rgba(192,132,252,0.8)] hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]"
-            >
-              <Image
-                src="https://placehold.co/600x400/1e293b/ffffff?text=Project+Demo"
-                alt="Project Demo"
-                width={600}
-                height={400}
-                className="mb-4"
-              />
-              <h3 className="text-xl font-bold mb-2">Placeholder Project</h3>
-              <p className="text-muted-foreground">
-                This is a placeholder for a future project. We will update this
-                later.
-              </p>
-            </div>
-          </Link>
+        {projects.map((project, index) => (
+          <ProjectCard
+            key={index}
+            title={project.title}
+            description={project.description}
+            imageUrl={project.imageUrl}
+          />
         ))}
       </div>
     </motion.section>
