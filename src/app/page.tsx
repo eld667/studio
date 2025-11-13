@@ -32,6 +32,7 @@ const projects = [
 function OurWork() {
   return (
     <motion.section
+      id="our-work"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -97,6 +98,7 @@ function ThreeStepPlan() {
 function ContactMe() {
   return (
     <motion.section
+      id="contact"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -138,11 +140,22 @@ function ContactMe() {
 
 
 export default function Home() {
+  const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      <Header onGetInTouchClick={(e) => handleScroll(e, 'contact')} />
       <main className="flex-grow">
-        <Hero />
+        <Hero onExploreClick={(e) => handleScroll(e, 'our-work')} />
         <OurWork />
         <ThreeStepPlan />
         <ContactMe />
