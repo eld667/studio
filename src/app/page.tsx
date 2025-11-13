@@ -58,18 +58,9 @@ function CaseStudyShowcase() {
 
       {/* --- ACT II: THE "HYPE" BUILD --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center mb-24">
-        {/* Project Card (On the left this time) */}
-        {/* Note: 'md:order-first' makes this appear first on desktop */}
-        <div className="md:order-first">
-          <ProjectCard
-            title="Quantum Coin"
-            description="A high-energy page to drive presale investment."
-            imageUrl="https://placehold.co/600x400/1e293b/ffffff?text=Crypto+Demo"
-          />
-        </div>
-
-        {/* Text Content */}
+        {/* Text Content (NOW FIRST in the HTML) */}
         <motion.div
+          className="md:order-last"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -82,6 +73,15 @@ function CaseStudyShowcase() {
             For tech startups and crypto projects, speed and 'feel' are key. We create modern landing pages that build immediate hype and drive users to a single, focused action.
           </p>
         </motion.div>
+
+        {/* Project Card (NOW SECOND in the HTML) */}
+        <div className="md:order-first">
+          <ProjectCard
+            title="Quantum Coin"
+            description="A high-energy page to drive presale investment."
+            imageUrl="https://placehold.co/600x400/1e293b/ffffff?text=Crypto+Demo"
+          />
+        </div>
       </div>
 
       {/* --- ACT III: THE "VIBE" BUILD --- */}
