@@ -18,16 +18,16 @@ export function ProjectCard({ title, description, imageUrl }: ProjectCardProps) 
   });
   
   const glowOpacity = useTransform(
-    scrollYProgress, 
-    [0, 0.4, 0.6, 1], 
-    [0, 1, 1, 0]
+    scrollYProgress,
+    [0, 0.25, 0.4, 0.6, 0.75, 1],
+    [0, 0, 1, 1, 0, 0]
   );
 
   return (
     <a href="#" ref={ref} className="relative block rounded-xl">
       <motion.div 
         style={{ opacity: glowOpacity }}
-        className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 blur-lg"
+        className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 blur-md"
       />
       <div className="relative bg-gray-900 p-6 rounded-xl overflow-hidden h-full transition-all duration-300 ease-in-out">
         <Image
