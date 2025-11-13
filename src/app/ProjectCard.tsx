@@ -27,9 +27,9 @@ export function ProjectCard({ title, description, imageUrl }: ProjectCardProps) 
     <a href="#" ref={ref} className="relative block rounded-xl">
       <motion.div 
         style={{ opacity: glowOpacity }}
-        className="absolute inset-0 rounded-xl filter drop-shadow-[0_0_8px_rgba(192,132,252,0.8)] drop-shadow-[0_0_12px_rgba(59,130,246,0.6)]"
+        className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 blur-lg"
       />
-      <div className="relative bg-gray-900 border border-white/10 p-6 rounded-xl overflow-hidden h-full transition-all duration-300 ease-in-out">
+      <div className="relative bg-gray-900 p-6 rounded-xl overflow-hidden h-full transition-all duration-300 ease-in-out">
         <Image
           src={imageUrl}
           alt={title}
