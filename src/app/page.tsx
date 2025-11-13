@@ -5,6 +5,11 @@ import { Hero } from "@/components/layout/hero";
 import { motion } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
 import { ClipboardSignature, Code, Rocket } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+
 
 const projects = [
   {
@@ -89,6 +94,48 @@ function ThreeStepPlan() {
   );
 }
 
+function ContactMe() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-5xl mx-auto py-24 px-6"
+    >
+      <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))]">
+        Let's Build Your New Website
+      </h2>
+      <div className="max-w-xl mx-auto">
+        <div className="grid grid-cols-1 gap-6">
+          <div>
+            <Label htmlFor="name">Your Name</Label>
+            <Input id="name" className="bg-gray-900 border-white/10" />
+          </div>
+          <div>
+            <Label htmlFor="email">Your Email</Label>
+            <Input id="email" type="email" className="bg-gray-900 border-white/10" />
+          </div>
+          <div>
+            <Label htmlFor="message">Your Message</Label>
+            <Textarea
+              id="message"
+              placeholder="Tell us about your project..."
+              className="bg-gray-900 border-white/10"
+            />
+          </div>
+          <Button
+            size="lg"
+            className="w-full font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+          >
+            Start My Project
+          </Button>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
 
 export default function Home() {
   return (
@@ -98,6 +145,7 @@ export default function Home() {
         <Hero />
         <OurWork />
         <ThreeStepPlan />
+        <ContactMe />
       </main>
     </div>
   );
