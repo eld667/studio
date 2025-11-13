@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
@@ -10,9 +11,13 @@ export function Header({ onGetInTouchClick }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="w-full max-w-5xl mx-auto flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold sm:inline-block">
-            EldWorkStudio
-          </span>
+          <Image
+            src="/eldwork-logo.png"
+            alt="EldWorkStudio Logo"
+            width={140}
+            height={32}
+            className="relative z-10"
+          />
         </Link>
         <nav className="flex items-center gap-4">
           <Button
