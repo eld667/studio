@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { AnimatedSubheadline } from "./AnimatedWords";
 
 
 const projects = [
@@ -155,7 +156,9 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Header onGetInTouchClick={(e) => handleScroll(e, 'contact')} />
       <main className="flex-grow">
-        <Hero onExploreClick={(e) => handleScroll(e, 'our-work')} />
+        <Hero onExploreClick={(e) => handleScroll(e, 'our-work')}>
+          <AnimatedSubheadline />
+        </Hero>
         <OurWork />
         <ThreeStepPlan />
         <ContactMe />

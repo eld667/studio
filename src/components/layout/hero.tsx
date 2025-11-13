@@ -1,19 +1,24 @@
 import { Button } from "@/components/ui/button";
+import { Code } from "lucide-react";
 
 interface HeroProps {
   onExploreClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  children: React.ReactNode;
 }
 
-export function Hero({ onExploreClick }: HeroProps) {
+export function Hero({ onExploreClick, children }: HeroProps) {
   return (
     <section className="relative w-full flex flex-col items-center justify-center h-screen">
+      <div className="absolute inset-0 flex items-center justify-center z-0 opacity-20 [filter:drop-shadow(0_0_30px_rgba(59,130,246,0.5))]">
+        <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
+          <Code className="w-full h-full text-blue-500 animate-pulse" />
+        </div>
+      </div>
       <div className="container relative z-10 flex h-full flex-col items-center justify-center gap-6 px-4 text-center sm:px-6 lg:px-8">
         <h1 className="text-5xl font-extrabold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))]">
-          EldWorkStudio
+          We Don't Just Build Websites. We Craft Digital Solutions.
         </h1>
-        <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">
-          Premium Web Solutions.
-        </p>
+        {children}
         <Button
           size="lg"
           onClick={onExploreClick}
