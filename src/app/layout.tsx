@@ -4,6 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'EldWorkStudio',
   description: 'Premium Web Solutions',
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
 };
 
 export default function RootLayout({
