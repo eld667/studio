@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "Lead": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Lead",
+      "type": "object",
+      "description": "Represents a lead captured from the contact form.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the lead.",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the lead."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the lead.",
+          "format": "email"
+        },
+        "serviceType": {
+          "type": "string",
+          "description": "The type of service the lead is interested in."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message from the lead."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "The timestamp of when the lead was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "timestamp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/leads/{leadId}",
+        "definition": {
+          "entityName": "Lead",
+          "schema": {
+            "$ref": "#/backend/entities/Lead"
+          },
+          "description": "Stores leads collected from the contact form. Includes fields for name, email, service type, message, and timestamp.",
+          "params": [
+            {
+              "name": "leadId",
+              "description": "The unique identifier for the lead document."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The data structure is designed to store leads collected from the contact form.  It uses a flat collection called 'leads' to store each lead document. This approach avoids nested collections and complex authorization rules. The `leads` collection stores all lead data, including `name`, `email`, `serviceType`, `message`, and `timestamp`.  Authorization Independence is not a concern in this specific scenario as anyone is able to create documents within this collection, since it represents a contact form submission. Therefore, no denormalization is needed. QAPs (Rules are not Filters) are ensured because the collection contains homogeneous data with the same security requirements (anyone can create). Security rules can be implemented to validate data and limit the number of submissions from a single IP address if needed. The timestamp field is included to facilitate sorting and filtering of leads by submission time."
+  }
+}

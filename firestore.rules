@@ -1,0 +1,42 @@
+/**
+ * @file Firestore Security Rules for the 'leads' collection.
+ * @description This ruleset allows anyone to create leads (contact form submissions) while enforcing basic data validation.
+ * @dataStructure All lead data is stored in a flat collection called `/leads/{leadId}`.
+ * @keySecurityDecisions Anyone can create documents in the `/leads` collection, but basic validation is applied. Listing and getting documents in `/leads` is allowed.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Rules for the /leads/{leadId} collection. Allows anyone to read or create leads, but restricts updates and deletes.
+     * @path /leads/{leadId}
+     * @allow (create) - Any user can create a lead. Example: An anonymous user submits the contact form.
+     * @deny (create) - N/A - Creation is open.
+     * @allow (get, list) - Any user can read leads, useful for admin purposes.
+     * @deny (get, list) - N/A - Reading is public.
+     * @deny (update) - No one can update leads after creation.
+     * @deny (delete) - No one can delete leads.
+     * @principle Allows unauthenticated access to create documents to receive contact form submissions.
+     */
+    match /leads/{leadId} {
+      // Anyone can read leads.
+      allow get, list: if true;
+
+      // Anyone can create leads.
+      allow create: if isValidLead(request.resource.data, leadId);
+
+      // No one can update or delete leads.
+      allow update, delete: if false;
+    }
+
+    // Helper functions
+    function isValidLead(lead, leadId) {
+      return lead.keys().hasAll(['id', 'name', 'email', 'timestamp'])
+          && lead.id == leadId
+          && lead.name is string
+          && lead.email is string
+          && lead.timestamp is string;
+    }
+  }
+}
