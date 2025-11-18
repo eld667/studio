@@ -24,16 +24,15 @@ service cloud.firestore {
       allow get, list: if true;
 
       // Anyone can create leads.
-      allow create: if isValidLead(request.resource.data, leadId);
+      allow create: if isValidLead(request.resource.data);
 
       // No one can update or delete leads.
       allow update, delete: if false;
     }
 
     // Helper functions
-    function isValidLead(lead, leadId) {
+    function isValidLead(lead) {
       return lead.keys().hasAll(['id', 'name', 'email', 'timestamp'])
-          && lead.id == leadId
           && lead.name is string
           && lead.email is string
           && lead.timestamp is string;
