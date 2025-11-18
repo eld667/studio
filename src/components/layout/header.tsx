@@ -12,9 +12,9 @@ export function Header({ onGetInTouchClick }: HeaderProps) {
       <div className="w-full max-w-5xl mx-auto flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Image
-            src="/icon.png"
+            src="/eldwork-logo.png"
             alt="EldWorkStudio Logo"
-            width={32}
+            width={140}
             height={32}
             className="relative z-10"
           />
