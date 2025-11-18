@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
 import { ClipboardSignature, Code, Rocket, CheckCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { AnimatedSubheadline } from "./AnimatedWords";
@@ -30,7 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { useFirestore } from "@/firebase";
+import { useFirestore, errorEmitter, FirestorePermissionError } from "@/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { Card } from "@/components/ui/card";
@@ -201,28 +200,41 @@ function ContactMe() {
 
   const {
     formState: { isSubmitting },
+    reset,
   } = form;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const leadId = uuidv4();
-      const leadData = {
-        ...values,
-        id: leadId,
-        timestamp: serverTimestamp(),
-      };
-      const leadsCollection = collection(firestore, 'leads');
-      await addDoc(leadsCollection, leadData);
+    const leadId = uuidv4();
+    const leadData = {
+      ...values,
+      id: leadId,
+      timestamp: new Date().toISOString(),
+    };
+    const leadsCollection = collection(firestore, 'leads');
+    
+    // Non-blocking write with error handling
+    addDoc(leadsCollection, leadData)
+      .then(() => {
+        setIsSuccess(true);
+        reset();
+      })
+      .catch((serverError) => {
+        const permissionError = new FirestorePermissionError({
+            path: leadsCollection.path,
+            operation: 'create',
+            requestResourceData: leadData,
+        });
 
-      setIsSuccess(true);
-    } catch (error) {
-      console.error("Error submitting form: ", error);
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request. Please try again.",
+        // Emit the error with the global error emitter
+        errorEmitter.emit('permission-error', permissionError);
+
+        // Show a user-friendly message, but the dev error is in the console
+        toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem submitting your message.",
+        });
       });
-    }
   };
 
   return (
