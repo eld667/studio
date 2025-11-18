@@ -4,12 +4,36 @@ import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
-import { ClipboardSignature, Code, Rocket } from "lucide-react";
+import { ClipboardSignature, Code, Rocket, CheckCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { AnimatedSubheadline } from "./AnimatedWords";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { useFirestore } from "@/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
+import { Card } from "@/components/ui/card";
 
 
 function CaseStudyShowcase() {
@@ -153,7 +177,54 @@ function ThreeStepPlan() {
   );
 }
 
+const formSchema = z.object({
+  name: z.string().min(1, { message: "Name is required." }),
+  email: z.string().email({ message: "Invalid email address." }),
+  serviceType: z.string().min(1, { message: "Please select a service." }),
+  message: z.string().optional(),
+});
+
 function ContactMe() {
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const { toast } = useToast();
+  const firestore = useFirestore();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      serviceType: "",
+      message: "",
+    },
+  });
+
+  const {
+    formState: { isSubmitting },
+  } = form;
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const leadId = uuidv4();
+      const leadData = {
+        ...values,
+        id: leadId,
+        timestamp: serverTimestamp(),
+      };
+      const leadsCollection = collection(firestore, 'leads');
+      await addDoc(leadsCollection, leadData);
+
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request. Please try again.",
+      });
+    }
+  };
+
   return (
     <motion.section
       id="contact"
@@ -167,30 +238,91 @@ function ContactMe() {
         Let's Build Your New Website
       </h2>
       <div className="max-w-xl mx-auto">
-        <div className="grid grid-cols-1 gap-6">
-          <div>
-            <Label htmlFor="name">Your Name</Label>
-            <Input id="name" className="bg-gray-900 border-white/10" />
-          </div>
-          <div>
-            <Label htmlFor="email">Your Email</Label>
-            <Input id="email" type="email" className="bg-gray-900 border-white/10" />
-          </div>
-          <div>
-            <Label htmlFor="message">Your Message</Label>
-            <Textarea
-              id="message"
-              placeholder="Tell us about your project..."
-              className="bg-gray-900 border-white/10"
-            />
-          </div>
-          <Button
-            size="lg"
-            className="w-full font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-          >
-            Start My Project
-          </Button>
-        </div>
+        {isSuccess ? (
+          <Card className="bg-green-900/20 border-green-500/50 p-6 text-center">
+            <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
+            <p className="text-gray-300">I'll be in touch within 24 hours.</p>
+          </Card>
+        ) : (
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Your Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="bg-gray-900 border-white/10" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Your Email</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="email" className="bg-gray-900 border-white/10" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="serviceType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Service Type</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="bg-gray-900 border-white/10">
+                          <SelectValue placeholder="Select a service" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="web-design">Web Design</SelectItem>
+                        <SelectItem value="consulting">Consulting</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Your Message</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Tell us about your project..."
+                        className="bg-gray-900 border-white/10"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSubmitting}
+                className="w-full font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] disabled:opacity-50"
+              >
+                {isSubmitting ? "Sending..." : "Start My Project"}
+              </Button>
+            </form>
+          </Form>
+        )}
       </div>
     </motion.section>
   );
