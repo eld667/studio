@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
+import SmoothScroll from './SmoothScroll';
 
 export const metadata: Metadata = {
   title: 'EldWorkStudio',
@@ -26,10 +27,12 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-gray-950 bg-[radial-gradient(ellipse_at_top_center,_var(--tw-gradient-stops))] from-gray-900 to-gray-950">
-        <FirebaseClientProvider>
-          {children}
-        </FirebaseClientProvider>
-        <Toaster />
+        <SmoothScroll>
+          <FirebaseClientProvider>
+            {children}
+          </FirebaseClientProvider>
+          <Toaster />
+        </SmoothScroll>
       </body>
     </html>
   );

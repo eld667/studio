@@ -17,6 +17,7 @@ export function FadeIn({ children, delay = 0, className }: FadeInProps) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: "easeInOut", delay }}
       className={className}
+      style={{ willChange: 'transform, opacity' }}
     >
       {children}
     </motion.div>
