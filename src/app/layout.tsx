@@ -33,7 +33,7 @@ export default function RootLayout({
       // You can also add logic to re-enable scrolling here if you disabled it
       document.body.style.cursor = 'auto';
       window.scrollTo(0, 0);
-    }, 1900); // Should be slightly less than the total preloader animation time
+    }, 900); // Should be slightly less than the total preloader animation time
 
     return () => clearTimeout(timer);
   }, []);

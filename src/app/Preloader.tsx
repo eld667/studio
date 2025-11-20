@@ -3,14 +3,13 @@
 
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 const iconVariants = {
   initial: { scale: 1 },
   animate: {
     scale: [1, 1.1, 1],
     transition: {
-      duration: 0.5,
+      duration: 0.4,
       ease: "easeInOut",
       repeat: Infinity,
       repeatType: "mirror"
@@ -23,8 +22,7 @@ const containerVariants = {
     opacity: 0,
     transition: {
       ease: "easeInOut",
-      duration: 0.8,
-      delay: 0.5
+      duration: 0.4
     }
   }
 };
@@ -34,9 +32,8 @@ const leftGate = {
   exit: {
     x: '-100vw',
     transition: {
-      duration: 0.8,
-      ease: "easeInOut",
-      delay: 0.5
+      duration: 0.4,
+      ease: "easeInOut"
     }
   }
 };
@@ -46,9 +43,8 @@ const rightGate = {
   exit: {
     x: '100vw',
     transition: {
-      duration: 0.8,
-      ease: "easeInOut",
-      delay: 0.5
+      duration: 0.4,
+      ease: "easeInOut"
     }
   }
 };
@@ -63,12 +59,12 @@ export function Preloader() {
     >
       <motion.div variants={leftGate}>
         <motion.div variants={iconVariants} initial="initial" animate="animate">
-          <ChevronLeft className="w-24 h-24 md:w-32 md:h-32 text-blue-500 [filter:drop-shadow(0_0_15px_rgba(59,130,246,0.6))]" />
+          <ChevronLeft className="w-32 h-32 md:w-64 md:h-64 text-blue-500 [filter:drop-shadow(0_0_30px_rgba(59,130,246,0.6))]" strokeWidth={3} />
         </motion.div>
       </motion.div>
       <motion.div variants={rightGate}>
         <motion.div variants={iconVariants} initial="initial" animate="animate">
-          <ChevronRight className="w-24 h-24 md:w-32 md:h-32 text-blue-500 [filter:drop-shadow(0_0_15px_rgba(59,130,246,0.6))]" />
+          <ChevronRight className="w-32 h-32 md:w-64 md:h-64 text-blue-500 [filter:drop-shadow(0_0_30px_rgba(59,130,246,0.6))]" strokeWidth={3} />
         </motion.div>
       </motion.div>
     </motion.div>
