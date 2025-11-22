@@ -4,17 +4,53 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { LucideProps } from 'lucide-react';
+import React from 'react';
+
+type Feature = {
+  icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
+  text: string;
+};
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imageUrl: string;
   href: string;
+  features: Feature[];
   'data-ai-hint'?: string;
 }
 
-export function ProjectCard({ title, description, imageUrl, href, 'data-ai-hint': dataAiHint }: ProjectCardProps) {
+const FeaturePill = ({ feature, index }: { feature: Feature, index: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const Icon = feature.icon;
+
+  const variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={variants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: "easeOut" }}
+      className="flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs text-blue-200"
+    >
+      <motion.div whileHover={{ scale: 1.2, color: '#93c5fd' }}>
+        <Icon className="h-3.5 w-3.5" />
+      </motion.div>
+      <span>{feature.text}</span>
+    </motion.div>
+  );
+};
+
+
+export function ProjectCard({ title, description, imageUrl, href, features, 'data-ai-hint': dataAiHint }: ProjectCardProps) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ 
     target: ref, 
@@ -43,9 +79,14 @@ export function ProjectCard({ title, description, imageUrl, href, 'data-ai-hint'
           data-ai-hint={dataAiHint}
         />
         <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground mb-4">
           {description}
         </p>
+        <div className="flex flex-wrap items-center gap-2">
+          {features.map((feature, index) => (
+            <FeaturePill key={index} feature={feature} index={index} />
+          ))}
+        </div>
       </div>
     </Link>
   );
