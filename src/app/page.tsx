@@ -4,13 +4,12 @@
 
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
 import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { AnimatedSubheadline } from "./AnimatedWords";
 import React,
 { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -40,6 +39,7 @@ import { FadeIn } from "./FadeIn";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Image as ImageIcon, Zap, Sparkles, Server, Search, Phone } from 'lucide-react';
+import { EldworkStandard } from "@/components/layout/EldworkStandard";
 
 
 function CaseStudyShowcase() {
@@ -424,11 +424,10 @@ export default function Home() {
           </p>
         </Hero>
         <CaseStudyShowcase />
+        <EldworkStandard />
         <ThreeStepPlan />
         <ContactMe />
       </main>
     </div>
   );
 }
-
-    
