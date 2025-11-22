@@ -87,7 +87,7 @@ const listVariants = {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
     },
   },
   hidden: {
@@ -96,8 +96,8 @@ const listVariants = {
 };
 
 const itemVariants = {
-  visible: { opacity: 1, y: 0 },
-  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 30 },
 };
 
 export function EldworkStandard() {
@@ -161,7 +161,7 @@ export function EldworkStandard() {
                   <div
                     className={cn(
                       'transition-colors duration-300',
-                      isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-gray-100'
+                      isOpen ? 'text-blue-400' : 'text-gray-100'
                     )}
                   >
                     <Icon />
