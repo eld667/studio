@@ -3,16 +3,18 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imageUrl: string;
+  href: string;
   'data-ai-hint'?: string;
 }
 
-export function ProjectCard({ title, description, imageUrl, 'data-ai-hint': dataAiHint }: ProjectCardProps) {
+export function ProjectCard({ title, description, imageUrl, href, 'data-ai-hint': dataAiHint }: ProjectCardProps) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ 
     target: ref, 
@@ -26,7 +28,7 @@ export function ProjectCard({ title, description, imageUrl, 'data-ai-hint': data
   );
 
   return (
-    <a href="#" ref={ref} className="relative block rounded-xl">
+    <Link href={href} ref={ref} className="relative block rounded-xl">
       <motion.div 
         style={{ opacity: glowOpacity }}
         className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 blur-md"
@@ -45,6 +47,6 @@ export function ProjectCard({ title, description, imageUrl, 'data-ai-hint': data
           {description}
         </p>
       </div>
-    </a>
+    </Link>
   );
 }

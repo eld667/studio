@@ -80,6 +80,7 @@ function CaseStudyShowcase() {
               title="EldWorkStudio (This Website)"
               description="A high-performance, animated portfolio."
               imageUrl="https://picsum.photos/seed/1/600/400"
+              href="#"
               data-ai-hint="code technology"
             />
         </FadeIn>
@@ -107,6 +108,7 @@ function CaseStudyShowcase() {
             title="Apex Plumbing Solutions"
             description="A mobile-first design for a local plumber."
             imageUrl="https://picsum.photos/seed/2/600/400"
+            href="/demos/apex-plumbing"
             data-ai-hint="plumbing tools"
           />
         </FadeIn>
@@ -134,6 +136,7 @@ function CaseStudyShowcase() {
               title="Lumina Bistro"
               description="An immersive site for a fine-dining restaurant."
               imageUrl="https://picsum.photos/seed/3/600/400"
+              href="#"
               data-ai-hint="restaurant interior"
             />
         </FadeIn>
