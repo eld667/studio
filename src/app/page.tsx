@@ -3,14 +3,14 @@
 
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
-import { motion } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
 import { ClipboardSignature, Code, Rocket, CheckCircle, TrendingUp, Smartphone, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { AnimatedSubheadline } from "./AnimatedWords";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -37,6 +37,62 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn } from "./FadeIn";
 import { cn } from "@/lib/utils";
 
+function AnimatedGraph() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  
+  return (
+    <motion.svg
+      ref={ref}
+      className="w-12 h-12 text-blue-400 mb-2"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <motion.path
+        d="M3 3v18h18"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: isInView ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      />
+      <motion.path
+        d="M7 12l5-5 5 5-5 5-5-5z"
+        className="opacity-0"
+        style={{ opacity: isInView ? 1 : 0 }}
+        transition={{ delay: 1, duration: 0.3 }}
+      />
+      <motion.path
+        d="M3 17l5-5 5 5 7-7"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: isInView ? 1 : 0 }}
+        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
+      />
+    </motion.svg>
+  );
+}
+
+
+function AnimatedCounter({ to }: { to: number }) {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, Math.round);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+
+  useEffect(() => {
+    if (isInView) {
+      const animation = motion.animate(count, to, {
+        duration: 2,
+        ease: "easeOut",
+      });
+      return animation.stop;
+    }
+  }, [isInView, count, to]);
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+}
 
 function BentoGridShowcase() {
   const BentoCard = ({ children, className }: { children: React.ReactNode, className?: string }) => (
@@ -54,7 +110,7 @@ function BentoGridShowcase() {
           {/* Card 1: Built for Growth */}
           <BentoCard className="md:col-span-2">
             <FadeIn>
-              <TrendingUp className="w-8 h-8 text-blue-400 mb-4" />
+              <AnimatedGraph />
               <h3 className="text-xl font-bold mb-2">Built for Growth</h3>
               <p className="text-gray-400">
                 We don't just design pretty pages. We engineer digital funnels that turn visitors into paying customers.
@@ -68,7 +124,9 @@ function BentoGridShowcase() {
               <div className="relative flex items-center justify-center w-24 h-24 mb-3">
                 <div className="absolute inset-0 bg-green-500/10 rounded-full" />
                 <div className="absolute inset-2 border-2 border-green-400 rounded-full" />
-                <span className="text-4xl font-bold text-green-300">100</span>
+                <span className="text-4xl font-bold text-green-300">
+                  <AnimatedCounter to={100} />
+                </span>
               </div>
               <h3 className="text-xl font-bold mb-1">Blazing Fast Speed</h3>
               <p className="text-gray-400">Zero lag. Instant loading.</p>
@@ -78,7 +136,16 @@ function BentoGridShowcase() {
           {/* Card 3: Mobile Perfection */}
           <BentoCard className="flex flex-col items-center justify-center text-center">
             <FadeIn delay={0.3}>
-              <Smartphone className="w-8 h-8 text-blue-400 mb-4" />
+               <motion.div
+                animate={{ y: [-5, 5, -5] }}
+                transition={{
+                  duration: 3,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+              >
+                <Smartphone className="w-8 h-8 text-blue-400 mb-4" />
+              </motion.div>
               <h3 className="text-xl font-bold mb-2">Mobile Perfection</h3>
               <p className="text-gray-400">Flawless experience on every device, from iPhone to Desktop.</p>
             </FadeIn>
@@ -87,7 +154,16 @@ function BentoGridShowcase() {
           {/* Card 4: SEO Ready Foundation */}
           <BentoCard className="md:col-span-2">
             <FadeIn delay={0.4}>
-              <Search className="w-8 h-8 text-blue-400 mb-4" />
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+              >
+                <Search className="w-8 h-8 text-blue-400 mb-4" />
+              </motion.div>
               <h3 className="text-xl font-bold mb-2">SEO Ready Foundation</h3>
               <p className="text-gray-400">
                 Structured correctly so Google can find and rank your business.
@@ -454,3 +530,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
