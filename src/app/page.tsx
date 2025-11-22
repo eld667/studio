@@ -3,7 +3,7 @@
 
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
-import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
 import { ClipboardSignature, Code, Rocket, CheckCircle, TrendingUp, Smartphone, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -83,7 +83,7 @@ function AnimatedCounter({ to }: { to: number }) {
 
   useEffect(() => {
     if (isInView) {
-      const animation = motion.animate(count, to, {
+      const animation = animate(count, to, {
         duration: 2,
         ease: "easeOut",
       });
