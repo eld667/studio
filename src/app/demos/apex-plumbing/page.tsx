@@ -91,7 +91,7 @@ export default function ApexPlumbingDemo() {
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 text-white p-3">
         <div className="container mx-auto flex justify-center items-center gap-4">
           <p className="text-sm">
-            <span className="font-bold">⚠️ Concept Demo</span> by EldWorkStudio
+            <span className="font-bold">💡 Concept Demo</span> by EldWorkStudio
           </p>
           <Link href="/" passHref>
             <Button variant="outline" size="sm" className="text-gray-900 bg-white hover:bg-gray-200">
