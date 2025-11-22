@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Header } from "@/components/layout/header";
@@ -57,74 +58,83 @@ function CaseStudyShowcase() {
         </p>
       </FadeIn>
       
-      {/* --- ACT I: THE "TRUST" BUILD --- */}
+      {/* --- Project 1: EldWorkStudio --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center mb-24">
-        {/* Text Content */}
         <FadeIn>
           <div>
+            <p className="text-sm font-bold text-blue-400 mb-2">Agency Portfolio</p>
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-              Purpose I: Instant Trust & Lead Generation
+              Digital Identity System
             </h3>
-            <p className="text-gray-400 text-lg">
-              For local businesses, trust is everything. We build clean, professional, and fast-loading sites that prove you're the expert and make it effortless for customers to call you, not your competition.
+            <p className="text-gray-400 text-lg mb-4">
+              A high-performance, animated portfolio built with Next.js and Framer Motion. Features a custom "Focus Glow" interaction engine and a linear narrative structure designed to convert visitors into leads.
             </p>
+            <span className="inline-block bg-blue-500/10 text-blue-300 border border-blue-500/20 text-xs font-semibold px-3 py-1 rounded-full">
+              High-End Interaction
+            </span>
           </div>
         </FadeIn>
 
-        {/* Project Card */}
         <FadeIn delay={0.2}>
             <ProjectCard
-              title="Apex Plumbing"
-              description="A high-trust site for a local US plumber."
-              imageUrl="https://placehold.co/600x400/1e293b/ffffff?text=Plumber+Demo"
+              title="EldWorkStudio (This Website)"
+              description="A high-performance, animated portfolio."
+              imageUrl="https://picsum.photos/seed/1/600/400"
+              data-ai-hint="code technology"
             />
         </FadeIn>
       </div>
 
-      {/* --- ACT II: THE "HYPE" BUILD --- */}
+      {/* --- Project 2: Apex Plumbing Solutions --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center mb-24">
-        {/* Text Content (NOW FIRST in the HTML) */}
         <FadeIn className="md:order-last">
           <div>
+            <p className="text-sm font-bold text-emerald-400 mb-2">Local Service Business</p>
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent">
-              Purpose II: Hype, Urgency & Conversion
+              Lead Generation Engine
             </h3>
-            <p className="text-gray-400 text-lg">
-              For tech startups and crypto projects, speed and 'feel' are key. We create modern landing pages that build immediate hype and drive users to a single, focused action.
+            <p className="text-gray-400 text-lg mb-4">
+              A mobile-first design focused on speed and instant booking. Replaced a static brochure site with a dynamic lead funnel, featuring one-tap calling and automated service area mapping.
             </p>
+            <span className="inline-block bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-xs font-semibold px-3 py-1 rounded-full">
+              +40% Conversion Rate
+            </span>
           </div>
         </FadeIn>
 
-        {/* Project Card (NOW SECOND in the HTML) */}
         <FadeIn delay={0.2} className="md:order-first">
           <ProjectCard
-            title="Quantum Coin"
-            description="A high-energy page to drive presale investment."
-            imageUrl="https://placehold.co/600x400/1e293b/ffffff?text=Crypto+Demo"
+            title="Apex Plumbing Solutions"
+            description="A mobile-first design for a local plumber."
+            imageUrl="https://picsum.photos/seed/2/600/400"
+            data-ai-hint="plumbing tools"
           />
         </FadeIn>
       </div>
 
-      {/* --- ACT III: THE "VIBE" BUILD --- */}
+      {/* --- Project 3: Lumina Bistro --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-        {/* Text Content */}
         <FadeIn>
           <div>
+            <p className="text-sm font-bold text-purple-400 mb-2">Hospitality & Dining</p>
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              Purpose III: Brand, Vibe & Atmosphere
+              Atmospheric Visual Experience
             </h3>
-            <p className="text-gray-400 text-lg">
-              For cafes, artists, and brands, the site *is* the product. We build immersive, stylish web experiences that showcase your unique brand and make customers feel the 'vibe' before they even walk in.
+            <p className="text-gray-400 text-lg mb-4">
+              An image-heavy, immersive site capturing the restaurant's evening ambiance. Features a live menu integration and a seamless reservation system that reduces table gaps.
             </p>
+            <span className="inline-block bg-purple-500/10 text-purple-300 border border-purple-500/20 text-xs font-semibold px-3 py-1 rounded-full">
+              Brand Elevation
+            </span>
           </div>
         </FadeIn>
 
-        {/* Project Card */}
         <FadeIn delay={0.2}>
             <ProjectCard
-              title="The Grind Cafe"
-              description="A stylish site for a local coffee shop."
-              imageUrl="https://placehold.co/600x400/1e293b/ffffff?text=Cafe+Demo"
+              title="Lumina Bistro"
+              description="An immersive site for a fine-dining restaurant."
+              imageUrl="https://picsum.photos/seed/3/600/400"
+              data-ai-hint="restaurant interior"
             />
         </FadeIn>
       </div>

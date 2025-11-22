@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useRef } from 'react';
@@ -8,9 +9,10 @@ interface ProjectCardProps {
   title: string;
   description: string;
   imageUrl: string;
+  'data-ai-hint'?: string;
 }
 
-export function ProjectCard({ title, description, imageUrl }: ProjectCardProps) {
+export function ProjectCard({ title, description, imageUrl, 'data-ai-hint': dataAiHint }: ProjectCardProps) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ 
     target: ref, 
@@ -36,6 +38,7 @@ export function ProjectCard({ title, description, imageUrl }: ProjectCardProps) 
           width={600}
           height={400}
           className="mb-4 rounded-lg"
+          data-ai-hint={dataAiHint}
         />
         <h3 className="text-xl font-bold mb-2">{title}</h3>
         <p className="text-muted-foreground">
