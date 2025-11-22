@@ -9,8 +9,6 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 // --- Animated Icon Components ---
-// These icons now have continuous, subtle animations.
-
 const AnimatedCpuIcon = () => (
   <motion.div
     animate={{
@@ -82,24 +80,6 @@ const accordionVariants = {
   closed: { opacity: 0, height: 0 },
 };
 
-const listVariants = {
-  visible: {
-    opacity: 1,
-    transition: {
-      when: "beforeChildren",
-      staggerChildren: 0.15,
-    },
-  },
-  hidden: {
-    opacity: 0,
-  },
-};
-
-const itemVariants = {
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-  hidden: { opacity: 0, y: 30 },
-};
-
 export function EldworkStandard() {
   const [expanded, setExpanded] = useState<false | number>(0);
 
@@ -110,114 +90,108 @@ export function EldworkStandard() {
           THE ELDWORK STANDARD
         </h2>
       </FadeIn>
-      <motion.div
-        className="flex flex-col gap-4"
-        variants={listVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <div className="flex flex-col gap-4">
         {standards.map((item, index) => {
           const isOpen = index === expanded;
           const Icon = item.icon;
           return (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="rounded-xl border border-white/10 overflow-hidden relative"
-            >
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0 z-0 bg-gradient-to-r from-purple-500/50 via-blue-500/50 to-emerald-500/50"
-                  >
-                    <motion.div 
-                      className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.1)_50%,transparent_100%)]"
-                      initial={{ backgroundPosition: "200% 0" }}
-                      animate={{ backgroundPosition: "-200% 0" }}
-                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <motion.header
-                initial={false}
-                onClick={() => setExpanded(isOpen ? false : index)}
-                className="relative z-10 flex items-center justify-between p-6 cursor-pointer"
+            <FadeIn key={index} delay={0.1 + index * 0.2}>
+              <div
+                className="rounded-xl border border-white/10 overflow-hidden relative"
               >
-                <div className="flex items-center gap-4 md:gap-6">
-                  <span
-                    className={cn(
-                      `text-3xl md:text-5xl font-extralight transition-colors duration-300`,
-                       isOpen ? 'text-blue-400' : 'text-gray-600'
-                    )}
-                  >
-                    0{index + 1}
-                  </span>
-                  <div
-                    className={cn(
-                      'transition-colors duration-300',
-                      isOpen ? 'text-blue-400' : 'text-gray-100'
-                    )}
-                  >
-                    <Icon />
-                  </div>
-                  <h3
-                     className={cn(
-                      'text-lg md:text-2xl font-bold transition-colors duration-300',
-                      isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-gray-100'
-                    )}
-                  >
-                    {item.title}
-                  </h3>
-                </div>
-                <motion.div
-                  animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-white"
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="absolute inset-0 z-0 bg-gradient-to-r from-purple-500/50 via-blue-500/50 to-emerald-500/50"
+                    >
+                      <motion.div 
+                        className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.1)_50%,transparent_100%)]"
+                        initial={{ backgroundPosition: "200% 0" }}
+                        animate={{ backgroundPosition: "-200% 0" }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <motion.header
+                  initial={false}
+                  onClick={() => setExpanded(isOpen ? false : index)}
+                  className="relative z-10 flex items-center justify-between p-6 cursor-pointer"
                 >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6 9L12 15L18 9"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </motion.div>
-              </motion.header>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.section
-                    key="content"
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
-                    variants={accordionVariants}
-                    transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    className="px-6 relative z-10"
-                  >
-                    <div className="pb-6 md:pl-[124px] text-gray-400 max-w-prose text-sm md:text-base">
-                      {item.description}
+                  <div className="flex items-center gap-4 md:gap-6">
+                    <span
+                      className={cn(
+                        `text-3xl md:text-5xl font-extralight transition-colors duration-300`,
+                         isOpen ? 'text-blue-400' : 'text-gray-600'
+                      )}
+                    >
+                      0{index + 1}
+                    </span>
+                    <div
+                      className={cn(
+                        'transition-colors duration-300',
+                        isOpen ? 'text-blue-400' : 'text-gray-100'
+                      )}
+                    >
+                      <Icon />
                     </div>
-                  </motion.section>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                    <h3
+                       className={cn(
+                        'text-lg md:text-2xl font-bold transition-colors duration-300',
+                        isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-gray-100'
+                      )}
+                    >
+                      {item.title}
+                    </h3>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-white"
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6 9L12 15L18 9"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </motion.div>
+                </motion.header>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.section
+                      key="content"
+                      initial="closed"
+                      animate="open"
+                      exit="closed"
+                      variants={accordionVariants}
+                      transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      className="px-6 relative z-10"
+                    >
+                      <div className="pb-6 md:pl-[124px] text-gray-400 max-w-prose text-sm md:text-base">
+                        {item.description}
+                      </div>
+                    </motion.section>
+                  )}
+                </AnimatePresence>
+              </div>
+            </FadeIn>
           );
         })}
-      </motion.div>
+      </div>
     </section>
   );
 }
