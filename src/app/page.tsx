@@ -5,12 +5,13 @@ import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
-import { ClipboardSignature, Code, Rocket, CheckCircle, TrendingUp, Smartphone, Search } from "lucide-react";
+import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { AnimatedSubheadline } from "./AnimatedWords";
-import React, { useEffect, useRef } from "react";
+import React,
+{ useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -37,144 +38,211 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn } from "./FadeIn";
 import { cn } from "@/lib/utils";
 
-function AnimatedGraph() {
+
+// --- BENTO GRID SHOWCASE ---
+
+// Base Card for the Grid
+const BentoCard = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={cn("relative p-6 bg-gray-900 border border-white/10 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:border-blue-500/50 hover:[box-shadow:0_0_20px_theme(colors.blue.500/20)] flex flex-col justify-end", className)}>
+    {children}
+  </div>
+);
+
+// Card 1: Instant Trust
+const InstantTrustCard = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
-  
+
+  const iconVariants = {
+    hidden: { scale: 0, rotate: -360, opacity: 0 },
+    visible: {
+      scale: 1,
+      rotate: 0,
+      opacity: 1,
+      transition: { type: 'spring', stiffness: 260, damping: 20, delay: 0.3 }
+    }
+  };
+
+  const flashVariants = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: {
+      scale: 2,
+      opacity: [0, 0.5, 0],
+      transition: { duration: 0.5, delay: 0.5 }
+    }
+  }
+
   return (
-    <motion.svg
-      ref={ref}
-      className="w-12 h-12 text-blue-400 mb-2"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <motion.path
-        d="M3 3v18h18"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: isInView ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      />
-      <motion.path
-        d="M7 12l5-5 5 5-5 5-5-5z"
-        className="opacity-0"
-        style={{ opacity: isInView ? 1 : 0 }}
-        transition={{ delay: 1, duration: 0.3 }}
-      />
-      <motion.path
-        d="M3 17l5-5 5 5 7-7"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: isInView ? 1 : 0 }}
-        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
-      />
-    </motion.svg>
+    <BentoCard className="md:col-span-2 items-center justify-center text-center">
+      <div ref={ref} className="relative w-40 h-40 flex items-center justify-center">
+        <Shield className="w-full h-full text-gray-700" strokeWidth={1} />
+        <motion.div
+          variants={flashVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="absolute inset-0 rounded-full bg-blue-500"
+          style={{ filter: 'blur(30px)' }}
+        />
+        <motion.div
+          variants={iconVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="absolute"
+        >
+          <Check className="w-20 h-20 text-white bg-gradient-to-br from-blue-400 to-emerald-400 rounded-full p-3 shadow-lg" />
+        </motion.div>
+      </div>
+      <p className="text-xl font-bold mt-4 bg-gradient-to-r from-blue-300 to-emerald-300 bg-clip-text text-transparent">
+        Instant Authority.
+      </p>
+    </BentoCard>
+  );
+};
+
+
+// Card 2: Lead Notification
+const LeadNotificationCard = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const text = "🎉 New Lead: Booking Request...";
+  const chars = text.split('');
+
+  const container = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.04,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const child = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  };
+
+  return (
+    <BentoCard className="items-center justify-center">
+      <motion.div
+        ref={ref}
+        variants={container}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="p-4 bg-white/10 rounded-lg shadow-lg backdrop-blur-sm border border-white/20"
+      >
+        <motion.p className="text-white text-sm font-mono" aria-label={text}>
+          {chars.map((char, index) => (
+            <motion.span key={index} variants={child}>{char}</motion.span>
+          ))}
+        </motion.p>
+      </motion.div>
+      <p className="text-xl font-bold mt-4 bg-gradient-to-r from-blue-300 to-emerald-300 bg-clip-text text-transparent">
+        More Inquiries.
+      </p>
+    </BentoCard>
   );
 }
 
-
-function AnimatedCounter({ to }: { to: number }) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, Math.round);
+// Card 3: Blink-and-Miss-It Speed
+const SpeedCard = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
+
+  const barVariants = {
+    hidden: { width: "0%" },
+    visible: { width: "100%", transition: { duration: 0.4, ease: "linear", delay: 0.2 } }
+  };
+  
+  const textVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { delay: 0.7 } }
+  };
+
+  return (
+    <BentoCard className="items-center justify-center">
+      <div ref={ref} className="w-full">
+        <div className="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-green-500"
+            variants={barVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          />
+        </div>
+        <motion.p 
+          variants={textVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="text-center font-bold text-green-400 mt-3 text-sm"
+        >
+          DONE
+        </motion.p>
+      </div>
+      <p className="text-xl font-bold mt-4 bg-gradient-to-r from-blue-300 to-emerald-300 bg-clip-text text-transparent">
+        Zero Friction.
+      </p>
+    </BentoCard>
+  )
+}
+
+// Card 4: The Morph
+const MorphCard = () => {
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
-    if (isInView) {
-      const animation = animate(count, to, {
-        duration: 2,
-        ease: "easeOut",
-      });
-      return animation.stop;
-    }
-  }, [isInView, count, to]);
+    const interval = setInterval(() => {
+      setIsDesktop(prev => !prev);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
-  return <motion.span ref={ref}>{rounded}</motion.span>;
+  return (
+    <BentoCard className="md:col-span-2 items-center justify-center">
+       <motion.div
+        className="w-full h-32 flex items-center justify-center"
+        animate={{ width: isDesktop ? '100%' : '40%' }}
+        transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
+       >
+        <motion.div
+          layout
+          className={cn("w-full h-full p-2 border border-gray-600 rounded-md flex gap-2", {
+            "flex-row": isDesktop,
+            "flex-col": !isDesktop,
+          })}
+        >
+          <motion.div layout className="bg-gray-700 rounded-sm flex-grow" />
+          <motion.div layout className="bg-gray-700 rounded-sm flex-grow" />
+          <motion.div layout className="bg-gray-700 rounded-sm flex-grow" />
+        </motion.div>
+       </motion.div>
+      <p className="text-xl font-bold mt-4 bg-gradient-to-r from-blue-300 to-emerald-300 bg-clip-text text-transparent">
+        Flawless Everywhere.
+      </p>
+    </BentoCard>
+  );
 }
 
-function BentoGridShowcase() {
-  const BentoCard = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-    <div className={cn("relative p-6 bg-gray-900 border border-white/10 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:border-blue-500/50 hover:[box-shadow:0_0_20px_theme(colors.blue.500/20)]", className)}>
-      {children}
-    </div>
-  );
 
+function BentoGridShowcase() {
   return (
     <motion.section
       className="w-full max-w-5xl mx-auto py-24 px-6"
     >
       <FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: Built for Growth */}
-          <BentoCard className="md:col-span-2">
-            <FadeIn>
-              <AnimatedGraph />
-              <h3 className="text-xl font-bold mb-2">Built for Growth</h3>
-              <p className="text-gray-400">
-                We don't just design pretty pages. We engineer digital funnels that turn visitors into paying customers.
-              </p>
-            </FadeIn>
-          </BentoCard>
-          
-          {/* Card 2: Blazing Fast Speed */}
-          <BentoCard className="flex flex-col items-center justify-center text-center">
-            <FadeIn delay={0.2}>
-              <div className="relative flex items-center justify-center w-24 h-24 mb-3">
-                <div className="absolute inset-0 bg-green-500/10 rounded-full" />
-                <div className="absolute inset-2 border-2 border-green-400 rounded-full" />
-                <span className="text-4xl font-bold text-green-300">
-                  <AnimatedCounter to={100} />
-                </span>
-              </div>
-              <h3 className="text-xl font-bold mb-1">Blazing Fast Speed</h3>
-              <p className="text-gray-400">Zero lag. Instant loading.</p>
-            </FadeIn>
-          </BentoCard>
-
-          {/* Card 3: Mobile Perfection */}
-          <BentoCard className="flex flex-col items-center justify-center text-center">
-            <FadeIn delay={0.3}>
-               <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{
-                  duration: 3,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                }}
-              >
-                <Smartphone className="w-8 h-8 text-blue-400 mb-4" />
-              </motion.div>
-              <h3 className="text-xl font-bold mb-2">Mobile Perfection</h3>
-              <p className="text-gray-400">Flawless experience on every device, from iPhone to Desktop.</p>
-            </FadeIn>
-          </BentoCard>
-
-          {/* Card 4: SEO Ready Foundation */}
-          <BentoCard className="md:col-span-2">
-            <FadeIn delay={0.4}>
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{
-                  duration: 2,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                }}
-              >
-                <Search className="w-8 h-8 text-blue-400 mb-4" />
-              </motion.div>
-              <h3 className="text-xl font-bold mb-2">SEO Ready Foundation</h3>
-              <p className="text-gray-400">
-                Structured correctly so Google can find and rank your business.
-              </p>
-            </FadeIn>
-          </BentoCard>
+          <InstantTrustCard />
+          <LeadNotificationCard />
+          <SpeedCard />
+          <MorphCard />
         </div>
       </FadeIn>
     </motion.section>
   );
 }
+
 
 
 function CaseStudyShowcase() {
@@ -402,7 +470,7 @@ function ContactMe() {
       <div className="max-w-xl mx-auto">
         {isSuccess ? (
           <Card className="bg-green-900/20 border-green-500/50 p-6 text-center">
-            <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
+            <Check className="w-16 h-16 text-green-400 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
             <p className="text-gray-300">I'll be in touch within 24 hours.</p>
           </Card>
