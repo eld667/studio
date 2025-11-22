@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Header } from "@/components/layout/header";
@@ -104,7 +105,15 @@ const InstantTrustCard = () => {
 const LeadNotificationCard = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
-  const text = "🎉 New Lead: Booking Request...";
+  const [text, setText] = useState('');
+  const fullText = "🎉 New Lead: Booking Request...";
+
+  useEffect(() => {
+    if (isInView) {
+      setText(fullText);
+    }
+  }, [isInView]);
+
   const chars = text.split('');
 
   const container = {
