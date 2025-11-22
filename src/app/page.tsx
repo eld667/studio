@@ -58,30 +58,30 @@ function CaseStudyShowcase() {
         </p>
       </FadeIn>
       
-      {/* --- Project 1: EldWorkStudio --- */}
+      {/* --- Project 1: Horizon Architecture --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center mb-24">
         <FadeIn>
           <div>
-            <p className="text-sm font-bold text-blue-400 mb-2">Agency Portfolio</p>
+            <p className="text-sm font-bold text-blue-400 mb-2">Real Estate & Design</p>
             <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-              Digital Identity System
+              Minimalist Luxury Showcase
             </h3>
             <p className="text-gray-400 text-lg mb-4">
-              A high-performance, animated portfolio built with Next.js and Framer Motion. Features a custom "Focus Glow" interaction engine and a linear narrative structure designed to convert visitors into leads.
+              A clean, image-centric portfolio for a high-end architecture firm. Features smooth gallery transitions, property filtering, and a "Virtual Tour" request system.
             </p>
             <span className="inline-block bg-blue-500/10 text-blue-300 border border-blue-500/20 text-xs font-semibold px-3 py-1 rounded-full">
-              High-End Interaction
+              Brand Authority
             </span>
           </div>
         </FadeIn>
 
         <FadeIn delay={0.2}>
             <ProjectCard
-              title="EldWorkStudio (This Website)"
-              description="A high-performance, animated portfolio."
-              imageUrl="https://picsum.photos/seed/1/600/400"
-              href="#"
-              data-ai-hint="code technology"
+              title="Horizon Architecture"
+              description="A clean, image-centric portfolio for a high-end architecture firm."
+              imageUrl="https://picsum.photos/seed/4/600/400"
+              href="/demos/horizon"
+              data-ai-hint="architecture building"
             />
         </FadeIn>
       </div>
