@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
-import { ClipboardSignature, Code, Rocket, CheckCircle } from "lucide-react";
+import { ClipboardSignature, Code, Rocket, CheckCircle, TrendingUp, Smartphone, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -33,8 +33,72 @@ import { useToast } from "@/hooks/use-toast";
 import { useFirestore } from "@/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn } from "./FadeIn";
+import { cn } from "@/lib/utils";
+
+
+function BentoGridShowcase() {
+  const BentoCard = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+    <div className={cn("relative p-6 bg-gray-900 border border-white/10 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:border-blue-500/50 hover:[box-shadow:0_0_20px_theme(colors.blue.500/20)]", className)}>
+      {children}
+    </div>
+  );
+
+  return (
+    <motion.section
+      className="w-full max-w-5xl mx-auto py-24 px-6"
+    >
+      <FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1: Built for Growth */}
+          <BentoCard className="md:col-span-2">
+            <FadeIn>
+              <TrendingUp className="w-8 h-8 text-blue-400 mb-4" />
+              <h3 className="text-xl font-bold mb-2">Built for Growth</h3>
+              <p className="text-gray-400">
+                We don't just design pretty pages. We engineer digital funnels that turn visitors into paying customers.
+              </p>
+            </FadeIn>
+          </BentoCard>
+          
+          {/* Card 2: Blazing Fast Speed */}
+          <BentoCard className="flex flex-col items-center justify-center text-center">
+            <FadeIn delay={0.2}>
+              <div className="relative flex items-center justify-center w-24 h-24 mb-3">
+                <div className="absolute inset-0 bg-green-500/10 rounded-full" />
+                <div className="absolute inset-2 border-2 border-green-400 rounded-full" />
+                <span className="text-4xl font-bold text-green-300">100</span>
+              </div>
+              <h3 className="text-xl font-bold mb-1">Blazing Fast Speed</h3>
+              <p className="text-gray-400">Zero lag. Instant loading.</p>
+            </FadeIn>
+          </BentoCard>
+
+          {/* Card 3: Mobile Perfection */}
+          <BentoCard className="flex flex-col items-center justify-center text-center">
+            <FadeIn delay={0.3}>
+              <Smartphone className="w-8 h-8 text-blue-400 mb-4" />
+              <h3 className="text-xl font-bold mb-2">Mobile Perfection</h3>
+              <p className="text-gray-400">Flawless experience on every device, from iPhone to Desktop.</p>
+            </FadeIn>
+          </BentoCard>
+
+          {/* Card 4: SEO Ready Foundation */}
+          <BentoCard className="md:col-span-2">
+            <FadeIn delay={0.4}>
+              <Search className="w-8 h-8 text-blue-400 mb-4" />
+              <h3 className="text-xl font-bold mb-2">SEO Ready Foundation</h3>
+              <p className="text-gray-400">
+                Structured correctly so Google can find and rank your business.
+              </p>
+            </FadeIn>
+          </BentoCard>
+        </div>
+      </FadeIn>
+    </motion.section>
+  );
+}
 
 
 function CaseStudyShowcase() {
@@ -378,8 +442,11 @@ export default function Home() {
       <Header onGetInTouchClick={(e) => handleScroll(e, 'contact')} />
       <main className="flex-grow">
         <Hero onExploreClick={(e) => handleScroll(e, 'our-work')}>
-          <AnimatedSubheadline />
+          <p className="text-lg text-gray-400 max-w-2xl text-center mt-6">
+            In 2025, a generic website is costing you customers. We build high-trust, purpose-driven sites that turn visitors into clients.
+          </p>
         </Hero>
+        <BentoGridShowcase />
         <CaseStudyShowcase />
         <ThreeStepPlan />
         <ContactMe />
