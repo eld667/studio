@@ -9,115 +9,48 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 // --- Animated Icon Components ---
+// These icons now have continuous, subtle animations.
 
-const AnimatedCpuIcon = ({ active }: { active: boolean }) => (
+const AnimatedCpuIcon = () => (
   <motion.div
     animate={{
-      scale: active ? [1, 1.05, 1] : 1,
-      filter: active
-        ? [
-            'drop-shadow(0 0 0px hsl(217, 91%, 60%))',
-            'drop-shadow(0 0 8px hsl(217, 91%, 60%))',
-            'drop-shadow(0 0 0px hsl(217, 91%, 60%))',
-          ]
-        : 'drop-shadow(0 0 0px hsl(217, 91%, 60%))',
+      filter: [
+        'drop-shadow(0 0 0px hsl(217, 91%, 60%))',
+        'drop-shadow(0 0 4px hsl(217, 91%, 60%))',
+        'drop-shadow(0 0 0px hsl(217, 91%, 60%))',
+      ],
     }}
-    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+    transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
   >
     <Cpu className="h-8 w-8" />
   </motion.div>
 );
 
-const AnimatedTrendingUpIcon = ({ active }: { active: boolean }) => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+const AnimatedTrendingUpIcon = () => (
+  <motion.div
+    animate={{ y: [-2, 2, -2] }}
+    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
   >
-    <motion.polyline
-      points="23 6 13.5 15.5 8.5 10.5 1 18"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: active ? 1 : 0 }}
-      transition={{ duration: 1, ease: 'easeInOut', delay: active ? 0.3 : 0 }}
-    />
-    <motion.polyline
-      points="17 6 23 6 23 12"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: active ? 1 : 0 }}
-      transition={{ duration: 0.5, ease: 'easeInOut', delay: active ? 0.8 : 0 }}
-    />
-  </svg>
+    <TrendingUp className="h-8 w-8" />
+  </motion.div>
 );
 
-const AnimatedLink2Icon = ({ active }: { active: boolean }) => (
-  <motion.svg
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+const AnimatedLink2Icon = () => (
+  <motion.div
+    animate={{ x: [-1, 1, -1] }}
+    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
   >
-    <motion.path
-      d="M9 17H7A5 5 0 0 1 7 7h2"
-      initial={{ pathLength: 0, x: 0 }}
-      animate={{ pathLength: active ? 1 : 0, x: active ? -2 : 0 }}
-      transition={{ duration: 0.7, ease: 'easeInOut', delay: 0.2 }}
-    />
-    <motion.path
-      d="M15 7h2a5 5 0 0 1 0 10h-2"
-      initial={{ pathLength: 0, x: 0 }}
-      animate={{ pathLength: active ? 1 : 0, x: active ? 2 : 0 }}
-      transition={{ duration: 0.7, ease: 'easeInOut', delay: 0.2 }}
-    />
-    <motion.line
-      x1="8"
-      y1="12"
-      x2="16"
-      y2="12"
-      initial={{ scaleX: 0, opacity: 0 }}
-      animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
-      transition={{ duration: 0.4, ease: 'easeInOut', delay: active ? 0.8 : 0 }}
-    />
-  </motion.svg>
+    <Link2 className="h-8 w-8" />
+  </motion.div>
 );
 
-const AnimatedLayersIcon = ({ active }: { active: boolean }) => (
-  <motion.svg
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+const AnimatedLayersIcon = () => (
+  <motion.div
+    animate={{ scale: [1, 1.05, 1] }}
+    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
   >
-    <motion.polygon
-      points="12 2 2 7 12 12 22 7 12 2"
-      initial={{ y: 0 }}
-      animate={{ y: active ? -2 : 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
-    />
-    <motion.polyline
-      points="2 17 12 22 22 17"
-      initial={{ y: 0 }}
-      animate={{ y: active ? 2 : 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
-    />
-    <motion.polyline
-      points="2 12 12 17 22 12"
-      initial={{ y: 0 }}
-      animate={{ y: 0 }}
-    />
-  </motion.svg>
+    <Layers className="h-8 w-8" />
+  </motion.div>
 );
 
 
@@ -218,25 +151,26 @@ export function EldworkStandard() {
               >
                 <div className="flex items-center gap-4 md:gap-6">
                   <span
-                    className={`text-3xl md:text-5xl font-extralight transition-colors duration-300 ${
-                      isOpen ? 'text-blue-400' : 'text-gray-600'
-                    }`}
+                    className={cn(
+                      `text-3xl md:text-5xl font-extralight transition-colors duration-300`,
+                       isOpen ? 'text-blue-400' : 'text-gray-600'
+                    )}
                   >
                     0{index + 1}
                   </span>
                   <div
                     className={cn(
                       'transition-colors duration-300',
-                      isOpen ? 'text-blue-400' : 'text-gray-500',
-                      isOpen && 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent'
+                      isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-gray-100'
                     )}
                   >
-                    <Icon active={isOpen} />
+                    <Icon />
                   </div>
                   <h3
-                    className={`text-lg md:text-2xl font-bold transition-colors duration-300 ${
-                      isOpen ? 'text-white' : 'text-gray-300'
-                    }`}
+                     className={cn(
+                      'text-lg md:text-2xl font-bold transition-colors duration-300',
+                      isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-gray-100'
+                    )}
                   >
                     {item.title}
                   </h3>
@@ -287,5 +221,3 @@ export function EldworkStandard() {
     </section>
   );
 }
-
-    
