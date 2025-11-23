@@ -2,13 +2,18 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import type { Metadata } from 'next';
+import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 import SmoothScroll from './SmoothScroll';
 import { AnimatePresence } from 'framer-motion';
 import { Preloader } from './Preloader';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+});
 
 // export const metadata: Metadata = {
 //   title: 'EldWorkStudio',
@@ -43,11 +48,8 @@ export default function RootLayout({
       <head>
         <title>EldWorkStudio</title>
         <link rel="icon" href="/icon.png" sizes="any" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased bg-gray-950 bg-[radial-gradient(ellipse_at_top_center,_var(--tw-gradient-stops))] from-gray-900 to-gray-950">
+      <body className={`${spaceGrotesk.className} font-body antialiased bg-gray-950 bg-[radial-gradient(ellipse_at_top_center,_var(--tw-gradient-stops))] from-gray-900 to-gray-950`}>
         <SmoothScroll>
           <AnimatePresence mode="wait">
             {isLoading && <Preloader />}

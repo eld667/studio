@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useActiveSection } from "@/hooks/use-active-section";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   onScroll: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => void;
@@ -20,6 +22,8 @@ const navLinks = [
 
 export function Header({ onScroll }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const activeSection = useActiveSection(navLinks.map(l => l.id).concat('contact'));
+
 
   const handleLinkClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => {
     onScroll(e, id);
@@ -50,17 +54,26 @@ export function Header({ onScroll }: HeaderProps) {
           
           {navLinks.map((link) => (
             <a 
-            key={link.id}
-            href={`#${link.id}`}
-            onClick={(e) => onScroll(e, link.id)}
-            className="text-gray-300 hover:text-white transition-colors text-sm hidden md:block"
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={(e) => onScroll(e, link.id)}
+              className={cn(
+                "text-gray-400 hover:text-white transition-all duration-300 text-sm hidden md:block",
+                activeSection === link.id && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+              )}
             >
             {link.label}
           </a>
           ))}
           <Button
             onClick={(e) => onScroll(e, 'contact')}
-            className="font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] hidden md:inline-flex"
+            className={cn(
+              "font-semibold transition-all duration-300 ease-in-out text-primary-foreground",
+               activeSection === 'contact' 
+                ? "bg-gradient-to-r from-purple-500 via-blue-600 to-emerald-500"
+                : "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400",
+               "drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] hidden md:inline-flex"
+            )}
           >
             Book a Meeting
           </Button>
@@ -105,11 +118,14 @@ export function Header({ onScroll }: HeaderProps) {
               </div>
               <nav className="flex flex-col items-center gap-8">
                 {navLinks.map((link) => (
-                  <a
+                   <a
                     key={link.id}
                     href={`#${link.id}`}
                     onClick={(e) => handleLinkClick(e, link.id)}
-                    className="text-2xl font-bold text-gray-300 hover:text-white transition-colors"
+                    className={cn(
+                      "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
+                      activeSection === link.id && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                    )}
                   >
                     {link.label}
                   </a>
