@@ -48,7 +48,6 @@ export function Header({ onScroll }: HeaderProps) {
             />
           </Link>
           
-          {/* Desktop Navigation - Ungrouped and distributed */}
           <div className="hidden md:flex flex-1 items-center justify-end gap-8 text-sm">
              {navLinks.map((link) => (
                <a 
