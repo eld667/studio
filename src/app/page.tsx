@@ -45,7 +45,7 @@ import { EldworkStandard } from "@/components/layout/EldworkStandard";
 function CaseStudyShowcase() {
   return (
     <motion.section
-      id="our-work"
+      id="work"
       className="w-full max-w-5xl mx-auto py-24 px-6"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -403,7 +403,7 @@ function ContactMe() {
 
 
 export default function Home() {
-  const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  const handleScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
@@ -416,9 +416,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header onGetInTouchClick={(e) => handleScroll(e, 'contact')} />
+      <Header onScroll={handleScroll} />
       <main className="flex-grow">
-        <Hero onExploreClick={(e) => handleScroll(e, 'our-work')}>
+        <Hero onExploreClick={(e) => handleScroll(e, 'work')}>
           <p className="text-lg text-gray-400 max-w-2xl text-center mt-6">
             In 2025, a generic website is costing you customers. We build high-trust, purpose-driven sites that turn visitors into clients.
           </p>

@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from 'react';
@@ -84,7 +85,7 @@ export function EldworkStandard() {
   const [expanded, setExpanded] = useState<false | number>(0);
 
   return (
-    <section className="w-full max-w-5xl mx-auto py-24 px-6">
+    <section id="philosophy" className="w-full max-w-5xl mx-auto py-24 px-6">
       <FadeIn>
         <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))]">
           THE ELDWORK STANDARD
