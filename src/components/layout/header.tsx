@@ -48,24 +48,22 @@ export function Header({ onScroll }: HeaderProps) {
             />
           </Link>
           
-          <div className="hidden md:flex flex-1 items-center justify-end gap-8 text-sm">
-             {navLinks.map((link) => (
-               <a 
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={(e) => onScroll(e, link.id)}
-                className="text-gray-300 hover:text-white transition-colors"
-               >
-                {link.label}
-              </a>
-            ))}
-            <Button
-              onClick={(e) => onScroll(e, 'contact')}
-              className="font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+          {navLinks.map((link) => (
+            <a 
+            key={link.id}
+            href={`#${link.id}`}
+            onClick={(e) => onScroll(e, link.id)}
+            className="text-gray-300 hover:text-white transition-colors text-sm hidden md:block"
             >
-              Book a Meeting
-            </Button>
-          </div>
+            {link.label}
+          </a>
+          ))}
+          <Button
+            onClick={(e) => onScroll(e, 'contact')}
+            className="font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] hidden md:inline-flex"
+          >
+            Book a Meeting
+          </Button>
           
           {/* Mobile Menu Trigger */}
           <div className="flex items-center md:hidden">
