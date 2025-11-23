@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { ProjectCard } from "@/app/ProjectCard";
-import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video } from "lucide-react";
+import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -40,6 +40,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Image as ImageIcon, Zap, Sparkles, Server, Search, Phone } from 'lucide-react';
 import { EldworkStandard } from "@/components/layout/EldworkStandard";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 
 function CaseStudyShowcase() {
@@ -224,6 +225,7 @@ const formSchema = z.object({
 
 function ContactMe() {
   const [isSuccess, setIsSuccess] = React.useState(false);
+  const [copied, setCopied] = useState(false);
   const { toast } = useToast();
   const firestore = useFirestore();
 
@@ -265,6 +267,12 @@ function ContactMe() {
         });
       });
   };
+  
+  const handleCopy = () => {
+    navigator.clipboard.writeText('eldworkstudio.contact@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <motion.section
@@ -273,130 +281,166 @@ function ContactMe() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-5xl mx-auto py-24 px-6"
+      className="w-full max-w-7xl mx-auto py-24 px-6"
     >
       <FadeIn>
         <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))]">
           Let's Build Your New Website
         </h2>
       </FadeIn>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
 
-        {/* --- Right Column: Discovery Call --- */}
-        <div className="md:order-last">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        
+        {/* --- LEFT COLUMN --- */}
+        <div className="lg:col-span-1 flex flex-col gap-8 order-1 lg:order-none">
+          {/* Card 1: Strategy Call */}
           <FadeIn delay={0.2}>
-            <Card className="bg-gray-900 border-white/10 p-8 h-full">
-              <h3 className="text-2xl font-bold mb-3">Not sure where to start?</h3>
-              <p className="text-muted-foreground mb-6">
-                Let's hop on a quick 15-minute call. No pressure, just strategy. I'll help you clarify your needs.
+            <div className="relative h-full">
+              <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-purple-500 via-blue-500 to-emerald-500 opacity-20 blur-md" />
+              <Card className="relative bg-gray-900 border-white/10 p-8 h-full flex flex-col">
+                <h3 className="text-2xl font-bold mb-3">Not sure where to start?</h3>
+                <p className="text-muted-foreground mb-6 flex-grow">
+                  Let's hop on a quick 15-minute call. No pressure, just strategy. We'll clarify your needs and define the mission.
+                </p>
+                <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="mt-auto">
+                  <Button
+                    size="lg"
+                    className="w-full font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+                  >
+                    <Video className="mr-2 h-5 w-5" />
+                    Book a Free Strategy Call
+                  </Button>
+                </Link>
+                <p className="text-center text-xs text-muted-foreground mt-4">
+                  English Speaking • Available Worldwide
+                </p>
+              </Card>
+            </div>
+          </FadeIn>
+          
+          {/* Card 2: Direct Access */}
+          <FadeIn delay={0.4} className="order-3 lg:order-none">
+            <Card className="bg-gray-900 border-white/10 p-8 h-full flex flex-col">
+              <h3 className="text-2xl font-bold mb-3">Just a quick question?</h3>
+              <p className="text-muted-foreground mb-6 flex-grow">
+                Feel free to reach out directly via email for any inquiries.
               </p>
-              <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer">
-                <Button
-                  size="lg"
-                  className="w-full font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-                >
-                  <Video className="mr-2 h-5 w-5" />
-                  Book a Free Strategy Call
-                </Button>
-              </Link>
-              <p className="text-center text-xs text-muted-foreground mt-4">
-                English Speaking • Available Worldwide
-              </p>
+              <TooltipProvider>
+                <Tooltip open={copied}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full font-semibold bg-gray-800/50 border-white/20 hover:bg-gray-800"
+                      onClick={handleCopy}
+                    >
+                      <Mail className="mr-2 h-5 w-5" />
+                      eldworkstudio.contact@gmail.com
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Copied to clipboard!</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </Card>
           </FadeIn>
         </div>
-        
-        {/* --- Left Column: Form --- */}
-        <div className="md:order-first">
+
+        {/* --- RIGHT COLUMN: FORM --- */}
+        <div className="lg:col-span-2 order-2 lg:order-none">
           <FadeIn>
-            <h3 className="text-2xl font-bold mb-6">Have a project in mind? Send the details.</h3>
-            {isSuccess ? (
-              <Card className="bg-green-900/20 border-green-500/50 p-6 text-center h-full flex flex-col justify-center">
-                <Check className="w-16 h-16 text-green-400 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
-                <p className="text-gray-300">I'll be in touch within 24 hours.</p>
-              </Card>
-            ) : (
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <Card className="bg-gray-900/80 backdrop-blur-sm border-white/10 p-8 h-full">
+              <h3 className="text-2xl font-bold mb-6">Ready to Execute? Tell me about the mission.</h3>
+              {isSuccess ? (
+                <div className="bg-green-900/20 border-green-500/50 rounded-lg p-6 text-center h-full flex flex-col justify-center items-center min-h-[400px]">
+                  <Check className="w-16 h-16 text-green-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
+                  <p className="text-gray-300">I'll be in touch within 24 hours.</p>
+                </div>
+              ) : (
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Your Name</FormLabel>
+                            <FormControl>
+                              <Input {...field} className="bg-white/5 border-white/10 focus:bg-white/10" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     <FormField
                       control={form.control}
-                      name="name"
+                      name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Your Name</FormLabel>
+                          <FormLabel>Your Email</FormLabel>
                           <FormControl>
-                            <Input {...field} className="bg-gray-900 border-white/10" />
+                            <Input {...field} type="email" className="bg-white/5 border-white/10 focus:bg-white/10" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Your Email</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="email" className="bg-gray-900 border-white/10" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="serviceType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Service Type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormField
+                      control={form.control}
+                      name="serviceType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Service Type</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-white/5 border-white/10 focus:bg-white/10">
+                                <SelectValue placeholder="Select a service" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="bg-gray-900 border-white/10">
+                              <SelectItem value="web-design">Web Design</SelectItem>
+                              <SelectItem value="consulting">Consulting</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Your Message</FormLabel>
                           <FormControl>
-                            <SelectTrigger className="bg-gray-900 border-white/10">
-                              <SelectValue placeholder="Select a service" />
-                            </SelectTrigger>
+                            <Textarea
+                              {...field}
+                              placeholder="Tell us about your project..."
+                              className="bg-white/5 border-white/10 focus:bg-white/10 min-h-[120px]"
+                            />
                           </FormControl>
-                          <SelectContent>
-                            <SelectItem value="web-design">Web Design</SelectItem>
-                            <SelectItem value="consulting">Consulting</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Your Message</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            placeholder="Tell us about your project..."
-                            className="bg-gray-900 border-white/10"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full font-semibold"
-                  >
-                    {isSubmitting ? "Sending..." : "Start My Project"}
-                  </Button>
-                </form>
-              </Form>
-            )}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="w-full font-semibold"
+                    >
+                      {isSubmitting ? "Sending..." : "Start My Project"}
+                    </Button>
+                  </form>
+                </Form>
+              )}
+            </Card>
           </FadeIn>
         </div>
+
       </div>
     </motion.section>
   );
@@ -432,3 +476,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
