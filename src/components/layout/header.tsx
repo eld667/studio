@@ -13,8 +13,9 @@ interface HeaderProps {
 }
 
 const navLinks = [
-  { id: "philosophy", label: "Philosophy" },
   { id: "work", label: "Work" },
+  { id: "philosophy", label: "Philosophy" },
+  { id: "plan", label: "Plan" },
 ];
 
 export function Header({ onScroll }: HeaderProps) {
@@ -24,12 +25,20 @@ export function Header({ onScroll }: HeaderProps) {
     onScroll(e, id);
     setIsOpen(false);
   };
+  
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Link href="/" onClick={handleLogoClick} className="flex items-center space-x-2">
             <Image
               src="/eldwork-logo2.png"
               alt="EldWorkStudio Logo"
@@ -39,7 +48,7 @@ export function Header({ onScroll }: HeaderProps) {
             />
           </Link>
           
-          <nav className="hidden md:flex items-center gap-6 text-sm">
+          <nav className="hidden md:flex flex-1 justify-center items-center gap-6 text-sm">
             {navLinks.map((link) => (
                <a 
                 key={link.id}
@@ -57,7 +66,7 @@ export function Header({ onScroll }: HeaderProps) {
               onClick={(e) => onScroll(e, 'contact')}
               className="hidden md:flex font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
             >
-              Book a Call
+              Book a Meeting
             </Button>
             <button
               className="md:hidden text-white"
@@ -110,7 +119,7 @@ export function Header({ onScroll }: HeaderProps) {
                   onClick={(e) => handleLinkClick(e, 'contact')}
                   className="font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out"
                 >
-                  Book a Call
+                  Book a Meeting
                 </Button>
               </nav>
             </motion.div>

@@ -170,6 +170,7 @@ function CaseStudyShowcase() {
 function ThreeStepPlan() {
   return (
     <motion.section
+      id="plan"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
