@@ -1,4 +1,6 @@
 
+"use client";
+
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Playfair_Display, Lato } from 'next/font/google';
@@ -6,6 +8,9 @@ import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LuminaHeader } from '@/components/demos/lumina/LuminaHeader';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -19,7 +24,30 @@ const lato = Lato({
   variable: '--font-lato',
 });
 
+const menuItems = [
+  {
+    name: "Seared Scallops",
+    description: "with Saffron Risotto",
+    price: "$38",
+    image: "/demos/lumina/horisontal_tablewith3foods.jpg"
+  },
+  {
+    name: "Wagyu 'Gold' Sirloin",
+    description: "8oz, Potato Purée, Red Wine Jus",
+    price: "$95",
+    image: "/demos/lumina/horisontal_chefmakingfood1.jpg"
+  },
+  {
+    name: "Chocolate Lava Sphere",
+    description: "Raspberry Coulis, Hazelnut Crunch",
+    price: "$18",
+    image: "/demos/lumina/horisontal_insideview1.jpg"
+  }
+];
+
 export default function LuminaBistroDemo() {
+  const [activeMenuImage, setActiveMenuImage] = useState(menuItems[2].image);
+
   return (
     <div className={cn("bg-stone-950 text-stone-100 font-sans antialiased", playfair.variable, lato.variable)}>
       
@@ -28,9 +56,14 @@ export default function LuminaBistroDemo() {
       <main>
         {/* Section 1: The Cinematic Hero */}
         <section className="relative h-screen flex flex-col justify-end items-start">
-          <div className="absolute inset-0 bg-stone-800 z-0">
-             {/* Video Placeholder */}
-          </div>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            src="/demos/lumina/1920_1080_main_soup.mp4"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
           <div className="relative z-20 p-8 md:p-16 max-w-3xl">
             <h2 className="font-serif text-6xl md:text-8xl lg:text-9xl text-white">
@@ -47,7 +80,16 @@ export default function LuminaBistroDemo() {
         <section className="py-24 md:py-32 px-6">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
             <div className="lg:col-span-2 w-full h-full">
-              <div className="bg-stone-800 aspect-[3/4] w-full flex items-center justify-center text-stone-500">[ Large Vertical Image ]</div>
+              <div className="aspect-[3/4] w-full overflow-hidden rounded-lg">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                  src="/demos/lumina/2160_4096_vertical_vine.mp4"
+                />
+              </div>
             </div>
             <div className="lg:col-span-3 flex gap-8">
               <div className="w-1 h-auto bg-[#D4AF37]/50 hidden lg:block"></div>
@@ -66,41 +108,52 @@ export default function LuminaBistroDemo() {
           <div className="max-w-7xl mx-auto">
             <h3 className="font-serif text-5xl md:text-6xl text-white text-center mb-16">The Culinary Showcase</h3>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div data-parallax className="lg:col-span-2 bg-stone-800 aspect-video w-full flex items-center justify-center text-stone-500">[ Wide Landscape Image ]</div>
-              <div data-parallax className="bg-stone-800 aspect-[3/4] w-full flex items-center justify-center text-stone-500">[ Tall Portrait Image 1 ]</div>
-              <div data-parallax className="bg-stone-800 aspect-[3/4] w-full flex items-center justify-center text-stone-500">[ Tall Portrait Image 2 ]</div>
+              <div data-parallax className="lg:col-span-2 aspect-video w-full overflow-hidden rounded-lg">
+                <Image src="/demos/lumina/horisontal_chefmakingfood1.jpg" width={1200} height={675} alt="Chef preparing food" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out" />
+              </div>
+              <div data-parallax className="aspect-[3/4] w-full overflow-hidden rounded-lg">
+                 <Image src="/demos/lumina/vertical_interestingfood1_maybesushisalad.jpg" width={600} height={800} alt="A beautifully plated salad" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out" />
+              </div>
+              <div data-parallax className="aspect-[3/4] w-full overflow-hidden rounded-lg">
+                <Image src="/demos/lumina/vertical_interestingfood2.jpg" width={600} height={800} alt="Another exquisite dish" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out" />
+              </div>
             </div>
           </div>
         </section>
         
         {/* Section 4: The Essentials */}
-        <section className="py-24 md:py-32 px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <section className="relative py-24 md:py-32 px-6">
+          <AnimatePresence>
+            <motion.div
+              key={activeMenuImage}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.15 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
+              className="absolute inset-0 z-0"
+            >
+              <Image src={activeMenuImage} layout="fill" objectFit="cover" alt="Dining atmosphere" />
+              <div className="absolute inset-0 bg-stone-950/80"></div>
+            </motion.div>
+          </AnimatePresence>
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* The Menu */}
             <div>
               <h3 className="font-serif text-4xl md:text-5xl text-white mb-12">The Menu</h3>
               <div className="font-body space-y-8">
-                <div className="flex justify-between items-end border-b border-stone-700 pb-4">
-                  <div>
-                    <h4 className="text-xl text-white">Seared Scallops</h4>
-                    <p className="text-stone-400 text-sm">with Saffron Risotto</p>
+                {menuItems.map((item) => (
+                  <div
+                    key={item.name}
+                    onMouseEnter={() => setActiveMenuImage(item.image)}
+                    className="flex justify-between items-end border-b border-stone-700 pb-4"
+                  >
+                    <div>
+                      <h4 className="text-xl text-white">{item.name}</h4>
+                      <p className="text-stone-400 text-sm">{item.description}</p>
+                    </div>
+                    <span className="text-xl text-white whitespace-nowrap pl-4">...... {item.price}</span>
                   </div>
-                  <span className="text-xl text-white">...... $38</span>
-                </div>
-                <div className="flex justify-between items-end border-b border-stone-700 pb-4">
-                  <div>
-                    <h4 className="text-xl text-white">Wagyu "Gold" Sirloin</h4>
-                    <p className="text-stone-400 text-sm">8oz, Potato Purée, Red Wine Jus</p>
-                  </div>
-                  <span className="text-xl text-white">...... $95</span>
-                </div>
-                <div className="flex justify-between items-end border-b border-stone-700 pb-4">
-                  <div>
-                    <h4 className="text-xl text-white">Chocolate Lava Sphere</h4>
-                    <p className="text-stone-400 text-sm">Raspberry Coulis, Hazelnut Crunch</p>
-                  </div>
-                  <span className="text-xl text-white">...... $18</span>
-                </div>
+                ))}
               </div>
             </div>
             
@@ -161,3 +214,5 @@ export default function LuminaBistroDemo() {
     </div>
   );
 }
+
+    
