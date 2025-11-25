@@ -31,7 +31,9 @@ export function LuminaHeader() {
       <div className="relative mx-auto flex justify-between items-center max-w-7xl px-4 md:px-6 h-20">
         {/* Left: Hamburger Menu */}
         <div className="flex justify-start">
-          <Menu className="text-stone-100 hover:text-amber-500 cursor-pointer h-6 w-6" />
+           <Button variant="ghost" size="icon" className="w-10 h-10 rounded-full text-stone-100 hover:bg-stone-100/10 hover:text-amber-500">
+            <Menu className="h-6 w-6" />
+          </Button>
         </div>
 
         {/* Center: Logo (Absolutely Centered) */}
@@ -46,7 +48,12 @@ export function LuminaHeader() {
         {/* Right: CTA Button */}
         <div className="flex justify-end">
           <Button
-            className="rounded-full p-2 md:px-6 md:py-2 text-sm tracking-wide bg-transparent border border-amber-500/80 text-amber-500 hover:bg-amber-500 hover:text-black transition-colors duration-300"
+            className={cn(
+                "rounded-full text-sm tracking-wide transition-colors duration-300",
+                "bg-amber-500 text-stone-950 hover:bg-amber-400",
+                "w-10 h-10 flex items-center justify-center p-0",
+                "md:w-auto md:px-6 md:py-2"
+            )}
           >
             <span className="hidden md:inline">Book a Table</span>
             <CalendarDays className="h-5 w-5 md:hidden" />
