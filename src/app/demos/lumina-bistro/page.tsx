@@ -5,6 +5,7 @@ import { Playfair_Display, Lato } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { LuminaHeader } from '@/components/demos/lumina/LuminaHeader';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -22,10 +23,7 @@ export default function LuminaBistroDemo() {
   return (
     <div className={cn("bg-stone-950 text-stone-100 font-sans antialiased", playfair.variable, lato.variable)}>
       
-      {/* Absolute Logo */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 py-4">
-        <h1 className="font-serif text-2xl tracking-widest text-stone-100">LUMINA</h1>
-      </div>
+      <LuminaHeader />
       
       <main>
         {/* Section 1: The Cinematic Hero */}
