@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Playfair_Display, Lato } from 'next/font/google';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LuminaHeader } from '@/components/demos/lumina/LuminaHeader';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { LuminaReservation } from '@/components/demos/lumina/LuminaReservation';
+
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -160,39 +160,7 @@ export default function LuminaBistroDemo() {
             {/* Reserve a Table */}
             <div>
               <h3 className="font-serif text-4xl md:text-5xl text-white mb-12">Reserve a Table</h3>
-              <form className="space-y-6 font-body">
-                <Input type="date" className="bg-stone-900 border-stone-700 h-12 text-base" />
-                <div className="grid grid-cols-2 gap-6">
-                  <Select>
-                      <SelectTrigger className="bg-stone-900 border-stone-700 h-12 text-base">
-                          <SelectValue placeholder="Time" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-stone-900 border-stone-700 text-stone-100">
-                          <SelectItem value="18:00">6:00 PM</SelectItem>
-                          <SelectItem value="19:00">7:00 PM</SelectItem>
-                          <SelectItem value="20:00">8:00 PM</SelectItem>
-                          <SelectItem value="21:00">9:00 PM</SelectItem>
-                      </SelectContent>
-                  </Select>
-                   <Select>
-                      <SelectTrigger className="bg-stone-900 border-stone-700 h-12 text-base">
-                          <SelectValue placeholder="Guests" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-stone-900 border-stone-700 text-stone-100">
-                          <SelectItem value="1">1 Guest</SelectItem>
-                          <SelectItem value="2">2 Guests</SelectItem>
-                          <SelectItem value="3">3 Guests</SelectItem>
-                          <SelectItem value="4">4 Guests</SelectItem>
-                      </SelectContent>
-                  </Select>
-                </div>
-                <Button 
-                  size="lg" 
-                  className="w-full h-12 text-lg bg-transparent border-2 border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-stone-950 transition-colors duration-300"
-                >
-                  Book Now
-                </Button>
-              </form>
+              <LuminaReservation />
             </div>
           </div>
         </section>
@@ -214,5 +182,3 @@ export default function LuminaBistroDemo() {
     </div>
   );
 }
-
-    
