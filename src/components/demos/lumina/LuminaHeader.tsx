@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { Menu, CalendarDays } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -46,11 +46,10 @@ export function LuminaHeader() {
         {/* Right: CTA Button */}
         <div className="flex justify-end">
           <Button
-            size="sm"
-            className="rounded-full px-6 py-2 text-sm tracking-wide bg-transparent border border-amber-500/80 text-amber-500 hover:bg-amber-500 hover:text-black transition-colors duration-300"
+            className="rounded-full p-2 md:px-6 md:py-2 text-sm tracking-wide bg-transparent border border-amber-500/80 text-amber-500 hover:bg-amber-500 hover:text-black transition-colors duration-300"
           >
             <span className="hidden md:inline">Book a Table</span>
-            <span className="md:hidden">Book</span>
+            <CalendarDays className="h-5 w-5 md:hidden" />
           </Button>
         </div>
       </div>
