@@ -152,7 +152,7 @@ function CaseStudyShowcase() {
               title="Lumina Bistro"
               description="An immersive site for a fine-dining restaurant."
               imageUrl="https://picsum.photos/seed/3/600/400"
-              href="#"
+              href="/demos/lumina-bistro"
               data-ai-hint="restaurant interior"
               features={[
                 { icon: Server, text: "Live Digital Menu" },
@@ -476,5 +476,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
