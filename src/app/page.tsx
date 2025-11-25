@@ -292,7 +292,7 @@ function ContactMe() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         
         {/* --- LEFT COLUMN --- */}
-        <div className="lg:col-span-1 flex flex-col gap-8 order-1 lg:order-none">
+        <div className="lg:col-span-1 flex flex-col gap-8 order-last lg:order-first">
           {/* Card 1: Strategy Call */}
           <FadeIn delay={0.2}>
             <div className="relative h-full">
@@ -319,7 +319,7 @@ function ContactMe() {
           </FadeIn>
           
           {/* Card 2: Direct Access */}
-          <FadeIn delay={0.4} className="order-3 lg:order-none">
+          <FadeIn delay={0.4}>
             <Card className="bg-gray-900 border-white/10 p-8 h-full flex flex-col">
               <h3 className="text-2xl font-bold mb-3">Just a quick question?</h3>
               <p className="text-muted-foreground mb-6 flex-grow">
@@ -348,7 +348,7 @@ function ContactMe() {
         </div>
 
         {/* --- RIGHT COLUMN: FORM --- */}
-        <div className="lg:col-span-2 order-2 lg:order-none">
+        <div className="lg:col-span-2 order-first lg:order-last">
           <FadeIn>
             <Card className="bg-gray-900/80 backdrop-blur-sm border-white/10 p-8 h-full">
               <h3 className="text-2xl font-bold mb-6">Ready to Execute? Tell me about the mission.</h3>
