@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
   onScroll: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => void;
@@ -22,8 +23,11 @@ const navLinks = [
 
 export function Header({ onScroll }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const activeSection = useActiveSection(navLinks.map(l => l.id).concat('contact'));
+  const pathname = usePathname();
+  const isCvPage = pathname === '/cv';
 
+  // Only run useActiveSection on the homepage
+  const activeSection = isCvPage ? null : useActiveSection(navLinks.map(l => l.id).concat('contact'));
 
   const handleLinkClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => {
     onScroll(e, id);
@@ -32,6 +36,10 @@ export function Header({ onScroll }: HeaderProps) {
   
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    if (isCvPage) {
+      window.location.href = '/';
+      return;
+    }
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -52,41 +60,55 @@ export function Header({ onScroll }: HeaderProps) {
             />
           </Link>
           
-          {navLinks.map((link) => (
-            <a 
-              key={link.id}
-              href={`#${link.id}`}
-              onClick={(e) => onScroll(e, link.id)}
+          <div className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <a 
+                key={link.id}
+                href={`/#${link.id}`}
+                onClick={(e) => onScroll(e, link.id)}
+                className={cn(
+                  "text-gray-400 hover:text-white transition-all duration-300 text-sm",
+                  activeSection === link.id && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                )}
+              >
+              {link.label}
+            </a>
+            ))}
+             <Link
+                href="/cv"
+                className={cn(
+                  "text-gray-400 hover:text-white transition-all duration-300 text-sm",
+                  isCvPage && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                )}
+              >
+              CV
+            </Link>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <Button
+              onClick={(e) => onScroll(e, 'contact')}
               className={cn(
-                "text-gray-400 hover:text-white transition-all duration-300 text-sm hidden md:block",
-                activeSection === link.id && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                "font-semibold transition-all duration-300 ease-in-out text-primary-foreground hidden md:inline-flex",
+                 activeSection === 'contact' 
+                  ? "bg-gradient-to-r from-purple-500 via-blue-600 to-emerald-500"
+                  : "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400",
+                 "drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
               )}
             >
-            {link.label}
-          </a>
-          ))}
-          <Button
-            onClick={(e) => onScroll(e, 'contact')}
-            className={cn(
-              "font-semibold transition-all duration-300 ease-in-out text-primary-foreground",
-               activeSection === 'contact' 
-                ? "bg-gradient-to-r from-purple-500 via-blue-600 to-emerald-500"
-                : "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400",
-               "drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] hidden md:inline-flex"
-            )}
-          >
-            Book a Meeting
-          </Button>
-          
-          {/* Mobile Menu Trigger */}
-          <div className="flex items-center md:hidden">
-            <button
-              className="text-white"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              <Menu />
-            </button>
+              Book a Meeting
+            </Button>
+            
+            {/* Mobile Menu Trigger */}
+            <div className="flex items-center md:hidden">
+              <button
+                className="text-white"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle menu"
+              >
+                <Menu />
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -120,7 +142,7 @@ export function Header({ onScroll }: HeaderProps) {
                 {navLinks.map((link) => (
                    <a
                     key={link.id}
-                    href={`#${link.id}`}
+                    href={`/#${link.id}`}
                     onClick={(e) => handleLinkClick(e, link.id)}
                     className={cn(
                       "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
@@ -130,6 +152,16 @@ export function Header({ onScroll }: HeaderProps) {
                     {link.label}
                   </a>
                 ))}
+                <Link
+                  href="/cv"
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                      "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
+                      isCvPage && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                    )}
+                >
+                  CV
+                </Link>
                 <Button
                   size="lg"
                   onClick={(e) => handleLinkClick(e, 'contact')}
