@@ -207,7 +207,7 @@ export default function CVPage() {
                         <h4 className="text-lg font-semibold text-gray-400 mb-4">GigaAcademy Roadmap</h4>
                          <div className="flex flex-wrap gap-2">
                           <SkillBadge variant="outline">PyTorch</SkillBadge>
-                          <SkillBadge variant="outline">TensorFlow</Skill-Badge>
+                          <SkillBadge variant="outline">TensorFlow</SkillBadge>
                           <SkillBadge variant="outline">SQL</SkillBadge>
                           <SkillBadge variant="outline">RAG</SkillBadge>
                         </div>
