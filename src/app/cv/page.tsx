@@ -115,18 +115,27 @@ export default function CVPage() {
               {/* --- CENTER COLUMN: DETAILS --- */}
               <div className="flex-grow flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent">
-                  Alex Eldridge
+                  Eldin Basani
                 </h1>
                 <AnimatedRotatingText />
 
                 <div className="flex items-center gap-4 mt-4">
-                  <Link href="https://github.com" target="_blank" className="text-gray-400 hover:text-white transition-colors"><Github /></Link>
-                  <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-colors"><Linkedin /></Link>
-                  <Link href="mailto:eldworkstudio.contact@gmail.com" className="text-gray-400 hover:text-white transition-colors"><Mail /></Link>
+                  <Link href="https://github.com" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Github /></Link>
+                  <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Linkedin /></Link>
+                  <Link href="mailto:eldworkstudio.contact@gmail.com" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Mail /></Link>
                 </div>
-                <div className="flex items-center gap-2 text-gray-400 mt-3 text-sm">
-                  <MapPin className="h-4 w-4" />
-                  Kosovo
+                <div className="flex items-center gap-6 mt-3 text-sm text-gray-400">
+                    <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4" />
+                        Prizren, Kosovo
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        Available for Work
+                    </div>
                 </div>
               </div>
 

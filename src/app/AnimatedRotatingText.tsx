@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const roles = ["AI Engineer", "Agentic Systems Builder", "AI Fullstack Developer"];
+const roles = ["AI Engineer", "Agentic Systems Builder", "AI Fullstack Developer", "Vibe Coder"];
 
 export function AnimatedRotatingText() {
   const [index, setIndex] = useState(0);
