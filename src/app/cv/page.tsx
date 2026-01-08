@@ -10,6 +10,7 @@ import { FadeIn } from "../FadeIn";
 import Image from "next/image";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+import { AnimatedRotatingText } from "../AnimatedRotatingText";
 
 const handleScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
     e.preventDefault();
@@ -93,15 +94,14 @@ export default function CVPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header onScroll={handleScroll} />
-      <main className="flex-grow pt-16">
-        <div className="w-full max-w-5xl mx-auto py-16 md:py-24 px-6">
+      <main className="flex-grow pt-4">
+        <div className="w-full max-w-5xl mx-auto pt-4 pb-12 px-6">
           
           <FadeIn>
-            <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
               
-              {/* --- LEFT COLUMN --- */}
-              <div className="flex flex-col items-center gap-4 flex-shrink-0">
-                <div className="relative">
+              {/* --- LEFT COLUMN: IMAGE --- */}
+              <div className="flex-shrink-0">
                   <Image 
                     src="https://picsum.photos/seed/profile/200/200" 
                     alt="Profile Headshot"
@@ -110,29 +110,27 @@ export default function CVPage() {
                     className="rounded-full border-4 border-white/10 shadow-lg"
                     data-ai-hint="profile person"
                   />
-                   <div className="absolute -bottom-2 -right-2">
-                     <Badge className="bg-gray-800 border-white/10 text-gray-300 flex items-center gap-1.5 py-1 px-3">
-                        <MapPin className="h-3 w-3" />
-                        Kosovo
-                     </Badge>
-                   </div>
-                </div>
               </div>
 
-              {/* --- CENTER COLUMN --- */}
-              <div className="flex-grow">
+              {/* --- CENTER COLUMN: DETAILS --- */}
+              <div className="flex-grow flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent">
                   Alex Eldridge
                 </h1>
-                <p className="text-xl text-gray-300 mt-1">AI Engineer | Agentic Systems Builder</p>
+                <AnimatedRotatingText />
+
                 <div className="flex items-center gap-4 mt-4">
                   <Link href="https://github.com" target="_blank" className="text-gray-400 hover:text-white transition-colors"><Github /></Link>
                   <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-colors"><Linkedin /></Link>
                   <Link href="mailto:eldworkstudio.contact@gmail.com" className="text-gray-400 hover:text-white transition-colors"><Mail /></Link>
                 </div>
+                <div className="flex items-center gap-2 text-gray-400 mt-3 text-sm">
+                  <MapPin className="h-4 w-4" />
+                  Kosovo
+                </div>
               </div>
 
-              {/* --- RIGHT COLUMN --- */}
+              {/* --- RIGHT COLUMN: CTA --- */}
               <div className="flex-shrink-0">
                  <Button
                     size="lg"
