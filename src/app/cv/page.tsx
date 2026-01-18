@@ -2,13 +2,11 @@
 'use client';
 
 import { Header } from "@/components/layout/header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Download, MapPin, Link as LinkIcon, Code2 } from "lucide-react";
+import { Github, Linkedin, Mail, Download, MapPin, Link as LinkIcon, Code2, Terminal, Cpu, Database, BrainCircuit } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../FadeIn";
 import Image from "next/image";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { AnimatedRotatingText } from "../AnimatedRotatingText";
 
@@ -18,84 +16,84 @@ const handleScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
     window.location.href = `/#${id}`;
 };
 
-const SkillBadge = ({ children, variant = 'default' }: { children: React.ReactNode, variant?: 'default' | 'outline' }) => (
-  <Badge variant={variant} className={cn(
-    variant === 'default' 
-      ? 'bg-blue-500/10 text-blue-300 border-blue-500/20' 
-      : 'bg-gray-800 border-white/10 text-gray-300',
-    'px-3 py-1 text-sm'
-  )}>
+const TechBadge = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded text-xs font-mono">
     {children}
-  </Badge>
-)
-
-const ProjectTechBadge = ({ children }: { children: React.ReactNode }) => (
-  <Badge variant="outline" className="bg-gray-800 border-white/10 text-gray-300 px-2 py-0.5 text-xs">
-    {children}
-  </Badge>
+  </div>
 );
 
-const ProjectCard = ({ title, problem, solution, impact, tech, imageHint }: { title: string, problem: string, solution: string, impact: string, tech: string[], imageHint: string }) => (
-  <div className="rounded-lg bg-gray-900/50 border border-white/10 p-6 space-y-6">
-    {/* Header */}
-    <div>
-      <h4 className="text-lg font-semibold text-blue-400 mb-2">{title}</h4>
-      <div className="flex flex-wrap gap-2">
-        {tech.map((t, i) => <ProjectTechBadge key={i}>{t}</ProjectTechBadge>)}
-      </div>
-    </div>
-    
-    {/* Body */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="md:col-span-2 space-y-4 text-gray-400 text-sm">
-        <div>
-          <h5 className="font-bold text-gray-300 mb-1">The Problem</h5>
-          <p>{problem}</p>
+const ProjectCard = ({ title, description, tech, imageHint, liveHref, sourceHref }: { title: string, description: string, tech: string[], imageHint: string, liveHref: string, sourceHref: string }) => (
+    <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 transition-all duration-300 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10 h-full">
+        <div className="flex items-center gap-3">
+            <Terminal className="h-5 w-5 text-blue-400" />
+            <h4 className="text-base font-semibold text-gray-100">{title}</h4>
         </div>
-        <div>
-          <h5 className="font-bold text-gray-300 mb-1">The Solution</h5>
-          <p>{solution}</p>
+        <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+        <div className="flex flex-wrap gap-2">
+            {tech.map((t, i) => <TechBadge key={i}>{t}</TechBadge>)}
         </div>
-        <div>
-          <h5 className="font-bold text-gray-300 mb-1">The Impact</h5>
-          <p>{impact}</p>
-        </div>
-      </div>
-      <div className="md:col-span-1 flex items-center justify-center">
-        <div className="w-full aspect-video bg-gray-800 rounded-md border border-white/10 flex items-center justify-center shadow-md">
+        <div className="aspect-video bg-black rounded-md border border-white/5 flex items-center justify-center my-2">
             <Image 
                 src={`https://picsum.photos/seed/${title.replace(/\s/g, '-')}/400/225`} 
                 alt={`${title} technical screenshot`}
                 width={400}
                 height={225}
-                className="rounded-md object-cover"
+                className="rounded-sm object-cover opacity-70"
                 data-ai-hint={imageHint}
             />
         </div>
-      </div>
+        <div className="flex items-center gap-6 text-xs font-mono mt-auto pt-4 border-t border-white/5">
+            <Link href={liveHref} className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
+                <LinkIcon className="h-3.5 w-3.5"/>
+                View Live Project
+            </Link>
+            <Link href={sourceHref} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                <Code2 className="h-3.5 w-3.5" />
+                View Source Code
+            </Link>
+        </div>
     </div>
-
-    {/* Action Bar */}
-    <div className="flex items-center gap-6 text-sm">
-      <Link href="#" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
-        <LinkIcon className="h-4 w-4"/>
-        View Live Project
-      </Link>
-      <Link href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-        <Code2 className="h-4 w-4" />
-        View Source Code
-      </Link>
-    </div>
-  </div>
 );
 
+const ArsenalSection = ({ title, icon: Icon, items }: { title: string, icon: React.ElementType, items: string[] }) => (
+    <div>
+        <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-3">
+            <Icon className="h-4 w-4 text-blue-400" />
+            {title}
+        </h4>
+        <div className="flex flex-col gap-1.5 pl-6 text-gray-400 text-sm">
+            {items.map((item, i) => (
+                <p key={i}>{item}</p>
+            ))}
+        </div>
+    </div>
+);
 
 export default function CVPage() {
+    const projects = [
+        {
+            title: "Agentic Scent Discovery Engine",
+            description: "A conversational AI agent that acts as a personal fragrance consultant, translating abstract concepts like mood and memory into concrete scent profiles using a multi-step LLM chain.",
+            tech: ["Genkit", "Next.js", "Firebase", "Vector DB"],
+            imageHint: "code terminal",
+            liveHref: "#",
+            sourceHref: "#"
+        },
+        {
+            title: "Automated E-commerce Data Pipeline",
+            description: "A serverless pipeline using a multimodal LLM to ingest product data, auto-generate SEO-optimized titles, and categorize items with 98% accuracy, eliminating hours of manual work.",
+            tech: ["Cloud Functions", "Gemini Pro Vision", "Firestore", "Python"],
+            imageHint: "data flow diagram",
+            liveHref: "#",
+            sourceHref: "#"
+        }
+    ];
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-zinc-950 text-gray-300">
       <Header onScroll={handleScroll} />
       <main className="flex-grow pt-4">
-        <div className="w-full max-w-5xl mx-auto pt-4 pb-12 px-6">
+        <div className="w-full max-w-6xl mx-auto pt-4 pb-12 px-6">
           
           <FadeIn>
             <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
@@ -120,7 +118,7 @@ export default function CVPage() {
                 <AnimatedRotatingText />
 
                 <div className="flex items-center gap-4 mt-4">
-                  <Link href="https://github.com" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Github /></Link>
+                  <Link href="https://github.com/EldinB" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Github /></Link>
                   <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Linkedin /></Link>
                   <Link href="mailto:eldworkstudio.contact@gmail.com" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Mail /></Link>
                 </div>
@@ -134,7 +132,7 @@ export default function CVPage() {
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                           <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                        </div>
-                        Building <span className="font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent">@EldWorkStudio</span>
+                        Building <Link href="https://github.com/EldinB" target="_blank" className="font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent hover:brightness-125 transition">@EldWorkStudio</Link>
                     </div>
                 </div>
               </div>
@@ -152,98 +150,72 @@ export default function CVPage() {
 
             </div>
           </FadeIn>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mt-16">
+            
+            {/* --- LEFT COLUMN --- */}
+            <div className="lg:col-span-2 flex flex-col gap-8">
+              {/* Live Intelligence Card */}
+              <div className="bg-zinc-950 border border-blue-500/30 rounded-lg p-6">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent">
+                      Agentic Workflow Demo
+                    </h3>
+                    <p className="text-sm text-gray-400">[Coming Tonight]</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-green-400">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                    </span>
+                    Status: Online
+                  </div>
+                </div>
+              </div>
 
-          <FadeIn delay={0.3}>
-            <div className="mt-24">
-              <Accordion type="single" collapsible defaultValue="item-2" className="w-full">
-                
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="text-2xl font-bold hover:no-underline border-b border-white/10 pb-4">Professional Summary</AccordionTrigger>
-                  <AccordionContent className="pt-6 text-gray-300 text-base leading-relaxed">
-                    A highly motivated and self-taught AI Engineer with a foundation in full-stack development, now specializing in building agentic systems and LLM-powered applications. Passionate about leveraging cutting-edge AI to create intelligent, autonomous solutions that solve complex problems.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-2">
-                  <AccordionTrigger className="text-2xl font-bold hover:no-underline border-b border-white/10 pb-4">Featured Projects</AccordionTrigger>
-                  <AccordionContent className="pt-6 space-y-8">
-                    <ProjectCard 
-                      title="Agentic Scent Discovery Engine"
-                      problem="Luxury perfume buyers struggle with 'choice paralysis' online. Standard filters (e.g., 'floral') are too generic, leading to abandoned carts and low conversion for high-intent customers."
-                      solution="Built a conversational AI agent that acts as a personal fragrance consultant. It asks nuanced questions about mood, desired memories, and personality traits, then translates those abstract concepts into concrete scent profiles using a multi-step LLM chain."
-                      impact="Reduced discovery time by 80%, increased 'add to cart' events by 35% in user testing, and provided a highly differentiated, luxury brand experience."
-                      tech={["Genkit", "Next.js", "Firebase", "Vector DB"]}
-                      imageHint="abstract art"
-                    />
-                    <ProjectCard 
-                      title="Automated E-commerce Data Pipeline"
-                      problem="A growing e-commerce store was manually categorizing thousands of new products monthly. This was slow, error-prone, and required significant human hours, creating a bottleneck for scaling their inventory."
-                      solution="Developed an automated data pipeline using Google Cloud Functions and a multimodal LLM. The system ingests product images and descriptions, auto-generates SEO-optimized titles, assigns them to categories with 98% accuracy, and flags low-quality images for review."
-                      impact="Eliminated 120 hours of manual data entry per month, accelerated time-to-market for new products by 95%, and improved SEO ranking through consistent, high-quality metadata."
-                      tech={["Cloud Functions", "Gemini Pro Vision", "Firestore", "Python"]}
-                      imageHint="data flow"
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-3">
-                  <AccordionTrigger className="text-2xl font-bold hover:no-underline border-b border-white/10 pb-4">Experience</AccordionTrigger>
-                  <AccordionContent className="pt-6">
-                     <div>
-                      <h4 className="text-lg font-semibold text-blue-400 mb-2">Founder & Lead Developer, EldWorkStudio</h4>
-                      <p className="text-gray-400">Led the end-to-end design, development, and deployment of purpose-driven websites and AI-powered applications for a diverse client base, translating business requirements into high-performance technical solutions.</p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-4">
-                  <AccordionTrigger className="text-2xl font-bold hover:no-underline border-b border-white/10 pb-4">Technical Skills</AccordionTrigger>
-                  <AccordionContent className="pt-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div>
-                        <h4 className="text-lg font-semibold text-blue-400 mb-4">Core Proficiencies</h4>
-                        <div className="flex flex-wrap gap-2">
-                          <SkillBadge>Python</SkillBadge>
-                          <SkillBadge>JavaScript</SkillBadge>
-                          <SkillBadge>Firebase</SkillBadge>
-                          <SkillBadge>Git</SkillBadge>
-                          <SkillBadge>LLM Orchestration</SkillBadge>
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-400 mb-4">GigaAcademy Roadmap</h4>
-                         <div className="flex flex-wrap gap-2">
-                          <SkillBadge variant="outline">PyTorch</SkillBadge>
-                          <SkillBadge variant="outline">TensorFlow</SkillBadge>
-                          <SkillBadge variant="outline">SQL</SkillBadge>
-                          <SkillBadge variant="outline">RAG</SkillBadge>
-                        </div>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-5" className="border-b-0">
-                  <AccordionTrigger className="text-2xl font-bold hover:no-underline border-b border-white/10 pb-4">Education & Learning</AccordionTrigger>
-                  <AccordionContent className="pt-6">
-                     <div className="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-0.5 before:bg-white/10">
-                        <div className="relative mb-6">
-                            <div className="absolute -left-[30px] top-[5px] h-4 w-4 rounded-full bg-blue-500"></div>
-                            <h4 className="font-semibold text-blue-400">Self-Taught Path</h4>
-                            <p className="text-gray-400 text-sm">Professional Transition Path</p>
-                        </div>
-                         <div className="relative">
-                            <div className="absolute -left-[30px] top-[5px] h-4 w-4 rounded-full bg-gray-600"></div>
-                            <h4 className="font-semibold text-gray-300">GigaAcademy Roadmap</h4>
-                            <p className="text-gray-400 text-sm">[Placeholder for future certifications]</p>
-                        </div>
-                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-
-              </Accordion>
+              {/* Projects Section */}
+              <div>
+                <h2 className="text-2xl font-bold text-gray-100 mb-6">System Architecture & Projects</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {projects.map((p, i) => <ProjectCard key={i} {...p} />)}
+                </div>
+              </div>
             </div>
-          </FadeIn>
+
+            {/* --- RIGHT COLUMN --- */}
+            <div className="lg:col-span-1 flex flex-col gap-8">
+              <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6 sticky top-24">
+                <h3 className="text-lg font-semibold text-gray-100">Technical Arsenal</h3>
+                <ArsenalSection 
+                  title="Intelligence" 
+                  icon={BrainCircuit} 
+                  items={['Gemini API', 'LangChain / LCEL', 'Genkit', 'Function Calling']}
+                />
+                <ArsenalSection 
+                  title="Core" 
+                  icon={Cpu} 
+                  items={['Next.js / React', 'TypeScript', 'Tailwind CSS', 'Node.js']}
+                />
+                <ArsenalSection 
+                  title="Data" 
+                  icon={Database} 
+                  items={['Firebase / Firestore', 'Vector DBs (Pinecone)', 'PostgreSQL']}
+                />
+              </div>
+              
+              <div className="bg-zinc-950 border border-white/10 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-100 mb-4">Signal</h3>
+                <div className="flex flex-col gap-3 text-sm">
+                  <p className="text-gray-400">Self-taught with a focus on shipping production-ready systems.</p>
+                  <Link href="https://github.com/EldinB" target="_blank" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-mono text-xs">
+                    <Github className="h-4 w-4" />
+                    github.com/EldinB
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
