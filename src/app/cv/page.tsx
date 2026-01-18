@@ -1,9 +1,10 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Workflow, Terminal } from "lucide-react";
+import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Workflow, Terminal, Check, Copy, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../FadeIn";
 import Image from "next/image";
@@ -60,6 +61,14 @@ const ArsenalSection = ({ title, icon: Icon, items }: { title: string, icon: Rea
 );
 
 export default function CVPage() {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText('eldworkstudio.contact@gmail.com');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
     const projects = [
         {
             title: "Agentic Customer Assistant",
@@ -187,6 +196,61 @@ export default function CVPage() {
               </FadeIn>
             </div>
           </div>
+          
+          <FadeIn delay={0.4}>
+              <div className="mt-16">
+                  <h3 className="text-3xl font-bold text-white mb-6">Why Hire a Builder?</h3>
+                  <ul className="space-y-4 text-gray-400">
+                      <li className="flex items-start gap-3">
+                          <Check className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
+                          <span><span className="font-semibold text-gray-200">Zero-Handholding:</span> Self-taught and system-oriented. I don't wait for documentation; I build it.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                          <Check className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
+                          <span><span className="font-semibold text-gray-200">Data-First Mindset:</span> AI is only as good as its data. My background in scraping ensures I build on solid foundations.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                          <Check className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
+                          <span><span className="font-semibold text-gray-200">ROI Driven:</span> I focus on automating the friction so the team can focus on the frontier.</span>
+                      </li>
+                  </ul>
+              </div>
+          </FadeIn>
+
+          <FadeIn delay={0.6}>
+              <div className="mt-16 p-8 bg-gray-900/50 border border-white/10 rounded-lg">
+                  <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                      <div className="flex items-center gap-3 mb-4 md:mb-0">
+                          <div className="relative flex h-3 w-3">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                          </div>
+                          <p className="text-gray-300">Available for immediate technical deep-dive.</p>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full md:w-auto">
+                          <button 
+                              onClick={handleCopy}
+                              className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
+                          >
+                              <Copy className="h-4 w-4" />
+                              {copied ? 'Copied!' : 'Email'}
+                          </button>
+                          <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
+                              className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
+                          >
+                              <MessageCircle className="h-4 w-4" />
+                              WhatsApp
+                          </a>
+                          <a href="tel:+38348420904"
+                              className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
+                          >
+                              <Phone className="h-4 w-4" />
+                              +383 48 420 904
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </FadeIn>
         </div>
       </main>
     </div>
