@@ -10,6 +10,8 @@ import { FadeIn } from "../FadeIn";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { AnimatedRotatingText } from "../AnimatedRotatingText";
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 const handleScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const TechBadge = ({ children }: { children: React.ReactNode }) => (
 
 const ProjectCard = ({ title, icon: Icon, context, build, tech }: { title: string, icon: React.ElementType, context: string, build: string, tech: string[] }) => (
     <FadeIn>
-        <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 h-full">
+        <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 h-full transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-zinc-900">
             <div className="flex items-center gap-3">
                 <Icon className="h-5 w-5 text-blue-400 flex-shrink-0" />
                 <h4 className="text-base font-semibold text-gray-100">{title}</h4>
@@ -48,14 +50,18 @@ const ProjectCard = ({ title, icon: Icon, context, build, tech }: { title: strin
 );
 
 
-const ArsenalSection = ({ title, icon: Icon, items }: { title: string, icon: React.ElementType, items: string[] }) => (
+const ArsenalSection = ({ title, icon: Icon, items, baseDelay = 0 }: { title: string, icon: React.ElementType, items: string[], baseDelay?: number }) => (
     <div>
         <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-300 mb-3">
             <Icon className="h-4 w-4 text-blue-400" />
             {title}
         </h4>
         <div className="flex flex-wrap gap-2 pl-6">
-            {items.map((item, i) => <TechBadge key={i}>{item}</TechBadge>)}
+             {items.map((item, i) => (
+                <FadeIn key={i} delay={baseDelay + i * 0.05}>
+                    <TechBadge>{item}</TechBadge>
+                </FadeIn>
+            ))}
         </div>
     </div>
 );
@@ -85,6 +91,16 @@ export default function CVPage() {
             tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
         }
     ];
+    
+    const orchestrationItems = ['Voiceflow', 'n8n', 'Make'];
+    const aiItems = ['Gemini API', 'OpenAI', 'Claude'];
+    const coreItems = ['Next.js', 'TypeScript', 'Firebase', 'Node.js'];
+    const opsItems = ['Web Scraping', 'Git', 'Vercel', 'Data Syncing'];
+    const delay1 = 0.2;
+    const delay2 = delay1 + orchestrationItems.length * 0.05;
+    const delay3 = delay2 + aiItems.length * 0.05;
+    const delay4 = delay3 + coreItems.length * 0.05;
+
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-950 text-gray-300">
@@ -149,7 +165,7 @@ export default function CVPage() {
           </FadeIn>
           
           <FadeIn delay={0.2}>
-            <div className="mt-16 bg-gray-900/40 border border-white/10 rounded-lg p-8">
+            <div className="mt-16 bg-gray-900/40 border border-white/10 rounded-lg p-8 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60">
               <h2 className="text-2xl font-bold text-gray-100 mb-4">Systems Mission</h2>
               <p className="text-gray-400 leading-relaxed max-w-3xl">Pragmatic builder with a focus on high-efficiency automation. I have spent my career at the intersection of E-commerce and Data—moving from manual data management to building automated scraping pipelines and agentic chatbots. I don't just prompt; I build the systems that make AI useful for real-world business needs.</p>
             </div>
@@ -170,27 +186,31 @@ export default function CVPage() {
             {/* --- RIGHT COLUMN --- */}
             <div className="lg:col-span-1 flex flex-col gap-8">
               <FadeIn>
-                <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6 sticky top-24">
+                <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6 sticky top-24 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-zinc-900">
                   <h3 className="text-lg font-semibold text-gray-100">The Arsenal</h3>
                   <ArsenalSection 
                     title="Orchestration" 
                     icon={Combine} 
-                    items={['Voiceflow', 'n8n', 'Make']}
+                    items={orchestrationItems}
+                    baseDelay={delay1}
                   />
                   <ArsenalSection 
                     title="AI & Models" 
                     icon={BrainCircuit} 
-                    items={['Gemini API', 'OpenAI', 'Claude']}
+                    items={aiItems}
+                    baseDelay={delay2}
                   />
                   <ArsenalSection 
                     title="Core Stack" 
                     icon={Cpu} 
-                    items={['Next.js', 'TypeScript', 'Firebase', 'Node.js']}
+                    items={coreItems}
+                    baseDelay={delay3}
                   />
                    <ArsenalSection 
                     title="Operations" 
                     icon={Server} 
-                    items={['Web Scraping', 'Git', 'Vercel', 'Data Syncing']}
+                    items={opsItems}
+                    baseDelay={delay4}
                   />
                 </div>
               </FadeIn>
@@ -232,8 +252,19 @@ export default function CVPage() {
                               onClick={handleCopy}
                               className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
                           >
-                              <Copy className="h-4 w-4" />
-                              {copied ? 'Copied!' : 'Email'}
+                            <AnimatePresence mode="wait" initial={false}>
+                                <motion.span
+                                    key={copied ? 'copied' : 'copy'}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="flex items-center justify-center gap-2 w-24"
+                                >
+                                    {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+                                    {copied ? 'Copied!' : 'Email'}
+                                </motion.span>
+                            </AnimatePresence>
                           </button>
                           <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
                               className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
