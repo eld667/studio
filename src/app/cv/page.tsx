@@ -11,33 +11,48 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { AnimatedRotatingText } from "../AnimatedRotatingText";
 import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 
 const TechBadge = ({ children }: { children: React.ReactNode }) => (
-  <div className="bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded text-xs font-mono">
+  <div className="border border-white/20 text-gray-400 px-2 py-0.5 rounded-sm text-xs font-mono">
     {children}
   </div>
 );
 
-const ProjectCard = ({ title, icon: Icon, context, build, tech }: { title: string, icon: React.ElementType, context: string, build: string, tech: string[] }) => (
+const ProjectBlade = ({ title, version, logic, tech }: { title: string, version: string, logic: string[], tech: string[] }) => (
     <FadeIn>
-        <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 h-full transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-zinc-900">
-            <div className="flex items-center gap-3">
-                <Icon className="h-5 w-5 text-blue-400 flex-shrink-0" />
-                <h4 className="text-base font-semibold text-gray-100">{title}</h4>
+        <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 transition-colors hover:bg-white/[.02]">
+            {/* Header */}
+            <div className="flex justify-between items-center">
+                <h4 className="text-base font-bold text-white">{title}</h4>
+                <span className="text-xs text-gray-500 font-mono">{version}</span>
             </div>
+
+            {/* Tech Badges */}
             <div className="flex flex-wrap gap-2">
                 {tech.map((t, i) => <TechBadge key={i}>{t}</TechBadge>)}
             </div>
-            <div className="mt-2 space-y-4 text-sm flex-grow">
-                <div>
-                    <h5 className="font-semibold text-gray-300 mb-1.5">Context</h5>
-                    <p className="text-gray-400 leading-relaxed">{context}</p>
+
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mt-2">
+                {/* Left: System Logic */}
+                <div className="md:col-span-2">
+                    <h5 className="text-sm font-semibold text-gray-300 mb-3 font-mono">// System Logic</h5>
+                    <ul className="space-y-2 text-gray-400 text-sm list-disc list-inside">
+                        {logic.map((point, i) => <li key={i}>{point}</li>)}
+                    </ul>
                 </div>
-                <div>
-                    <h5 className="font-semibold text-gray-300 mb-1.5">The Build</h5>
-                    <p className="text-gray-400 leading-relaxed">{build}</p>
+                {/* Right: Demo Placeholder */}
+                <div className="md:col-span-3 bg-zinc-900 rounded-md flex flex-col items-center justify-center p-8 border border-dashed border-white/10 min-h-[150px]">
+                    <Terminal className="h-8 w-8 text-gray-600 mb-2"/>
+                    <p className="text-sm text-gray-600 font-mono">[INTERACTIVE_DEMO_RESERVED]</p>
                 </div>
+            </div>
+
+            {/* Footer/Action */}
+            <div className="mt-2 border-t border-white/5 pt-3">
+                <a href="#" className="text-xs text-blue-400 font-mono hover:underline">// View_System_Architecture.exe</a>
             </div>
         </div>
     </FadeIn>
@@ -69,20 +84,26 @@ export default function CVPage() {
         setTimeout(() => setCopied(false), 2000);
     };
 
-    const projects = [
+    const coreSystems = [
         {
             title: "Agentic Customer Assistant",
-            icon: Terminal,
-            context: "Built for niche e-commerce discovery to handle complex product intent mapping.",
-            build: "Utilized Voiceflow and LLM orchestration to move beyond keyword triggers into reasoning-based replies.",
+            version: "v1.1.0",
+            logic: [
+                "Handles complex product intent.",
+                "Moves beyond keywords to reasoning.",
+                "Integrates with inventory APIs.",
+            ],
             tech: ["Voiceflow", "LLM Logic", "API Integration"],
         },
         {
-            title: "E-commerce Data & Automation Engine",
-            icon: Workflow,
-            context: "Orchestrated the background operations for multi-client e-commerce storefronts.",
-            build: "Designed automated scraping and cleaning pipelines to manage thousands of SKUs, pricing, and SEO metadata.",
-            tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
+            title: "E-commerce Automation Engine",
+            version: "v2.0.1",
+            logic: [
+                "Manages thousands of SKUs.",
+                "Automated data scraping & cleaning.",
+                "Syncs pricing and SEO metadata.",
+            ],
+            tech: ["Python", "n8n", "Cloud Functions"],
         }
     ];
     
@@ -214,10 +235,15 @@ export default function CVPage() {
               {/* Section 3: Core Systems */}
               <section id="core-systems" className="flex flex-col gap-8">
                 <FadeIn>
-                  <h3 className="text-xl font-bold text-gray-100 font-mono">CORE SYSTEMS</h3>
+                  <h3 className="text-xl font-bold text-gray-100 font-mono">[SECTION: CORE_SYSTEMS]</h3>
                 </FadeIn>
-                <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-                    {projects.map((p, i) => <ProjectCard key={i} {...p} />)}
+                <div className="flex flex-col gap-6">
+                    {coreSystems.map((p, i) => (
+                       <React.Fragment key={i}>
+                          <ProjectBlade {...p} />
+                          {i < coreSystems.length - 1 && <div className="my-6 border-b border-white/5" />}
+                       </React.Fragment>
+                    ))}
                 </div>
               </section>
 
