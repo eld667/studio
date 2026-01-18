@@ -3,7 +3,7 @@
 
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Download, MapPin, Link as LinkIcon, Code2, Terminal, Cpu, Database, BrainCircuit } from "lucide-react";
+import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Workflow, Terminal } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../FadeIn";
 import Image from "next/image";
@@ -22,38 +22,30 @@ const TechBadge = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const ProjectCard = ({ title, description, tech, imageHint, liveHref, sourceHref }: { title: string, description: string, tech: string[], imageHint: string, liveHref: string, sourceHref: string }) => (
-    <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 transition-all duration-300 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10 h-full">
-        <div className="flex items-center gap-3">
-            <Terminal className="h-5 w-5 text-blue-400" />
-            <h4 className="text-base font-semibold text-gray-100">{title}</h4>
+const ProjectCard = ({ title, icon: Icon, context, build, tech }: { title: string, icon: React.ElementType, context: string, build: string, tech: string[] }) => (
+    <FadeIn>
+        <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 h-full">
+            <div className="flex items-center gap-3">
+                <Icon className="h-5 w-5 text-blue-400 flex-shrink-0" />
+                <h4 className="text-base font-semibold text-gray-100">{title}</h4>
+            </div>
+            <div className="flex flex-wrap gap-2">
+                {tech.map((t, i) => <TechBadge key={i}>{t}</TechBadge>)}
+            </div>
+            <div className="mt-2 space-y-4 text-sm flex-grow">
+                <div>
+                    <h5 className="font-semibold text-gray-300 mb-1.5">Context</h5>
+                    <p className="text-gray-400 leading-relaxed">{context}</p>
+                </div>
+                <div>
+                    <h5 className="font-semibold text-gray-300 mb-1.5">The Build</h5>
+                    <p className="text-gray-400 leading-relaxed">{build}</p>
+                </div>
+            </div>
         </div>
-        <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
-        <div className="flex flex-wrap gap-2">
-            {tech.map((t, i) => <TechBadge key={i}>{t}</TechBadge>)}
-        </div>
-        <div className="aspect-video bg-black rounded-md border border-white/5 flex items-center justify-center my-2">
-            <Image 
-                src={`https://picsum.photos/seed/${title.replace(/\s/g, '-')}/400/225`} 
-                alt={`${title} technical screenshot`}
-                width={400}
-                height={225}
-                className="rounded-sm object-cover opacity-70"
-                data-ai-hint={imageHint}
-            />
-        </div>
-        <div className="flex items-center gap-6 text-xs font-mono mt-auto pt-4 border-t border-white/5">
-            <Link href={liveHref} className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
-                <LinkIcon className="h-3.5 w-3.5"/>
-                View Live Project
-            </Link>
-            <Link href={sourceHref} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-                <Code2 className="h-3.5 w-3.5" />
-                View Source Code
-            </Link>
-        </div>
-    </div>
+    </FadeIn>
 );
+
 
 const ArsenalSection = ({ title, icon: Icon, items }: { title: string, icon: React.ElementType, items: string[] }) => (
     <div>
@@ -61,10 +53,8 @@ const ArsenalSection = ({ title, icon: Icon, items }: { title: string, icon: Rea
             <Icon className="h-4 w-4 text-blue-400" />
             {title}
         </h4>
-        <div className="flex flex-col gap-1.5 pl-6 text-gray-400 text-sm">
-            {items.map((item, i) => (
-                <p key={i}>{item}</p>
-            ))}
+        <div className="flex flex-wrap gap-2 pl-6">
+            {items.map((item, i) => <TechBadge key={i}>{item}</TechBadge>)}
         </div>
     </div>
 );
@@ -72,20 +62,18 @@ const ArsenalSection = ({ title, icon: Icon, items }: { title: string, icon: Rea
 export default function CVPage() {
     const projects = [
         {
-            title: "Agentic Scent Discovery Engine",
-            description: "A conversational AI agent that acts as a personal fragrance consultant, translating abstract concepts like mood and memory into concrete scent profiles using a multi-step LLM chain.",
-            tech: ["Genkit", "Next.js", "Firebase", "Vector DB"],
-            imageHint: "code terminal",
-            liveHref: "#",
-            sourceHref: "#"
+            title: "Agentic Customer Assistant",
+            icon: Terminal,
+            context: "Built for niche e-commerce discovery to handle complex product intent mapping.",
+            build: "Utilized Voiceflow and LLM orchestration to move beyond keyword triggers into reasoning-based replies.",
+            tech: ["Voiceflow", "LLM Logic", "API Integration"],
         },
         {
-            title: "Automated E-commerce Data Pipeline",
-            description: "A serverless pipeline using a multimodal LLM to ingest product data, auto-generate SEO-optimized titles, and categorize items with 98% accuracy, eliminating hours of manual work.",
-            tech: ["Cloud Functions", "Gemini Pro Vision", "Firestore", "Python"],
-            imageHint: "data flow diagram",
-            liveHref: "#",
-            sourceHref: "#"
+            title: "E-commerce Data & Automation Engine",
+            icon: Workflow,
+            context: "Orchestrated the background operations for multi-client e-commerce storefronts.",
+            build: "Designed automated scraping and cleaning pipelines to manage thousands of SKUs, pricing, and SEO metadata.",
+            tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
         }
     ];
 
@@ -151,69 +139,52 @@ export default function CVPage() {
             </div>
           </FadeIn>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mt-16">
+          <FadeIn delay={0.2}>
+            <div className="mt-16 bg-gray-900/40 border border-white/10 rounded-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-100 mb-4">Systems Mission</h2>
+              <p className="text-gray-400 leading-relaxed max-w-3xl">Pragmatic builder with a focus on high-efficiency automation. I have spent my career at the intersection of E-commerce and Data—moving from manual data management to building automated scraping pipelines and agentic chatbots. I don't just prompt; I build the systems that make AI useful for real-world business needs.</p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mt-12">
             
             {/* --- LEFT COLUMN --- */}
             <div className="lg:col-span-2 flex flex-col gap-8">
-              {/* Live Intelligence Card */}
-              <div className="bg-zinc-950 border border-blue-500/30 rounded-lg p-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent">
-                      Agentic Workflow Demo
-                    </h3>
-                    <p className="text-sm text-gray-400">[Coming Tonight]</p>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-green-400">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-                    </span>
-                    Status: Online
-                  </div>
-                </div>
-              </div>
-
-              {/* Projects Section */}
-              <div>
-                <h2 className="text-2xl font-bold text-gray-100 mb-6">System Architecture & Projects</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FadeIn>
+                <h3 className="text-xl font-bold text-gray-100">Evidence of Work</h3>
+              </FadeIn>
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                   {projects.map((p, i) => <ProjectCard key={i} {...p} />)}
-                </div>
               </div>
             </div>
 
             {/* --- RIGHT COLUMN --- */}
             <div className="lg:col-span-1 flex flex-col gap-8">
-              <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6 sticky top-24">
-                <h3 className="text-lg font-semibold text-gray-100">Technical Arsenal</h3>
-                <ArsenalSection 
-                  title="Intelligence" 
-                  icon={BrainCircuit} 
-                  items={['Gemini API', 'LangChain / LCEL', 'Genkit', 'Function Calling']}
-                />
-                <ArsenalSection 
-                  title="Core" 
-                  icon={Cpu} 
-                  items={['Next.js / React', 'TypeScript', 'Tailwind CSS', 'Node.js']}
-                />
-                <ArsenalSection 
-                  title="Data" 
-                  icon={Database} 
-                  items={['Firebase / Firestore', 'Vector DBs (Pinecone)', 'PostgreSQL']}
-                />
-              </div>
-              
-              <div className="bg-zinc-950 border border-white/10 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-gray-100 mb-4">Signal</h3>
-                <div className="flex flex-col gap-3 text-sm">
-                  <p className="text-gray-400">Self-taught with a focus on shipping production-ready systems.</p>
-                  <Link href="https://github.com/EldinB" target="_blank" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-mono text-xs">
-                    <Github className="h-4 w-4" />
-                    github.com/EldinB
-                  </Link>
+              <FadeIn>
+                <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6 sticky top-24">
+                  <h3 className="text-lg font-semibold text-gray-100">The Arsenal</h3>
+                  <ArsenalSection 
+                    title="Orchestration" 
+                    icon={Combine} 
+                    items={['Voiceflow', 'n8n', 'Make']}
+                  />
+                  <ArsenalSection 
+                    title="AI & Models" 
+                    icon={BrainCircuit} 
+                    items={['Gemini API', 'OpenAI', 'Claude']}
+                  />
+                  <ArsenalSection 
+                    title="Core Stack" 
+                    icon={Cpu} 
+                    items={['Next.js', 'TypeScript', 'Firebase', 'Node.js']}
+                  />
+                   <ArsenalSection 
+                    title="Operations" 
+                    icon={Server} 
+                    items={['Web Scraping', 'Git', 'Vercel', 'Data Syncing']}
+                  />
                 </div>
-              </div>
+              </FadeIn>
             </div>
           </div>
         </div>
