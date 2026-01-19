@@ -221,7 +221,7 @@ export default function CVPage() {
               <div className="border-b border-white/5" />
 
               {/* Section 2: Mission */}
-              <section id="mission">
+              <section id="mission" className="scroll-mt-32">
                 <FadeIn delay={0.2}>
                   <div className="bg-gray-900/40 border border-white/10 rounded-lg p-8 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60">
                     <h2 className="text-2xl font-bold text-gray-100 mb-4 font-mono">SYSTEMS MISSION</h2>
@@ -233,7 +233,7 @@ export default function CVPage() {
               <div className="border-b border-white/5" />
 
               {/* Section 3: Core Systems */}
-              <section id="core-systems" className="flex flex-col gap-8">
+              <section id="core-systems" className="flex flex-col gap-8 scroll-mt-32">
                 <FadeIn>
                   <h3 className="text-xl font-bold text-gray-100 font-mono">[SECTION: CORE_SYSTEMS]</h3>
                 </FadeIn>
@@ -250,7 +250,7 @@ export default function CVPage() {
               <div className="border-b border-white/5" />
 
               {/* Section 4: Technical Arsenal */}
-              <section id="technical-arsenal">
+              <section id="technical-arsenal" className="scroll-mt-32">
                 <FadeIn>
                   <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6">
                     <h3 className="text-lg font-semibold text-gray-100 font-mono">TECHNICAL ARSENAL</h3>
@@ -265,7 +265,7 @@ export default function CVPage() {
               <div className="border-b border-white/5" />
 
               {/* Section 5: Command Center */}
-              <section id="command-center" className="flex flex-col gap-12">
+              <section id="command-center" className="flex flex-col gap-12 scroll-mt-32">
                   <FadeIn delay={0.4}>
                       <div>
                           <h3 className="text-3xl font-bold text-white mb-6">Why Hire a Builder?</h3>
