@@ -22,7 +22,9 @@ const TechBadge = ({ children }: { children: React.ReactNode }) => (
 
 const ProjectBlade = ({ title, version, logic, tech }: { title: string, version: string, logic: string[], tech: string[] }) => (
     <FadeIn>
-        <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 transition-colors hover:bg-white/[.02]">
+        <motion.div 
+          className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60"
+        >
             {/* Header */}
             <div className="flex justify-between items-center">
                 <h4 className="text-base font-bold text-white">{title}</h4>
@@ -54,7 +56,7 @@ const ProjectBlade = ({ title, version, logic, tech }: { title: string, version:
             <div className="mt-2 border-t border-white/5 pt-3">
                 <a href="#" className="text-xs text-blue-400 font-mono hover:underline">// View_System_Architecture.exe</a>
             </div>
-        </div>
+        </motion.div>
     </FadeIn>
 );
 
@@ -89,7 +91,7 @@ const signals = [
     {
         icon: Languages,
         headline: "Multilingual Native",
-        sub: "Fluent in 4 languages. Built for seamless collaboration in global engineering teams.",
+        sub: "Communicating across 4 languages. I bring the adaptability needed to thrive in diverse, fast-moving technical environments.",
     },
     {
         icon: Move,
@@ -267,10 +269,12 @@ export default function CVPage() {
               {/* Section 2: Mission */}
               <section id="mission" className="scroll-mt-32">
                 <FadeIn delay={0.2}>
-                  <div className="bg-gray-900/40 border border-white/10 rounded-lg p-8 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60">
+                  <motion.div 
+                    className="bg-gray-900/40 border border-white/10 rounded-lg p-8 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60"
+                  >
                     <h2 className="text-2xl font-bold text-gray-100 mb-4 font-mono">SYSTEMS MISSION</h2>
                     <p className="text-gray-400 leading-relaxed max-w-3xl">Pragmatic builder with a focus on high-efficiency automation. I have spent my career at the intersection of E-commerce and Data—moving from manual data management to building automated scraping pipelines and agentic chatbots. I don't just prompt; I build the systems that make AI useful for real-world business needs.</p>
-                  </div>
+                  </motion.div>
                 </FadeIn>
               </section>
 
@@ -298,10 +302,10 @@ export default function CVPage() {
                 <FadeIn>
                   <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6">
                     <h3 className="text-lg font-semibold text-gray-100 font-mono">TECHNICAL ARSENAL</h3>
-                    <ArsenalSection title="Orchestration" icon={Combine} items={orchestrationItems} />
-                    <ArsenalSection title="AI & Models" icon={BrainCircuit} items={aiItems} />
-                    <ArsenalSection title="Core Stack" icon={Cpu} items={coreItems} />
-                    <ArsenalSection title="Operations" icon={Server} items={opsItems} />
+                    <ArsenalSection title="Orchestration" icon={Combine} items={orchestrationItems} baseDelay={0} />
+                    <ArsenalSection title="AI & Models" icon={BrainCircuit} items={aiItems} baseDelay={orchestrationItems.length * 0.05} />
+                    <ArsenalSection title="Core Stack" icon={Cpu} items={coreItems} baseDelay={(orchestrationItems.length + aiItems.length) * 0.05} />
+                    <ArsenalSection title="Operations" icon={Server} items={opsItems} baseDelay={(orchestrationItems.length + aiItems.length + coreItems.length) * 0.05}/>
                   </div>
                 </FadeIn>
               </section>
