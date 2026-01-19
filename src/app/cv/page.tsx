@@ -90,7 +90,7 @@ const signals = [
     },
     {
         icon: Languages,
-        headline: "Multilingual Native",
+        headline: "Team Player",
         sub: "Communicating across 4 languages. I bring the adaptability needed to thrive in diverse, fast-moving technical environments.",
     },
     {
