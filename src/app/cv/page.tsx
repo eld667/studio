@@ -322,7 +322,7 @@ export default function CVPage() {
                         ))}
                       </div>
                       <p className="text-center text-lg text-gray-400 max-w-3xl mx-auto italic">
-                        "I’m not looking for a seat; I’m looking for a mission. I’m ready to bring my relentless problem-solving to your team so we can push the boundaries of what’s possible and grow together."
+                        "I’m looking for a mission. I’m ready to bring my relentless problem-solving to your team so we can push the boundaries of what’s possible and grow together."
                       </p>
                   </FadeIn>
 
