@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Workflow, Terminal, Check, Copy, MessageCircle, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Workflow, Terminal, Check, Copy, MessageCircle, Phone, SearchCheck, Zap, Languages, Move } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../FadeIn";
 import Image from "next/image";
@@ -74,6 +74,50 @@ const ArsenalSection = ({ title, icon: Icon, items, baseDelay = 0 }: { title: st
         </div>
     </div>
 );
+
+const signals = [
+    {
+        icon: SearchCheck,
+        headline: "Relentless Problem Solver",
+        sub: "I don't stop until the logic holds. Give me a challenge, I'll find the solve.",
+    },
+    {
+        icon: Zap,
+        headline: "High-Velocity Learner",
+        sub: "Mastering new frameworks in days, not months. Self-taught, mission-driven.",
+    },
+    {
+        icon: Languages,
+        headline: "Multilingual Native",
+        sub: "Fluent in 4 languages. Built for seamless collaboration in global engineering teams.",
+    },
+    {
+        icon: Move,
+        headline: "Technical Elasticity",
+        sub: "From background data ops to agentic AI. I adapt to the mission.",
+    },
+];
+
+const SignalCard = ({ icon: Icon, headline, sub, delay }: { icon: React.ElementType, headline: string, sub: string, delay: number }) => (
+    <FadeIn delay={delay}>
+        <motion.div
+            whileHover={{ y: -5, boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)" }}
+            transition={{ duration: 0.2 }}
+            className="bg-zinc-900 border border-white/10 rounded-lg p-6 text-center flex flex-col items-center h-full"
+        >
+            <motion.div
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="mb-4 text-blue-400"
+            >
+                <Icon className="h-8 w-8" />
+            </motion.div>
+            <h4 className="font-semibold text-gray-200 mb-2 text-base">{headline}</h4>
+            <p className="text-sm text-gray-400 flex-grow">{sub}</p>
+        </motion.div>
+    </FadeIn>
+);
+
 
 export default function CVPage() {
     const [copied, setCopied] = useState(false);
@@ -266,24 +310,16 @@ export default function CVPage() {
 
               {/* Section 5: Command Center */}
               <section id="command-center" className="flex flex-col gap-12 scroll-mt-32">
-                  <FadeIn delay={0.4}>
-                      <div>
-                          <h3 className="text-3xl font-bold text-white mb-6">Why Hire a Builder?</h3>
-                          <ul className="space-y-4 text-gray-400">
-                              <li className="flex items-start gap-3">
-                                  <Check className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
-                                  <span><span className="font-semibold text-gray-200">Zero-Handholding:</span> Self-taught and system-oriented. I don't wait for documentation; I build it.</span>
-                              </li>
-                              <li className="flex items-start gap-3">
-                                  <Check className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
-                                  <span><span className="font-semibold text-gray-200">Data-First Mindset:</span> AI is only as good as its data. My background in scraping ensures I build on solid foundations.</span>
-                              </li>
-                              <li className="flex items-start gap-3">
-                                  <Check className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
-                                  <span><span className="font-semibold text-gray-200">ROI Driven:</span> I focus on automating the friction so the team can focus on the frontier.</span>
-                              </li>
-                          </ul>
+                  <FadeIn>
+                      <h3 className="text-3xl font-bold text-white mb-8 text-center">Why Eldin?</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                        {signals.map((signal, index) => (
+                            <SignalCard key={index} {...signal} delay={0.2 + index * 0.1} />
+                        ))}
                       </div>
+                      <p className="text-center text-lg text-gray-400 max-w-3xl mx-auto italic">
+                        "Vision is cheap; execution is everything. If you are ready to build the next generation of agentic systems, let’s get to work."
+                      </p>
                   </FadeIn>
 
                   <FadeIn delay={0.6}>
@@ -299,7 +335,7 @@ export default function CVPage() {
                               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full md:w-auto">
                                   <button 
                                       onClick={handleCopy}
-                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
+                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
                                   >
                                     <AnimatePresence mode="wait" initial={false}>
                                         <motion.span
@@ -316,13 +352,13 @@ export default function CVPage() {
                                     </AnimatePresence>
                                   </button>
                                   <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
-                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
+                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
                                   >
                                       <MessageCircle className="h-4 w-4" />
                                       WhatsApp
                                   </a>
                                   <a href="tel:+38348420904"
-                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors"
+                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
                                   >
                                       <Phone className="h-4 w-4" />
                                       +383 48 420 904
