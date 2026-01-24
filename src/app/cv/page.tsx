@@ -4,14 +4,14 @@
 import { useState } from 'react';
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Workflow, Terminal, Check, Copy, MessageCircle, Phone, SearchCheck, Zap, Languages, Move } from "lucide-react";
+import { Github, Linkedin, Mail, Download, MapPin, Combine, BrainCircuit, Cpu, Server, Terminal } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../FadeIn";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { AnimatedRotatingText } from "../AnimatedRotatingText";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React from 'react';
+import { CommandBridge } from './CommandBridge';
 
 
 const TechBadge = ({ children }: { children: React.ReactNode }) => (
@@ -77,59 +77,8 @@ const ArsenalSection = ({ title, icon: Icon, items, baseDelay = 0 }: { title: st
     </div>
 );
 
-const signals = [
-    {
-        icon: SearchCheck,
-        headline: "Relentless Problem Solver",
-        sub: "I don't stop until the logic holds. Give me a challenge, I'll find the solve.",
-    },
-    {
-        icon: Zap,
-        headline: "High-Velocity Learner",
-        sub: "Mastering new frameworks in days, not months. Self-taught, mission-driven.",
-    },
-    {
-        icon: Languages,
-        headline: "Team Player",
-        sub: "Communicating across 4 languages. I bring the adaptability needed to thrive in diverse, fast-moving technical environments.",
-    },
-    {
-        icon: Move,
-        headline: "Technical Elasticity",
-        sub: "From background data ops to agentic AI. I adapt to the mission.",
-    },
-];
-
-const SignalCard = ({ icon: Icon, headline, sub, delay }: { icon: React.ElementType, headline: string, sub: string, delay: number }) => (
-    <FadeIn delay={delay}>
-        <motion.div
-            whileHover={{ y: -5, boxShadow: "0 0 15px rgba(59, 130, 246, 0.3)" }}
-            transition={{ duration: 0.2 }}
-            className="bg-zinc-900 border border-white/10 rounded-lg p-6 text-center flex flex-col items-center h-full"
-        >
-            <motion.div
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                className="mb-4 text-blue-400"
-            >
-                <Icon className="h-8 w-8" />
-            </motion.div>
-            <h4 className="font-semibold text-gray-200 mb-2 text-base">{headline}</h4>
-            <p className="text-sm text-gray-400 flex-grow">{sub}</p>
-        </motion.div>
-    </FadeIn>
-);
-
 
 export default function CVPage() {
-    const [copied, setCopied] = useState(false);
-
-    const handleCopy = () => {
-        navigator.clipboard.writeText('eldworkstudio.contact@gmail.com');
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
     const coreSystems = [
         {
             title: "Agentic Customer Assistant",
@@ -149,7 +98,7 @@ export default function CVPage() {
                 "Automated data scraping & cleaning.",
                 "Syncs pricing and SEO metadata.",
             ],
-            tech: ["Python", "n8n", "Cloud Functions"],
+tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
         }
     ];
     
@@ -313,65 +262,8 @@ export default function CVPage() {
               <div className="border-b border-white/5" />
 
               {/* Section 5: Command Center */}
-              <section id="command-center" className="flex flex-col gap-12 scroll-mt-32">
-                  <FadeIn>
-                      <h3 className="text-3xl font-bold text-white mb-8 text-center">Why Eldin?</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                        {signals.map((signal, index) => (
-                            <SignalCard key={index} {...signal} delay={0.2 + index * 0.1} />
-                        ))}
-                      </div>
-                      <p className="text-center text-lg text-gray-400 max-w-3xl mx-auto italic">
-                        "I’m looking for a mission. I’m ready to bring my relentless problem-solving to your team so we can push the boundaries of what’s possible and grow together."
-                      </p>
-                  </FadeIn>
+              <CommandBridge />
 
-                  <FadeIn delay={0.6}>
-                      <div className="p-8 bg-gray-900/50 border border-white/10 rounded-lg">
-                          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                              <div className="flex items-center gap-3 mb-4 md:mb-0">
-                                  <div className="relative flex h-3 w-3">
-                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                                  </div>
-                                  <p className="text-gray-300">Available for immediate technical deep-dive.</p>
-                              </div>
-                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full md:w-auto">
-                                  <button 
-                                      onClick={handleCopy}
-                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
-                                  >
-                                    <AnimatePresence mode="wait" initial={false}>
-                                        <motion.span
-                                            key={copied ? 'copied' : 'copy'}
-                                            initial={{ opacity: 0, y: -10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 10 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="flex items-center justify-center gap-2 w-24"
-                                        >
-                                            {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
-                                            {copied ? 'Copied!' : 'Email'}
-                                        </motion.span>
-                                    </AnimatePresence>
-                                  </button>
-                                  <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
-                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
-                                  >
-                                      <MessageCircle className="h-4 w-4" />
-                                      WhatsApp
-                                  </a>
-                                  <a href="tel:+38348420904"
-                                      className="flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-2 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
-                                  >
-                                      <Phone className="h-4 w-4" />
-                                      +383 48 420 904
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-                  </FadeIn>
-              </section>
             </div>
           </div>
         </div>

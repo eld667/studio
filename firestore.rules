@@ -16,8 +16,9 @@ service cloud.firestore {
 
     // Validation function - Ensures data integrity and correct fields
     function isValidLead(data) {
-      let requiredKeys = ['id', 'name', 'email', 'timestamp'];
-      let optionalKeys = ['serviceType', 'message'];
+      // subject is now a required field for the CV page form
+      let requiredKeys = ['id', 'name', 'email', 'subject', 'timestamp'];
+      let optionalKeys = ['message'];
       let allKeys = requiredKeys.concat(optionalKeys);
 
       return data.keys().hasAll(requiredKeys)
@@ -25,8 +26,9 @@ service cloud.firestore {
           && data.keys().hasOnly(allKeys) 
           
           // Data type and basic integrity checks
-          && data.name is string && data.name.size() > 2
+          && data.name is string && data.name.size() > 1
           && data.email is string && data.email.matches('.+@.+\\..+')
+          && data.subject is string && data.subject.size() > 1
           && data.timestamp is string
           && data.id is string
           && data.id.size() > 10;
