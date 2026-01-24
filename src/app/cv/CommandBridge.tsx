@@ -25,10 +25,11 @@ const formSchema = z.object({
 interface TerminalInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  hasValue?: boolean;
 }
 
 const TerminalInput = React.forwardRef<HTMLInputElement, TerminalInputProps>(
-  ({ label, id, error, ...props }, ref) => {
+  ({ label, id, error, hasValue, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     return (
       <div className="relative">
@@ -36,7 +37,7 @@ const TerminalInput = React.forwardRef<HTMLInputElement, TerminalInputProps>(
         <div className="flex items-center gap-2 mt-1">
           <span className={cn(
             "font-mono text-blue-400 transition-opacity",
-            isFocused ? 'opacity-100' : 'opacity-0'
+            isFocused || hasValue ? 'opacity-100' : 'opacity-0'
           )}>></span>
           <input
             ref={ref}
@@ -62,10 +63,11 @@ TerminalInput.displayName = 'TerminalInput';
 interface TerminalTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   error?: string;
+  hasValue?: boolean;
 }
 
 const TerminalTextarea = React.forwardRef<HTMLTextAreaElement, TerminalTextareaProps>(
-  ({ label, id, error, ...props }, ref) => {
+  ({ label, id, error, hasValue, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     return (
       <div className="relative">
@@ -73,7 +75,7 @@ const TerminalTextarea = React.forwardRef<HTMLTextAreaElement, TerminalTextareaP
         <div className="flex items-start gap-2 mt-1">
            <span className={cn(
             "font-mono text-blue-400 transition-opacity mt-2",
-            isFocused ? 'opacity-100' : 'opacity-0'
+            isFocused || hasValue ? 'opacity-100' : 'opacity-0'
           )}>></span>
           <textarea
             ref={ref}
@@ -97,7 +99,6 @@ TerminalTextarea.displayName = 'TerminalTextarea';
 
 
 export function CommandBridge() {
-  const [copied, setCopied] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const firestore = useFirestore();
   const { toast } = useToast();
@@ -109,11 +110,10 @@ export function CommandBridge() {
 
   const { formState: { isSubmitting, errors }, reset } = form;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText('eldworkstudio.contact@gmail.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const nameValue = form.watch("name");
+  const emailValue = form.watch("email");
+  const subjectValue = form.watch("subject");
+  const messageValue = form.watch("message");
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const leadId = uuidv4();
@@ -160,32 +160,20 @@ export function CommandBridge() {
                   <p className="font-mono text-green-400">Prizren Node: Active</p>
                 </div>
                 <div className="mt-8 flex-grow space-y-4">
-                   <button 
-                        onClick={handleCopy}
-                        className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
+                   <a href="mailto:eldworkstudio.contact@gmail.com"
+                        className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
-                      <AnimatePresence mode="wait" initial={false}>
-                          <motion.span
-                              key={copied ? 'copied' : 'copy'}
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 10 }}
-                              transition={{ duration: 0.2 }}
-                              className="flex items-center justify-center gap-2 w-full"
-                          >
-                              {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
-                              {copied ? 'Copied!' : 'eldworkstudio.contact@gmail.com'}
-                          </motion.span>
-                      </AnimatePresence>
-                    </button>
+                        <Mail className="h-4 w-4" />
+                        eldworkstudio.contact@gmail.com
+                    </a>
                     <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
+                        className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
                         <MessageCircle className="h-4 w-4" />
                         WhatsApp
                     </a>
                     <a href="tel:+38348420904"
-                        className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 hover:bg-blue-500/10 hover:border-blue-500/30 transition-colors whitespace-nowrap"
+                        className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
                         <Phone className="h-4 w-4" />
                         +383 48 420 904
@@ -227,6 +215,7 @@ export function CommandBridge() {
                         placeholder="e.g., John Doe"
                         {...form.register("name")}
                         error={errors.name?.message}
+                        hasValue={!!nameValue}
                       />
                       <TerminalInput
                         label="Return_Path"
@@ -235,6 +224,7 @@ export function CommandBridge() {
                         placeholder="e.g., user@domain.com"
                          {...form.register("email")}
                         error={errors.email?.message}
+                        hasValue={!!emailValue}
                       />
                       <TerminalInput
                         label="Briefing_Subject"
@@ -242,6 +232,7 @@ export function CommandBridge() {
                         placeholder="e.g., Project Inquiry"
                          {...form.register("subject")}
                         error={errors.subject?.message}
+                        hasValue={!!subjectValue}
                       />
                       <TerminalTextarea
                         label="Mission_Parameters"
@@ -249,6 +240,7 @@ export function CommandBridge() {
                         placeholder="Describe your project requirements..."
                          {...form.register("message")}
                         error={errors.message?.message}
+                        hasValue={!!messageValue}
                       />
                       <div className="pt-4">
                         <button
