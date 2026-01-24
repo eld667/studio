@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -116,6 +115,7 @@ TerminalTextarea.displayName = 'TerminalTextarea';
 
 export function CommandBridge() {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
   const firestore = useFirestore();
   const { toast } = useToast();
 
@@ -130,6 +130,20 @@ export function CommandBridge() {
   const emailValue = form.watch("email");
   const subjectValue = form.watch("subject");
   const messageValue = form.watch("message");
+  
+  const handleCopy = () => {
+    navigator.clipboard.writeText('eldworkstudio.contact@gmail.com').then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(err => {
+      console.error("Clipboard API error:", err);
+      toast({
+          variant: "destructive",
+          title: "Copy Failed",
+          description: "Could not copy email. This may be due to browser permissions.",
+      });
+    });
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const leadId = uuidv4();
@@ -176,12 +190,22 @@ export function CommandBridge() {
                   <p className="font-mono text-green-400">Prizren Node: Active</p>
                 </div>
                 <div className="mt-8 flex-grow space-y-4">
-                   <a href="mailto:eldworkstudio.contact@gmail.com"
+                   <button
+                        onClick={handleCopy}
                         className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
-                        <Mail className="h-4 w-4" />
-                        eldworkstudio.contact@gmail.com
-                    </a>
+                      {copied ? (
+                        <>
+                          <Check className="h-4 w-4 text-green-400" />
+                          <span className="text-green-400">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-4 w-4" />
+                          eldworkstudio.contact@gmail.com
+                        </>
+                      )}
+                    </button>
                     <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
