@@ -88,9 +88,9 @@ const TerminalTextarea = React.forwardRef<HTMLTextAreaElement, TerminalTextareaP
     return (
       <div className="relative">
         <label htmlFor={id} className="font-mono text-xs text-gray-400">{label}</label>
-        <div className="flex items-start gap-2 mt-1">
+        <div className="flex items-baseline gap-2 mt-1">
            <span className={cn(
-            "font-mono text-blue-400 transition-opacity mt-2",
+            "font-mono text-blue-400 transition-opacity",
             isFocused || hasValue ? 'opacity-100' : 'opacity-0'
           )}>></span>
           <textarea
@@ -293,5 +293,7 @@ export function CommandBridge() {
     </section>
   );
 }
+
+    
 
     
