@@ -111,7 +111,7 @@ tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
         { id: "mission", label: "Mission" },
         { id: "core-systems", label: "Core Systems" },
         { id: "technical-arsenal", label: "Technical Arsenal" },
-        { id: "command-center", label: "Command Center" },
+        { id: "command-bridge", label: "Command Bridge" },
     ];
 
     const handleHeaderScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {

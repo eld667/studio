@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -169,7 +170,7 @@ export function CommandBridge() {
   };
 
   return (
-    <section id="command-center" className="scroll-mt-32 w-full pb-16">
+    <section id="command-bridge" className="scroll-mt-32 w-full pb-16">
       <FadeIn>
         <h3 className="text-3xl font-bold text-white mb-12 text-center font-mono">[COMMAND_BRIDGE]</h3>
         
