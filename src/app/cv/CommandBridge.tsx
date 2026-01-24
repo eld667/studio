@@ -29,8 +29,16 @@ interface TerminalInputProps extends React.InputHTMLAttributes<HTMLInputElement>
 }
 
 const TerminalInput = React.forwardRef<HTMLInputElement, TerminalInputProps>(
-  ({ label, id, error, hasValue, ...props }, ref) => {
+  ({ label, id, error, hasValue, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+      if (onBlur) {
+        onBlur(e);
+      }
+    };
+
     return (
       <div className="relative">
         <label htmlFor={id} className="font-mono text-xs text-gray-400">{label}</label>
@@ -43,7 +51,7 @@ const TerminalInput = React.forwardRef<HTMLInputElement, TerminalInputProps>(
             ref={ref}
             id={id}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={handleBlur}
             className={cn(
               "w-full bg-transparent border-b font-mono text-gray-300 placeholder-gray-600 transition-colors duration-300 focus:outline-none",
               isFocused ? 'border-blue-500/50' : 'border-white/10',
@@ -67,8 +75,16 @@ interface TerminalTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAre
 }
 
 const TerminalTextarea = React.forwardRef<HTMLTextAreaElement, TerminalTextareaProps>(
-  ({ label, id, error, hasValue, ...props }, ref) => {
+  ({ label, id, error, hasValue, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
+    
+    const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+      setIsFocused(false);
+      if (onBlur) {
+        onBlur(e);
+      }
+    };
+
     return (
       <div className="relative">
         <label htmlFor={id} className="font-mono text-xs text-gray-400">{label}</label>
@@ -81,7 +97,7 @@ const TerminalTextarea = React.forwardRef<HTMLTextAreaElement, TerminalTextareaP
             ref={ref}
             id={id}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={handleBlur}
             className={cn(
               "w-full bg-transparent border-b font-mono text-gray-300 placeholder-gray-600 transition-colors duration-300 focus:outline-none min-h-[100px]",
               isFocused ? 'border-blue-500/50' : 'border-white/10',
@@ -277,3 +293,5 @@ export function CommandBridge() {
     </section>
   );
 }
+
+    
