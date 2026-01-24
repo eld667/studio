@@ -20,41 +20,64 @@ const TechBadge = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const ProjectBlade = ({ title, version, logic, tech }: { title: string, version: string, logic: string[], tech: string[] }) => (
+type BladeProps = {
+  title: string;
+  focus: string;
+  tech: string[];
+  logic: { label: string; formula?: string }[];
+  logs: string[];
+};
+
+const ProjectBlade = ({ title, focus, tech, logic, logs }: BladeProps) => (
     <FadeIn>
         <motion.div 
           className="bg-zinc-950 border border-white/10 rounded-lg p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60"
         >
             {/* Header */}
-            <div className="flex justify-between items-center">
-                <h4 className="text-base font-bold text-white">{title}</h4>
-                <span className="text-xs text-gray-500 font-mono">{version}</span>
+            <div className="flex justify-between items-start">
+                <div>
+                    <h4 className="text-lg font-bold text-white">{title}</h4>
+                    <p className="text-sm text-gray-400 font-mono mt-1">{focus}</p>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-mono text-green-400 mt-1 flex-shrink-0">
+                    <div className="relative flex h-2 w-2">
+                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </div>
+                    Status: Operational
+                </div>
             </div>
 
             {/* Tech Badges */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mt-4">
                 {tech.map((t, i) => <TechBadge key={i}>{t}</TechBadge>)}
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mt-2">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mt-4">
                 {/* Left: System Logic */}
                 <div className="md:col-span-2">
                     <h5 className="text-sm font-semibold text-gray-300 mb-3 font-mono">// System Logic</h5>
-                    <ul className="space-y-2 text-gray-400 text-sm list-disc list-inside">
-                        {logic.map((point, i) => <li key={i}>{point}</li>)}
+                    <ul className="space-y-3 text-gray-400 text-sm">
+                        {logic.map((point, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                                <span className="text-blue-400 font-mono mt-0.5">&gt;</span>
+                                <span className="flex-1">
+                                    {point.label}
+                                    {point.formula && <code className="block mt-1 text-xs bg-black/30 text-emerald-300 p-1.5 rounded-sm">{point.formula}</code>}
+                                </span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
-                {/* Right: Demo Placeholder */}
-                <div className="md:col-span-3 bg-zinc-900 rounded-md flex flex-col items-center justify-center p-8 border border-dashed border-white/10 min-h-[150px]">
-                    <Terminal className="h-8 w-8 text-gray-600 mb-2"/>
-                    <p className="text-sm text-gray-600 font-mono">[INTERACTIVE_DEMO_RESERVED]</p>
+                {/* Right: System Monitor */}
+                <div className="md:col-span-3 bg-zinc-900 rounded-md p-4 border border-white/10 relative overflow-hidden font-mono text-xs min-h-[190px]">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:100%_4px] pointer-events-none" />
+                    <p className="text-gray-500 mb-2">//_SYSTEM_MONITOR_</p>
+                    <div className="text-gray-400 space-y-1">
+                        {logs.map((log, i) => <p key={i} className="whitespace-pre-wrap">{log}</p>)}
+                    </div>
                 </div>
-            </div>
-
-            {/* Footer/Action */}
-            <div className="mt-2 border-t border-white/5 pt-3">
-                <a href="#" className="text-xs text-blue-400 font-mono hover:underline">// View_System_Architecture.exe</a>
             </div>
         </motion.div>
     </FadeIn>
@@ -79,28 +102,44 @@ const ArsenalSection = ({ title, icon: Icon, items, baseDelay = 0 }: { title: st
 
 
 export default function CVPage() {
-    const coreSystems = [
-        {
-            title: "Agentic Customer Assistant",
-            version: "v1.1.0",
-            logic: [
-                "Handles complex product intent.",
-                "Moves beyond keywords to reasoning.",
-                "Integrates with inventory APIs.",
-            ],
-            tech: ["Voiceflow", "LLM Logic", "API Integration"],
-        },
-        {
-            title: "E-commerce Automation Engine",
-            version: "v2.0.1",
-            logic: [
-                "Manages thousands of SKUs.",
-                "Automated data scraping & cleaning.",
-                "Syncs pricing and SEO metadata.",
-            ],
-tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
-        }
-    ];
+    const agenticSuite: BladeProps[] = [
+    {
+      title: "ScentMatch™",
+      focus: "Heuristic Intelligence & Inventory Orchestration",
+      tech: ["Voiceflow", "Node.js", "Airtable API", "Heuristic Algorithms"],
+      logic: [
+        { label: "Normalized Relevance Algorithm", formula: "Score = (Matches / TotalNotes) * 10" },
+        { label: "Logarithmic Inventory Biasing", formula: "Math.log(stock_level + 1) * 2" },
+      ],
+      logs: [
+        "[INFO]   Initiating ScentMatch v1.2...",
+        "[API]    Fetching inventory from Airtable...",
+        "[OK]     2,348 SKUs retrieved.",
+        "[HEURISTIC] Applying inventory bias to 'citrus' notes...",
+        "[CALC]   Score for 'Dior Sauvage': 8.7",
+        "[CALC]   Score for 'Bleu de Chanel': 7.9",
+        "[RESPONSE] Top match identified. Streaming results.",
+      ]
+    },
+    {
+      title: "ScentQuery",
+      focus: "Neural Knowledge Retrieval",
+      tech: ["RAG", "Vector DB", "Prompt Chaining"],
+      logic: [
+        { label: "Hallucination Firewall", formula: "Confidence threshold > 0.75" },
+        { label: "Query Optimization Layer" },
+      ],
+      logs: [
+        "[INFO]   ScentQuery engine online.",
+        "[QUERY]  User: 'what's a good winter fragrance?'",
+        "[VECTOR] Performing similarity search...",
+        "[OK]     Top 5 vectors retrieved: [0.92, 0.89, ...]",
+        "[SYNTH]  Synthesizing response with LLM...",
+        "[VALIDATE] Confidence: 0.96. Firewall bypassed.",
+        "[RESPONSE] Suggesting 'Tom Ford Tobacco Vanille'...",
+      ]
+    }
+  ];
     
     const orchestrationItems = ['Voiceflow', 'n8n', 'Make'];
     const aiItems = ['Gemini API', 'OpenAI', 'Claude'];
@@ -109,7 +148,7 @@ tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
     
     const navItems = [
         { id: "mission", label: "Mission" },
-        { id: "core-systems", label: "Core Systems" },
+        { id: "core-systems", label: "Agentic Suite" },
         { id: "technical-arsenal", label: "Technical Arsenal" },
         { id: "command-bridge", label: "Command Bridge" },
     ];
@@ -229,18 +268,21 @@ tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
 
               <div className="border-b border-white/5" />
 
-              {/* Section 3: Core Systems */}
+              {/* Section 3: Agentic Suite */}
               <section id="core-systems" className="flex flex-col gap-8 scroll-mt-32">
                 <FadeIn>
-                  <h3 className="text-xl font-bold text-gray-100 font-mono">[SECTION: CORE_SYSTEMS]</h3>
+                  <h3 className="text-xl font-bold text-gray-100 font-mono">[SECTION: AGENTIC_SUITE]</h3>
                 </FadeIn>
-                <div className="flex flex-col gap-6">
-                    {coreSystems.map((p, i) => (
-                       <React.Fragment key={i}>
-                          <ProjectBlade {...p} />
-                          {i < coreSystems.length - 1 && <div className="my-6 border-b border-white/5" />}
-                       </React.Fragment>
+                <div className="flex flex-col gap-8">
+                    {agenticSuite.map((p, i) => (
+                       <ProjectBlade key={i} {...p} />
                     ))}
+                </div>
+                 <div className="mt-8 border-t border-white/10 pt-8 text-center">
+                    <h4 className="font-mono text-sm text-gray-500 mb-2">// SECONDARY_SYSTEM_CAPABILITIES</h4>
+                    <p className="font-mono text-xs text-gray-400">
+                        Lead Gen Capture v1.0 | Multilingual Routing
+                    </p>
                 </div>
               </section>
 
@@ -261,7 +303,7 @@ tech: ["Python (Scraping)", "n8n", "Cloud Functions", "Data Transformation"],
 
               <div className="border-b border-white/5" />
 
-              {/* Section 5: Command Center */}
+              {/* Section 5: Command Bridge */}
               <CommandBridge />
 
             </div>
