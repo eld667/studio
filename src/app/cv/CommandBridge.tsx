@@ -147,16 +147,9 @@ export function CommandBridge() {
 
           {/* LEFT: System Status */}
           <div className="lg:col-span-2">
-            <motion.div 
-              whileHover="hover"
-              className="relative bg-zinc-900/50 border border-white/10 rounded-lg p-6 h-full"
+            <div 
+              className="relative bg-zinc-900/50 border border-white/10 rounded-lg p-6 h-full transition-colors duration-300 hover:border-blue-500/30"
             >
-              <motion.div 
-                variants={{ hover: { opacity: 1 } }}
-                initial={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="absolute -inset-px rounded-lg bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 opacity-0"
-              />
               <div className="relative flex flex-col h-full">
                 <p className="font-mono text-sm text-gray-400">// PROTOCOL: INITIAL_CONTACT</p>
                 <div className="flex items-center gap-2 mt-4">
@@ -199,7 +192,7 @@ export function CommandBridge() {
                     </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* RIGHT: Mission Briefing */}
