@@ -13,7 +13,10 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { CommandBridge } from './CommandBridge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useReducedMotion, getStaggerContainer, getEntranceVariants, duration as motionDuration, ease, stagger as motionStagger } from './motion';
+import { useActiveSection } from '@/hooks/use-active-section';
 
 
 const TechBadge = ({ children, className }: { children: React.ReactNode, className?: string }) => (
@@ -30,34 +33,54 @@ type SystemBladeProps = {
   logic: { label: string; formula?: string }[];
   logs: string[];
   deploymentUrl: string;
+  entranceDelay?: number;
 };
 
-const ProjectSystem = ({ title, focus, tech, logic, logs, deploymentUrl }: SystemBladeProps) => {
-    const [displayedLogs, setDisplayedLogs] = useState<string[]>([]);
+const CHAR_DELAY_MS = 28;
+const CURSOR_PAUSE_MS = 400;
+const CYCLE_PAUSE_MS = 1500;
+
+const ProjectSystem = ({ title, focus, tech, logic, logs, deploymentUrl, entranceDelay = 0 }: SystemBladeProps) => {
+    const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+    const [lineIndex, setLineIndex] = useState(0);
+    const [charIndex, setCharIndex] = useState(0);
+    const [tabValue, setTabValue] = useState('logs');
     const terminalRef = useRef<HTMLDivElement>(null);
+    const pendingAdvanceRef = useRef(false);
 
+    // Typewriter: advance character by character
     useEffect(() => {
-        const interval = setInterval(() => {
-            setDisplayedLogs(prev => {
-                if (prev.length >= logs.length) {
-                   // Cycle back to the beginning
-                   return [logs[0]];
+        if (logs.length === 0) return;
+        const line = logs[lineIndex];
+        if (charIndex < line.length) {
+            const t = setTimeout(() => setCharIndex((c) => c + 1), CHAR_DELAY_MS);
+            return () => clearTimeout(t);
+        }
+        // End of line: add to displayed, then next line or cycle (once per line)
+        if (charIndex === line.length && !pendingAdvanceRef.current) {
+            pendingAdvanceRef.current = true;
+            setDisplayedLines((prev) => [...prev, line]);
+            const isLastLine = lineIndex === logs.length - 1;
+            const t = setTimeout(() => {
+                setLineIndex(isLastLine ? 0 : lineIndex + 1);
+                setCharIndex(0);
+                pendingAdvanceRef.current = false;
+                if (isLastLine) {
+                    setTimeout(() => setDisplayedLines([]), CYCLE_PAUSE_MS);
                 }
-                return [...prev, logs[prev.length]];
-            });
-        }, 1500);
-
-        return () => clearInterval(interval);
-    }, [logs]);
+            }, CURSOR_PAUSE_MS);
+            return () => clearTimeout(t);
+        }
+    }, [logs, lineIndex, charIndex]);
 
     useEffect(() => {
         if (terminalRef.current) {
             terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
         }
-    }, [displayedLogs]);
+    }, [displayedLines, lineIndex, charIndex, logs]);
     
   return (
-    <FadeIn>
+    <FadeIn delay={entranceDelay}>
       <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 relative overflow-hidden transition-all duration-300 ease-in-out hover:border-blue-500/30 hover:-translate-y-0.5">
           {/* Scanline Overlay */}
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:100%_3px] pointer-events-none opacity-50" />
@@ -117,24 +140,61 @@ const ProjectSystem = ({ title, focus, tech, logic, logs, deploymentUrl }: Syste
 
               {/* Cols 5-12: The Evidence (Command Center) */}
               <div className="lg:col-span-8 bg-black/30 border border-white/10 rounded-lg p-1 backdrop-blur-sm">
-                  <Tabs defaultValue="logs" className="w-full h-full flex flex-col">
+                  <Tabs value={tabValue} onValueChange={setTabValue} className="w-full h-full flex flex-col">
                       <TabsList className="grid w-full grid-cols-3 bg-transparent p-0 h-8">
                           <TabsTrigger value="blueprint" className="text-xs font-mono rounded-t-md rounded-b-none data-[state=active]:bg-zinc-800">[01_LOGIC_BLUEPRINT]</TabsTrigger>
                           <TabsTrigger value="interface" className="text-xs font-mono rounded-t-md rounded-b-none data-[state=active]:bg-zinc-800">[02_LIVE_INTERFACE]</TabsTrigger>
                           <TabsTrigger value="logs" className="text-xs font-mono rounded-t-md rounded-b-none data-[state=active]:bg-zinc-800">[03_SYSTEM_LOGS]</TabsTrigger>
                       </TabsList>
-                      <div className="flex-grow bg-zinc-800 rounded-b-md p-4 min-h-[300px]">
-                          <TabsContent value="blueprint" className="m-0 h-full flex items-center justify-center text-gray-500 font-mono text-sm">
-                            Architecture Map Placeholder (e.g., Voiceflow export image)
-                          </TabsContent>
-                          <TabsContent value="interface" className="m-0 h-full flex items-center justify-center text-gray-500 font-mono text-sm">
-                            Production UI Screenshot Placeholder
-                          </TabsContent>
-                          <TabsContent value="logs" className="m-0 h-full">
-                              <div ref={terminalRef} className="h-full max-h-[300px] overflow-y-auto font-mono text-xs text-gray-400 space-y-1 pr-2">
-                                  {displayedLogs.map((log, i) => <p key={i} className="whitespace-pre-wrap">{log}</p>)}
-                              </div>
-                          </TabsContent>
+                      <div className="flex-grow bg-zinc-800 rounded-b-md p-4 min-h-[300px] relative overflow-hidden">
+                          <AnimatePresence mode="wait">
+                              {tabValue === 'blueprint' && (
+                                  <motion.div
+                                    key="blueprint"
+                                    initial={{ opacity: 0, x: -4 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 4 }}
+                                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                                    className="m-0 absolute inset-4 flex items-center justify-center text-gray-500 font-mono text-sm"
+                                  >
+                                    Architecture Map Placeholder (e.g., Voiceflow export image)
+                                  </motion.div>
+                              )}
+                              {tabValue === 'interface' && (
+                                  <motion.div
+                                    key="interface"
+                                    initial={{ opacity: 0, x: -4 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 4 }}
+                                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                                    className="m-0 absolute inset-4 flex items-center justify-center text-gray-500 font-mono text-sm"
+                                  >
+                                    Production UI Screenshot Placeholder
+                                  </motion.div>
+                              )}
+                              {tabValue === 'logs' && (
+                                  <motion.div
+                                    key="logs"
+                                    initial={{ opacity: 0, x: -4 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 4 }}
+                                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                                    className="m-0 absolute inset-4 h-full"
+                                  >
+                                      <div ref={terminalRef} className="h-full max-h-[300px] overflow-y-auto font-mono text-xs text-gray-400 space-y-1 pr-2">
+                                          {displayedLines.map((log, i) => (
+                                              <p key={i} className="whitespace-pre-wrap">{log}</p>
+                                          ))}
+                                          {logs[lineIndex] && (
+                                              <p className="whitespace-pre-wrap">
+                                                  {logs[lineIndex].slice(0, charIndex)}
+                                                  <span className="inline-block w-2 h-3 ml-0.5 bg-green-400/90 animate-pulse" aria-hidden />
+                                              </p>
+                                          )}
+                                      </div>
+                                  </motion.div>
+                              )}
+                          </AnimatePresence>
                       </div>
                   </Tabs>
               </div>
@@ -221,6 +281,9 @@ export default function CVPage() {
         { id: "command-bridge", label: "Command Bridge" },
     ];
 
+    const reducedMotion = useReducedMotion();
+    const activeSection = useActiveSection(navItems.map((n) => n.id));
+
     const handleHeaderScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
         e.preventDefault();
         window.location.href = `/#${id}`;
@@ -237,15 +300,6 @@ export default function CVPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-950 text-gray-300 font-body">
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-      `}</style>
       <Header onScroll={handleHeaderScroll} />
       <main className="flex-grow">
         <div className="w-full max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-x-16">
@@ -257,7 +311,17 @@ export default function CVPage() {
                   <h3 className="font-mono text-sm uppercase text-gray-500 mb-4">Index</h3>
                   <nav className="flex flex-wrap gap-x-4 gap-y-2">
                       {navItems.map((item) => (
-                          <a key={item.id} href={`#${item.id}`} onClick={(e) => handleLocalScroll(e, item.id)} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+                          <a
+                            key={item.id}
+                            href={`#${item.id}`}
+                            onClick={(e) => handleLocalScroll(e, item.id)}
+                            className={cn(
+                              "text-sm font-medium transition-colors",
+                              activeSection === item.id
+                                ? "text-white bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                                : "text-gray-400 hover:text-white"
+                            )}
+                          >
                               {item.label}
                           </a>
                       ))}
@@ -266,9 +330,36 @@ export default function CVPage() {
               {/* Desktop Vertical Nav */}
               <nav className="hidden lg:flex flex-col gap-4 pt-16">
                   {navItems.map((item, index) => (
-                      <a key={item.id} href={`#${item.id}`} onClick={(e) => handleLocalScroll(e, item.id)} className="group flex items-center py-2 text-gray-400 hover:text-white transition-colors">
-                          <span className="font-mono text-xs text-gray-500 mr-4 group-hover:text-white transition-colors">[{String(index + 1).padStart(2, '0')}]</span>
-                          <span className="font-semibold">{item.label}</span>
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        onClick={(e) => handleLocalScroll(e, item.id)}
+                        className={cn(
+                          "group relative flex items-center py-2 pl-2 -ml-2 transition-colors",
+                          activeSection === item.id
+                            ? "text-white"
+                            : "text-gray-400 hover:text-white"
+                        )}
+                      >
+                          {activeSection === item.id && (
+                            <motion.div
+                              layoutId="cv-sidebar-indicator"
+                              className="absolute left-0 top-0 bottom-0 w-0.5 rounded-full bg-gradient-to-b from-purple-400 via-blue-500 to-emerald-400"
+                              transition={{ ease: ease.hover, duration: reducedMotion ? 0 : motionDuration.fast }}
+                            />
+                          )}
+                          <span className={cn(
+                            "font-mono text-xs mr-4 transition-colors",
+                            activeSection === item.id ? "text-white" : "text-gray-500 group-hover:text-white"
+                          )}>
+                            [{String(index + 1).padStart(2, '0')}]
+                          </span>
+                          <span className={cn(
+                            "font-semibold",
+                            activeSection === item.id && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                          )}>
+                            {item.label}
+                          </span>
                       </a>
                   ))}
               </nav>
@@ -280,62 +371,96 @@ export default function CVPage() {
 
               {/* Section 1: Hero */}
               <section>
-                <FadeIn>
-                  <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
-                    <div className="flex-shrink-0">
-                        <Image 
-                          src="https://picsum.photos/seed/profile/200/200" 
-                          alt="Profile Headshot"
-                          width={150}
-                          height={150}
-                          className="rounded-full border-4 border-white/10 shadow-lg"
-                          data-ai-hint="profile person"
-                        />
-                    </div>
-                    <div className="flex-grow flex flex-col items-center md:items-start text-center md:text-left">
-                      <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent">
-                        Eldin Basani
-                      </h1>
+                <motion.div
+                  className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12"
+                  variants={getStaggerContainer(reducedMotion, 0.1)}
+                  initial="hidden"
+                  animate="show"
+                  transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                >
+                  <motion.div
+                    className="flex-shrink-0"
+                    variants={{
+                      hidden: { opacity: reducedMotion ? 1 : 0, scale: reducedMotion ? 1 : 0.98 },
+                      show: { opacity: 1, scale: 1 },
+                    }}
+                    transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                  >
+                    <Image
+                      src="https://picsum.photos/seed/profile/200/200"
+                      alt="Profile Headshot"
+                      width={150}
+                      height={150}
+                      className="rounded-full border-4 border-white/10 shadow-lg"
+                      data-ai-hint="profile person"
+                    />
+                  </motion.div>
+                  <div className="flex-grow flex flex-col items-center md:items-start text-center md:text-left">
+                    <motion.h1
+                      className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                      variants={getEntranceVariants(reducedMotion)}
+                      transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                    >
+                      Eldin Basani
+                    </motion.h1>
+                    <motion.div
+                      variants={getEntranceVariants(reducedMotion)}
+                      transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                    >
                       <AnimatedRotatingText />
-                      <div className="flex items-center gap-4 mt-4">
-                        <Link href="https://github.com/EldinB" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Github /></Link>
-                        <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Linkedin /></Link>
-                        <Link href="mailto:eldworkstudio.contact@gmail.com" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Mail /></Link>
+                    </motion.div>
+                    <motion.div
+                      className="flex items-center gap-4 mt-4"
+                      variants={getEntranceVariants(reducedMotion)}
+                      transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                    >
+                      <Link href="https://github.com/EldinB" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Github /></Link>
+                      <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Linkedin /></Link>
+                      <Link href="mailto:eldworkstudio.contact@gmail.com" className="text-gray-400 hover:text-white transition-all transform hover:scale-110 hover:drop-shadow-[0_0_5px_hsl(var(--primary))]"><Mail /></Link>
+                    </motion.div>
+                    <motion.div
+                      className="flex items-center gap-6 mt-3 text-sm text-gray-400"
+                      variants={getEntranceVariants(reducedMotion)}
+                      transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4" />
+                        Prizren, Kosovo
                       </div>
-                      <div className="flex items-center gap-6 mt-3 text-sm text-gray-400">
-                          <div className="flex items-center gap-2">
-                              <MapPin className="h-4 w-4" />
-                              Prizren, Kosovo
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className="relative flex h-3 w-3">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                            </div>
-                              Building <Link href="https://github.com/EldinB" target="_blank" className="font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent hover:brightness-125 transition">@EldWorkStudio</Link>
-                          </div>
+                      <div className="flex items-center gap-2">
+                        <div className="relative flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </div>
+                        Building <Link href="https://github.com/EldinB" target="_blank" className="font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent hover:brightness-125 transition">@EldWorkStudio</Link>
                       </div>
-                    </div>
-                    <div className="flex-shrink-0">
-                      <Button
-                          size="lg"
-                          className="font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-                        >
-                          <Download className="mr-2 h-5 w-5" />
-                          Download PDF CV
-                        </Button>
-                    </div>
+                    </motion.div>
                   </div>
-                </FadeIn>
+                  <motion.div
+                    className="flex-shrink-0"
+                    variants={getEntranceVariants(reducedMotion)}
+                    transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                  >
+                    <Button
+                      size="lg"
+                      className="font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+                    >
+                      <Download className="mr-2 h-5 w-5" />
+                      Download PDF CV
+                    </Button>
+                  </motion.div>
+                </motion.div>
               </section>
 
               <div className="border-b border-white/5" />
 
               {/* Section 2: Mission */}
               <section id="mission" className="scroll-mt-32">
-                <FadeIn delay={0.2}>
-                  <motion.div 
-                    className="bg-gray-900/40 border border-white/10 rounded-lg p-8 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-blue-500/30 hover:bg-gray-900/60"
+                <FadeIn delay={0.15}>
+                  <motion.div
+                    className="bg-gray-900/40 border border-white/10 rounded-lg p-8 transition-all duration-300 ease-in-out hover:border-blue-500/30 hover:bg-gray-900/60"
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ ease: ease.hover, duration: motionDuration.fast }}
                   >
                     <h2 className="text-2xl font-bold text-gray-100 mb-4 font-mono">SYSTEMS MISSION</h2>
                     <p className="text-gray-400 leading-relaxed max-w-3xl">Pragmatic builder with a focus on high-efficiency automation. I have spent my career at the intersection of E-commerce and Data—moving from manual data management to building automated scraping pipelines and agentic chatbots. I don't just prompt; I build the systems that make AI useful for real-world business needs.</p>
@@ -352,7 +477,7 @@ export default function CVPage() {
                   </FadeIn>
                   <div className="flex flex-col gap-8">
                       {projectSystems.map((p, i) => (
-                         <ProjectSystem key={i} {...p} />
+                         <ProjectSystem key={i} {...p} entranceDelay={i * 0.06} />
                       ))}
                   </div>
                   <div className="mt-8 border-t border-white/10 pt-8">
@@ -382,13 +507,33 @@ export default function CVPage() {
               {/* Section 4: Technical Arsenal */}
               <section id="technical-arsenal" className="scroll-mt-32">
                 <FadeIn>
-                  <div className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6">
-                    <h3 className="text-lg font-semibold text-gray-100 font-mono">TECHNICAL ARSENAL</h3>
-                    <ArsenalSection title="Orchestration" icon={Combine} items={orchestrationItems} baseDelay={0} />
-                    <ArsenalSection title="AI & Models" icon={BrainCircuit} items={aiItems} baseDelay={orchestrationItems.length * 0.05} />
-                    <ArsenalSection title="Core Stack" icon={Cpu} items={coreItems} baseDelay={(orchestrationItems.length + aiItems.length) * 0.05} />
-                    <ArsenalSection title="Operations" icon={Server} items={opsItems} baseDelay={(orchestrationItems.length + aiItems.length + coreItems.length) * 0.05}/>
-                  </div>
+                  <motion.div
+                    className="bg-zinc-950 border border-white/10 rounded-lg p-6 space-y-6"
+                    variants={getStaggerContainer(reducedMotion, motionStagger.children)}
+                    initial="hidden"
+                    animate="show"
+                    transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                  >
+                    <motion.h3
+                      className="text-lg font-semibold text-gray-100 font-mono"
+                      variants={getEntranceVariants(reducedMotion)}
+                      transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}
+                    >
+                      TECHNICAL ARSENAL
+                    </motion.h3>
+                    <motion.div variants={getEntranceVariants(reducedMotion)} transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}>
+                      <ArsenalSection title="Orchestration" icon={Combine} items={orchestrationItems} baseDelay={0} />
+                    </motion.div>
+                    <motion.div variants={getEntranceVariants(reducedMotion)} transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}>
+                      <ArsenalSection title="AI & Models" icon={BrainCircuit} items={aiItems} baseDelay={orchestrationItems.length * 0.05} />
+                    </motion.div>
+                    <motion.div variants={getEntranceVariants(reducedMotion)} transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}>
+                      <ArsenalSection title="Core Stack" icon={Cpu} items={coreItems} baseDelay={(orchestrationItems.length + aiItems.length) * 0.05} />
+                    </motion.div>
+                    <motion.div variants={getEntranceVariants(reducedMotion)} transition={{ ease: ease.entrance, duration: reducedMotion ? 0 : motionDuration.normal }}>
+                      <ArsenalSection title="Operations" icon={Server} items={opsItems} baseDelay={(orchestrationItems.length + aiItems.length + coreItems.length) * 0.05}/>
+                    </motion.div>
+                  </motion.div>
                 </FadeIn>
               </section>
 

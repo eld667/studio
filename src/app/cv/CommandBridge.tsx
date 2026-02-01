@@ -3,9 +3,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Copy, Check, MessageCircle, Phone, Send } from 'lucide-react';
+import { Copy, Check, MessageCircle, Phone, Send } from 'lucide-react';
 import { FadeIn } from '../FadeIn';
 import { cn } from '@/lib/utils';
+import { duration, ease } from './motion';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -191,13 +192,19 @@ export function CommandBridge() {
                   <p className="font-mono text-green-400">Prizren Node: Active</p>
                 </div>
                 <div className="mt-8 flex-grow space-y-4">
-                   <button
+                   <motion.button
+                        type="button"
                         onClick={handleCopy}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ ease: ease.hover, duration: duration.fast }}
                         className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
                       {copied ? (
                         <>
-                          <Check className="h-4 w-4 text-green-400" />
+                          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 400, damping: 15 }}>
+                            <Check className="h-4 w-4 text-green-400" />
+                          </motion.span>
                           <span className="text-green-400">Copied!</span>
                         </>
                       ) : (
@@ -206,19 +213,29 @@ export function CommandBridge() {
                           eldworkstudio.contact@gmail.com
                         </>
                       )}
-                    </button>
-                    <a href="https://wa.me/38348420904" target="_blank" rel="noopener noreferrer"
+                    </motion.button>
+                    <motion.a
+                        href="https://wa.me/38348420904"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ ease: ease.hover, duration: duration.fast }}
                         className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
                         <MessageCircle className="h-4 w-4" />
                         WhatsApp
-                    </a>
-                    <a href="tel:+38348420904"
+                    </motion.a>
+                    <motion.a
+                        href="tel:+38348420904"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ ease: ease.hover, duration: duration.fast }}
                         className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-gray-300 bg-gray-800/50 border border-white/20 rounded-md px-4 py-3 transition-colors whitespace-nowrap hover:bg-gradient-to-r hover:from-purple-400/10 hover:via-blue-500/10 hover:to-emerald-400/10 hover:border-blue-500/30"
                     >
                         <Phone className="h-4 w-4" />
                         +383 48 420 904
-                    </a>
+                    </motion.a>
                 </div>
               </div>
             </div>
@@ -232,21 +249,41 @@ export function CommandBridge() {
                   {isSuccess ? (
                     <motion.div
                       key="success"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0 }}
-                      className="min-h-[350px] flex flex-col justify-center font-mono text-green-400"
+                      transition={{ ease: ease.entrance, duration: duration.normal }}
+                      className="min-h-[350px] flex flex-col justify-center font-mono text-green-400 space-y-2"
                     >
-                      <p><span className="text-green-400">[OK]</span> TRANSMISSION_RECEIVED.</p>
-                      <p>ANALYZING_PARAMETERS...</p>
-                      <p>EXPECT_DECODED_RESPONSE_IN_12H.</p>
+                      <motion.p
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1, ease: ease.entrance, duration: duration.fast }}
+                      >
+                        <span className="text-green-400">[OK]</span> TRANSMISSION_RECEIVED.
+                      </motion.p>
+                      <motion.p
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.18, ease: ease.entrance, duration: duration.fast }}
+                      >
+                        ANALYZING_PARAMETERS...
+                      </motion.p>
+                      <motion.p
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.26, ease: ease.entrance, duration: duration.fast }}
+                      >
+                        EXPECT_DECODED_RESPONSE_IN_12H.
+                      </motion.p>
                     </motion.div>
                   ) : (
                     <motion.form
                       key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                      initial={{ opacity: 0, y: 0 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ ease: ease.entrance, duration: duration.normal }}
                       onSubmit={form.handleSubmit(onSubmit)} 
                       className="space-y-6"
                     >
@@ -284,9 +321,12 @@ export function CommandBridge() {
                         hasValue={!!messageValue}
                       />
                       <div className="pt-4">
-                        <button
+                        <motion.button
                           type="submit"
                           disabled={isSubmitting}
+                          whileHover={isSubmitting ? undefined : { scale: 1.02 }}
+                          whileTap={isSubmitting ? undefined : { scale: 0.98 }}
+                          transition={{ ease: ease.hover, duration: duration.fast }}
                           className="relative w-full flex items-center justify-center font-semibold text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 h-12 rounded-md overflow-hidden transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed group"
                         >
                           {isSubmitting ? (
@@ -300,12 +340,12 @@ export function CommandBridge() {
                               <span className="relative z-10 font-mono">DEPLOYING...</span>
                             </>
                           ) : (
-                            <span className="font-mono flex items-center gap-2 group-hover:scale-105 transition-transform">
+                            <span className="font-mono flex items-center gap-2">
                               <Send className="w-4 h-4" />
                               DEPLOY TRANSMISSION
                             </span>
                           )}
-                        </button>
+                        </motion.button>
                       </div>
                     </motion.form>
                   )}
