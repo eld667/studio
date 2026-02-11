@@ -25,9 +25,10 @@ export function Header({ onScroll }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const isCvPage = pathname === '/cv';
+  const isPortfolioPage = pathname === '/portfolio';
 
   // Only run useActiveSection on the homepage
-  const activeSection = isCvPage ? null : useActiveSection(navLinks.map(l => l.id).concat('contact'));
+  const activeSection = (isCvPage || isPortfolioPage) ? null : useActiveSection(navLinks.map(l => l.id).concat('contact'));
 
   const handleLinkClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => {
     onScroll(e, id);
@@ -36,7 +37,7 @@ export function Header({ onScroll }: HeaderProps) {
   
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (isCvPage) {
+    if (isCvPage || isPortfolioPage) {
       window.location.href = '/';
       return;
     }
@@ -48,7 +49,7 @@ export function Header({ onScroll }: HeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8">
           <Link href="/" onClick={handleLogoClick} className="flex items-center space-x-2 flex-shrink-0">
             <Image
@@ -74,6 +75,15 @@ export function Header({ onScroll }: HeaderProps) {
               {link.label}
             </a>
             ))}
+             <Link
+                href="/portfolio"
+                className={cn(
+                  "text-gray-400 hover:text-white transition-all duration-300 text-sm",
+                  isPortfolioPage && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                )}
+              >
+              Portfolio
+            </Link>
              <Link
                 href="/cv"
                 className={cn(
@@ -152,6 +162,16 @@ export function Header({ onScroll }: HeaderProps) {
                     {link.label}
                   </a>
                 ))}
+                <Link
+                  href="/portfolio"
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                      "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
+                      isPortfolioPage && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                    )}
+                >
+                  Portfolio
+                </Link>
                 <Link
                   href="/cv"
                   onClick={() => setIsOpen(false)}

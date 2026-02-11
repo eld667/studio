@@ -1,0 +1,79 @@
+
+[
+  {
+    "id": "horizon",
+    "title": "Horizon Architecture",
+    "niche": "Real Estate & Design",
+    "category": "Luxury Showcases",
+    "logic": "Brand Authority",
+    "challenge": "A high-end firm was losing prestige with a clunky, slow WordPress site that failed to showcase 4K architectural photography.",
+    "solution": "Migrated to Next.js with localized edge delivery. Implemented 4K optimized image pipelines and a 'Virtual Tour' request system. Rejected standard builders to ensure absolute pixel perfection.",
+    "metrics": {
+      "loadTime": "0.6s",
+      "performance": 100,
+      "seo": 100,
+      "accessibility": 100
+    },
+    "techStack": ["Next.js", "Framer Motion", "Cloudinary", "Radix UI"],
+    "image": "https://picsum.photos/seed/horizon-p/1200/800",
+    "liveLink": "/demos/horizon",
+    "aiLayer": "Automated image categorization and focal point detection using custom Vision API pipelines."
+  },
+  {
+    "id": "apex",
+    "title": "Apex Plumbing",
+    "niche": "Local Service",
+    "category": "Lead Machines",
+    "logic": "Lead Generation",
+    "challenge": "The client had zero mobile visibility and a 'contact us' form that was buried, resulting in high bounce rates and lost revenue.",
+    "solution": "Built a mobile-first lead funnel with one-tap calling and automated service area mapping. Integrated direct lead-to-SMS routing via Firebase Cloud Functions.",
+    "metrics": {
+      "loadTime": "0.8s",
+      "performance": 99,
+      "seo": 100,
+      "accessibility": 98
+    },
+    "techStack": ["Next.js", "Firebase", "Tailwind CSS", "Twilio"],
+    "image": "https://picsum.photos/seed/apex-p/1200/800",
+    "liveLink": "/demos/apex-plumbing",
+    "aiLayer": "Intelligent lead-routing engine that analyzes urgency and geographic proximity to dispatch technicians."
+  },
+  {
+    "id": "scentsuite",
+    "title": "ScentSuite AI",
+    "niche": "E-commerce",
+    "category": "System Automations",
+    "logic": "Automation",
+    "challenge": "Users were overwhelmed by thousands of fragrance options, leading to choice paralysis and abandoned carts.",
+    "solution": "Developed a heuristic AI recommendation engine (ScentMatch™) using Gemini 1.5 Pro to correlate user preferences with real-time stock availability.",
+    "metrics": {
+      "loadTime": "0.9s",
+      "performance": 98,
+      "seo": 99,
+      "accessibility": 100
+    },
+    "techStack": ["Next.js", "Genkit", "Gemini Pro", "Airtable"],
+    "image": "https://picsum.photos/seed/scent-p/1200/800",
+    "liveLink": "/cv",
+    "aiLayer": "ScentMatch™ Heuristic Engine: Normalizes relevance scores based on seasonal inventory biasing."
+  },
+  {
+    "id": "lumina",
+    "title": "Lumina Bistro",
+    "niche": "Hospitality",
+    "category": "Luxury Showcases",
+    "logic": "Brand Elevation",
+    "challenge": "Manual reservation management was leading to double-bookings and a disjointed brand experience online.",
+    "solution": "Implemented a custom real-time reservation system with session persistence and an immersive, cinematic digital menu using motion-optimized assets.",
+    "metrics": {
+      "loadTime": "0.7s",
+      "performance": 100,
+      "seo": 100,
+      "accessibility": 100
+    },
+    "techStack": ["Next.js", "Firebase Auth", "Firestore", "Motion"],
+    "image": "https://picsum.photos/seed/lumina-p/1200/800",
+    "liveLink": "/demos/lumina-bistro",
+    "aiLayer": "Dynamic traffic forecasting model that optimizes table turn-over times based on historical booking data."
+  }
+]
