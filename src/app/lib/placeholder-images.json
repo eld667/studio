@@ -1,0 +1,23 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "dentist-hero",
+      "description": "Clean modern dental office interior",
+      "imageUrl": "https://picsum.photos/seed/dentist1/1200/800",
+      "imageHint": "dental office"
+    },
+    {
+      "id": "dentist-team",
+      "description": "Friendly dental professional team",
+      "imageUrl": "https://picsum.photos/seed/dentist2/800/600",
+      "imageHint": "dentist team"
+    },
+    {
+      "id": "dentist-map",
+      "description": "Map location of the clinic",
+      "imageUrl": "https://picsum.photos/seed/dentist3/800/600",
+      "imageHint": "city map"
+    }
+  ]
+}
