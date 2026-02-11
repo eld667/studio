@@ -18,6 +18,30 @@
       "description": "Map location of the clinic",
       "imageUrl": "https://picsum.photos/seed/dentist3/800/600",
       "imageHint": "city map"
+    },
+    {
+      "id": "hair-hero",
+      "description": "Modern hair salon interior with mirrors",
+      "imageUrl": "https://picsum.photos/seed/hair1/1200/800",
+      "imageHint": "hair salon"
+    },
+    {
+      "id": "hair-stylist",
+      "description": "Professional hairstylist working on a client",
+      "imageUrl": "https://picsum.photos/seed/hair2/800/600",
+      "imageHint": "hair stylist"
+    },
+    {
+      "id": "hair-interior",
+      "description": "Chic salon seating area",
+      "imageUrl": "https://picsum.photos/seed/hair3/800/600",
+      "imageHint": "salon interior"
+    },
+    {
+      "id": "hair-map",
+      "description": "Map location of the salon",
+      "imageUrl": "https://picsum.photos/seed/hair4/800/600",
+      "imageHint": "city map"
     }
   ]
 }
