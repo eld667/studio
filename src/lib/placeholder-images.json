@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "dentist-hero",
+      "description": "Clean modern dental office interior",
+      "imageUrl": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50YWwlMjBvZmZpY2V8ZW58MHx8fHwxNzcwNzYxMTk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental office"
+    },
+    {
+      "id": "dentist-team",
+      "description": "Friendly dental professional team",
+      "imageUrl": "https://images.unsplash.com/photo-1642844819197-5f5f21b89ff8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50aXN0JTIwdGVhbXxlbnwwfHx8fDE3NzA4NTM0MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dentist team"
+    },
+    {
+      "id": "dentist-map",
+      "description": "Map location of the clinic",
+      "imageUrl": "https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjaXR5JTIwbWFwfGVufDB8fHx8MTc3MDgxNDA5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "hair-hero",
+      "description": "Modern hair salon interior with mirrors",
+      "imageUrl": "https://images.unsplash.com/photo-1562322140-8baeececf3df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoYWlyJTIwc2Fsb258ZW58MHx8fHwxNzcwNzY5MjExfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hair salon"
+    },
+    {
+      "id": "hair-stylist",
+      "description": "Professional hairstylist working on a client",
+      "imageUrl": "https://images.unsplash.com/photo-1559599101-f09722fb4948?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoYWlyJTIwc3R5bGlzdHxlbnwwfHx8fDE3NzA4NTM0MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hair stylist"
+    },
+    {
+      "id": "hair-interior",
+      "description": "Chic salon seating area",
+      "imageUrl": "https://images.unsplash.com/photo-1695527081848-1e46c06e6458?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzYWxvbiUyMGludGVyaW9yfGVufDB8fHx8MTc3MDc1MzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "salon interior"
+    },
+    {
+      "id": "hair-map",
+      "description": "Map location of the salon",
+      "imageUrl": "https://images.unsplash.com/photo-1619468129361-605ebea04b44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaXR5JTIwbWFwfGVufDB8fHx8MTc3MDgxNDA5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    }
+  ]
 }

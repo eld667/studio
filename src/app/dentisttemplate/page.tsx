@@ -197,14 +197,16 @@ export default function DentistTemplatePage() {
         <section className="relative min-h-[85vh] flex items-center pt-20">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
-            <Image
-              src={heroImage?.imageUrl || ''}
-              alt="Bright Smile Dentistry"
-              fill
-              className="object-cover"
-              priority
-              data-ai-hint="dental office"
-            />
+            {heroImage?.imageUrl && (
+              <Image
+                src={heroImage.imageUrl}
+                alt="Bright Smile Dentistry"
+                fill
+                className="object-cover"
+                priority
+                data-ai-hint="dental office"
+              />
+            )}
           </div>
           
           <div className="container relative z-20 mx-auto px-6">
@@ -266,13 +268,15 @@ export default function DentistTemplatePage() {
               </FadeIn>
               <FadeIn delay={0.2}>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
-                    src={teamImage?.imageUrl || ''}
-                    alt="Our Team"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="dentist team"
-                  />
+                  {teamImage?.imageUrl && (
+                    <Image
+                      src={teamImage.imageUrl}
+                      alt="Our Team"
+                      fill
+                      className="object-cover"
+                      data-ai-hint="dentist team"
+                    />
+                  )}
                 </div>
               </FadeIn>
             </div>
@@ -411,13 +415,15 @@ export default function DentistTemplatePage() {
               </FadeIn>
               <FadeIn delay={0.2}>
                 <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
-                    src={mapImage?.imageUrl || ''}
-                    alt="Map Location"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="city map"
-                  />
+                  {mapImage?.imageUrl && (
+                    <Image
+                      src={mapImage.imageUrl}
+                      alt="Map Location"
+                      fill
+                      className="object-cover"
+                      data-ai-hint="city map"
+                    />
+                  )}
                 </div>
               </FadeIn>
             </div>

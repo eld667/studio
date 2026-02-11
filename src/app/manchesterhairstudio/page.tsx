@@ -193,14 +193,16 @@ export default function ManchesterHairStudioPage() {
         <section className="relative min-h-[90vh] flex items-center pt-20">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent z-10" />
-            <Image
-              src={heroImage?.imageUrl || ''}
-              alt="Manchester Hair Studio"
-              fill
-              className="object-cover"
-              priority
-              data-ai-hint="hair salon"
-            />
+            {heroImage?.imageUrl && (
+              <Image
+                src={heroImage.imageUrl}
+                alt="Manchester Hair Studio"
+                fill
+                className="object-cover"
+                priority
+                data-ai-hint="hair salon"
+              />
+            )}
           </div>
           
           <div className="container relative z-20 mx-auto px-6">
@@ -261,13 +263,15 @@ export default function ManchesterHairStudioPage() {
               </FadeIn>
               <FadeIn delay={0.2} className="relative">
                 <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl z-10">
-                  <Image
-                    src={teamImage?.imageUrl || ''}
-                    alt="Our Stylists"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="hair stylist"
-                  />
+                  {teamImage?.imageUrl && (
+                    <Image
+                      src={teamImage.imageUrl}
+                      alt="Our Stylists"
+                      fill
+                      className="object-cover"
+                      data-ai-hint="hair stylist"
+                    />
+                  )}
                 </div>
                 <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#D4A5A5]/20 rounded-full blur-3xl -z-10" />
               </FadeIn>
@@ -423,13 +427,15 @@ export default function ManchesterHairStudioPage() {
               </FadeIn>
               <FadeIn delay={0.2} className="relative">
                 <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl z-10">
-                  <Image
-                    src={mapImage?.imageUrl || ''}
-                    alt="Map Location"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="city map"
-                  />
+                  {mapImage?.imageUrl && (
+                    <Image
+                      src={mapImage.imageUrl}
+                      alt="Map Location"
+                      fill
+                      className="object-cover"
+                      data-ai-hint="city map"
+                    />
+                  )}
                 </div>
                 <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#F4A261]/10 rounded-full blur-3xl -z-10" />
               </FadeIn>
