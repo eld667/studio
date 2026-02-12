@@ -95,6 +95,48 @@
       "description": "Attendee Jennifer Park headshot",
       "imageUrl": "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200&h=200",
       "imageHint": "attendee headshot"
+    },
+    {
+      "id": "agency-office",
+      "description": "Modern agency office space",
+      "imageUrl": "https://images.unsplash.com/photo-1568359415889-fbe562be5ea1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWdlbmN5JTIwb2ZmaWNlfGVufDB8fHx8MTc3MDk0MDQ0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "agency office"
+    },
+    {
+      "id": "coach-alex",
+      "description": "Agency coach Alex Chen",
+      "imageUrl": "https://images.unsplash.com/photo-1744960152791-3c3edef9037b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb2FjaCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MDk0MDQ0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coach headshot"
+    },
+    {
+      "id": "zen-garden",
+      "description": "Japanese Zen garden",
+      "imageUrl": "https://images.unsplash.com/photo-1567372704182-ec2ea042c937?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx6ZW4lMjBnYXJkZW58ZW58MHx8fHwxNzcwOTEzOTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "zen garden"
+    },
+    {
+      "id": "kintsugi-bowl",
+      "description": "Broken bowl with gold repair",
+      "imageUrl": "https://picsum.photos/seed/kintsugibowl/1200/800",
+      "imageHint": "kintsugi bowl"
+    },
+    {
+      "id": "maison-diamond",
+      "description": "Floating brilliant cut diamond",
+      "imageUrl": "https://images.unsplash.com/photo-1735480165122-65e06bbbd926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGlhbW9uZCUyMGdlbXN0b25lfGVufDB8fHx8MTc3MDk0MDQ0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond gemstone"
+    },
+    {
+      "id": "maison-ring",
+      "description": "Ultra luxury diamond ring",
+      "imageUrl": "https://images.unsplash.com/photo-1605100804567-1ffe942b5cd6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkaWFtb25kJTIwcmluZ3xlbnwwfHx8fDE3NzA4NDAxODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond ring"
+    },
+    {
+      "id": "maison-salon",
+      "description": "Private jewelry salon interior",
+      "imageUrl": "https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBpbnRlcmlvcnxlbnwwfHx8fDE3NzA4Nzc5MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury interior"
     }
   ]
 }
