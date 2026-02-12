@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   BarChart3, 
   TrendingUp, 
@@ -11,25 +11,22 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   ArrowRight, 
-  Plus, 
-  Minus, 
   ChevronRight, 
-  MessageSquare, 
-  HelpCircle, 
-  Mail, 
-  Phone,
-  Zap,
-  Check,
-  X,
-  Play,
-  Monitor,
-  Layout,
-  Layers,
-  Search,
-  Globe,
-  Star,
-  Download,
-  Calendar
+  Zap, 
+  Check, 
+  X, 
+  Play, 
+  Monitor, 
+  Layout, 
+  Layers, 
+  Search, 
+  Globe, 
+  Star, 
+  Download, 
+  Calendar,
+  MousePointer2,
+  Clock,
+  Briefcase
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -38,6 +35,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { FadeIn } from '../FadeIn';
 import { cn } from "@/lib/utils";
+import { Playfair_Display } from 'next/font/google';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-playfair',
+});
 
 // --- DATA ---
 
@@ -106,11 +110,11 @@ const milestones = [
 
 // --- COMPONENTS ---
 
-const TimelineNode = ({ milestone, active, onClick }: { milestone: typeof milestones[0], active: boolean, onClick: () => void }) => (
+const TimelineNode = ({ milestone, active, onClick, index }: { milestone: typeof milestones[0], active: boolean, onClick: () => void, index: number }) => (
   <button 
     onClick={onClick}
     className={cn(
-      "relative flex flex-col items-center group transition-all duration-500",
+      "relative flex flex-col items-center group transition-all duration-500 z-10",
       active ? "scale-110" : "scale-100 opacity-50 hover:opacity-80"
     )}
   >
@@ -118,7 +122,7 @@ const TimelineNode = ({ milestone, active, onClick }: { milestone: typeof milest
       "w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2 mb-4 transition-all duration-500 shadow-lg",
       active 
         ? "bg-[#10b981] border-[#10b981] text-black shadow-[#10b981]/40" 
-        : "bg-white/5 border-white/20 text-white group-hover:border-[#10b981]/50"
+        : "bg-zinc-900 border-white/20 text-white group-hover:border-[#10b981]/50"
     )}>
       <span className="font-black text-sm md:text-lg">{milestone.label}</span>
     </div>
@@ -126,7 +130,7 @@ const TimelineNode = ({ milestone, active, onClick }: { milestone: typeof milest
       "absolute -bottom-8 whitespace-nowrap text-[10px] font-bold uppercase tracking-widest transition-colors",
       active ? "text-[#10b981]" : "text-slate-500"
     )}>
-      {milestone.id === "0" ? "START" : `PHASE ${milestone.id}`}
+      {index === 0 ? "START" : `PHASE ${milestone.id}`}
     </div>
   </button>
 );
@@ -146,12 +150,14 @@ export default function SEOPlaybookPage() {
     }
   };
 
+  if (!isMounted) return null;
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-slate-200 selection:bg-[#10b981] selection:text-black font-sans overflow-x-hidden">
+    <div className={cn("min-h-screen bg-[#0a0a0a] text-slate-200 selection:bg-[#10b981] selection:text-black font-sans overflow-x-hidden", playfair.variable)}>
       
       {/* 1. HERO & TIMELINE */}
-      <section className="relative pt-32 pb-24 border-b border-white/5">
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <section className="relative pt-32 pb-24 border-b border-white/5 overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#10b981]/5 rounded-full blur-[120px]" />
         </div>
 
@@ -160,7 +166,7 @@ export default function SEOPlaybookPage() {
             <div className="inline-flex items-center gap-2 bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/30 px-4 py-1.5 rounded-full text-xs font-bold mb-8 tracking-widest uppercase">
               <Zap className="w-3.5 h-3.5" /> 2024 Algorithm Verified
             </div>
-            <h1 className="text-5xl md:text-8xl font-black leading-[0.9] mb-8 tracking-tighter text-white uppercase italic italic">
+            <h1 className="text-5xl md:text-8xl font-black leading-[0.9] mb-8 tracking-tighter text-white uppercase italic font-playfair">
               0 TO 1 MILLION <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b981] via-emerald-400 to-[#10b981]">MONTHLY VISITORS.</span>
             </h1>
@@ -170,14 +176,15 @@ export default function SEOPlaybookPage() {
           </FadeIn>
 
           {/* THE TIMELINE INTERFACE */}
-          <div className="max-w-6xl mx-auto mb-20">
+          <div className="max-w-6xl mx-auto mb-20 relative">
             <FadeIn delay={0.2}>
-              <div className="relative mb-24">
+              <div className="relative mb-24 py-10">
                 {/* Connector Line */}
-                <div className="absolute top-6 md:top-8 left-0 w-full h-0.5 bg-white/10 z-0" />
-                <div 
-                  className="absolute top-6 md:top-8 left-0 h-0.5 bg-gradient-to-r from-emerald-600 to-[#10b981] z-0 transition-all duration-700 ease-in-out" 
-                  style={{ width: `${(activeMilestone / (milestones.length - 1)) * 100}%` }}
+                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 z-0 -translate-y-1/2" />
+                <motion.div 
+                  className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-emerald-600 to-[#10b981] z-0 -translate-y-1/2 transition-all duration-700 ease-in-out" 
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(activeMilestone / (milestones.length - 1)) * 100}%` }}
                 />
                 
                 <div className="relative z-10 flex justify-between items-center px-2">
@@ -185,6 +192,7 @@ export default function SEOPlaybookPage() {
                     <TimelineNode 
                       key={m.id} 
                       milestone={m} 
+                      index={i}
                       active={activeMilestone === i} 
                       onClick={() => setActiveMilestone(i)} 
                     />
@@ -206,7 +214,7 @@ export default function SEOPlaybookPage() {
                   
                   <div>
                     <p className="text-[#10b981] font-black uppercase tracking-[0.2em] mb-4">{milestones[activeMilestone].name}</p>
-                    <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight italic uppercase">{milestones[activeMilestone].title}</h3>
+                    <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight italic uppercase font-playfair">{milestones[activeMilestone].title}</h3>
                     <p className="text-slate-400 text-lg mb-8 leading-relaxed">
                       {milestones[activeMilestone].description}
                     </p>
@@ -270,14 +278,14 @@ export default function SEOPlaybookPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <FadeIn>
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-12 tracking-tighter uppercase italic">Most SEO advice is <span className="text-red-500">Broken.</span></h2>
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-12 tracking-tighter uppercase italic font-playfair">Most SEO advice is <span className="text-red-500">Broken.</span></h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 {[
                   { title: "Too Basic", desc: "Write good content - gee, thanks. No actionable steps.", icon: X },
                   { title: "Too Technical", desc: "Here are 500 factors. Good luck doing all of them.", icon: X },
                   { title: "Outdated", desc: "Tactics from 2019 that will get you penalized today.", icon: X },
                 ].map((item, i) => (
-                  <div key={i} className="p-8 bg-white/5 border border-white/5 rounded-3xl">
+                  <div key={i} className="p-8 bg-white/5 border border-white/5 rounded-3xl text-center">
                     <div className="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                       <item.icon className="w-5 h-5 text-red-500" />
                     </div>
@@ -297,7 +305,7 @@ export default function SEOPlaybookPage() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-24">
             <FadeIn>
-              <h2 className="text-4xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter italic">THE SEO PLAYBOOK <br/><span className="text-[#10b981]">TRIFECTA</span></h2>
+              <h2 className="text-4xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter italic font-playfair">THE SEO PLAYBOOK <br/><span className="text-[#10b981]">TRIFECTA</span></h2>
               <p className="text-xl text-slate-400">The 3 core pillars of our million-visitor system.</p>
             </FadeIn>
           </div>
@@ -332,7 +340,7 @@ export default function SEOPlaybookPage() {
                   <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-8 bg-gradient-to-br shadow-lg shadow-black/40", p.color)}>
                     <p.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-tight italic">{p.title}</h3>
+                  <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-tight italic font-playfair">{p.title}</h3>
                   <p className="text-slate-400 text-lg leading-relaxed">{p.desc}</p>
                 </div>
               </FadeIn>
@@ -363,7 +371,7 @@ export default function SEOPlaybookPage() {
                     </div>
                   </div>
                   <div className="p-8">
-                    <h4 className="text-xl font-black text-white mb-2 uppercase tracking-tight">{item.title}</h4>
+                    <h4 className="text-xl font-black text-white mb-2 uppercase tracking-tight font-playfair">{item.title}</h4>
                     <p className="text-slate-500 text-sm">{item.desc}</p>
                   </div>
                 </div>
@@ -378,7 +386,7 @@ export default function SEOPlaybookPage() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-24">
             <FadeIn>
-              <h2 className="text-4xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter italic">THE <span className="text-[#10b981]">SYLLABUS</span></h2>
+              <h2 className="text-4xl md:text-7xl font-black text-white mb-6 uppercase tracking-tighter italic font-playfair">THE <span className="text-[#10b981]">SYLLABUS</span></h2>
               <p className="text-xl text-slate-400">Everything you need to dominate the SERPs.</p>
             </FadeIn>
           </div>
@@ -401,7 +409,7 @@ export default function SEOPlaybookPage() {
                 module: "Module 3", 
                 title: "Content That Ranks", 
                 img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=2073&auto=format&fit=crop", 
-                bullets: ["The 10x content framework", "Natural Language Processing (NLP)", "Content Refresh strategies"] 
+                bullets: ["The 10x content framework", "On-page optimization checklist", "Content Refresh strategies"] 
               },
               { 
                 module: "Module 4", 
@@ -417,7 +425,7 @@ export default function SEOPlaybookPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                     <div className="absolute bottom-6 left-6">
                       <p className="text-[#10b981] font-black uppercase text-xs tracking-widest mb-1">{m.module}</p>
-                      <h4 className="text-2xl font-black text-white italic uppercase">{m.title}</h4>
+                      <h4 className="text-2xl font-black text-white italic uppercase font-playfair">{m.title}</h4>
                     </div>
                   </div>
                   <div className="p-8 space-y-4">
@@ -440,7 +448,7 @@ export default function SEOPlaybookPage() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
             <FadeIn>
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-4 uppercase tracking-tighter italic">PROOF OF <span className="text-[#10b981]">SYSTEM</span></h2>
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-4 uppercase tracking-tighter italic font-playfair">PROOF OF <span className="text-[#10b981]">SYSTEM</span></h2>
               <p className="text-xl text-slate-400">Student results using the exact same playbook.</p>
             </FadeIn>
           </div>
@@ -456,7 +464,7 @@ export default function SEOPlaybookPage() {
                   <div className="relative aspect-video rounded-xl overflow-hidden mb-8 border border-white/5">
                     <Image src={r.img} alt="Result Graph" fill className="object-cover" data-ai-hint="traffic chart" />
                   </div>
-                  <h4 className="text-xl font-black text-white mb-2 uppercase tracking-tight">{r.name}</h4>
+                  <h4 className="text-xl font-black text-white mb-2 uppercase tracking-tight font-playfair">{r.name}</h4>
                   <p className="text-2xl font-black text-[#10b981] mb-1">{r.result}</p>
                   <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">{r.time}</p>
                 </div>
@@ -472,7 +480,7 @@ export default function SEOPlaybookPage() {
           <FadeIn>
             <div className="bg-gradient-to-br from-[#10b981] to-emerald-800 p-1 rounded-[3.5rem] shadow-[0_0_50px_rgba(16,185,129,0.2)]">
               <div className="bg-[#0a0a0a] p-12 md:p-20 rounded-[3.3rem]">
-                <h2 className="text-4xl md:text-7xl font-bold text-white mb-8 tracking-tighter uppercase italic italic">START YOUR <br/>ASCENT</h2>
+                <h2 className="text-4xl md:text-7xl font-bold text-white mb-8 tracking-tighter uppercase italic font-playfair">START YOUR <br/>ASCENT</h2>
                 
                 <div className="flex flex-col items-center gap-4 mb-12">
                   <p className="text-3xl font-bold text-slate-500 line-through tracking-widest">$997</p>
@@ -521,9 +529,9 @@ export default function SEOPlaybookPage() {
       </section>
 
       {/* 8. FAQ */}
-      <section className="py-24 bg-[#0f0f0f]">
+      <section id="faq" className="py-24 bg-[#0f0f0f]">
         <div className="container mx-auto px-6 max-w-3xl">
-          <h2 className="text-4xl font-bold text-white mb-16 text-center uppercase tracking-tighter italic italic">INTEL <span className="text-[#10b981]">DEBRIEF</span></h2>
+          <h2 className="text-4xl font-bold text-white mb-16 text-center uppercase tracking-tighter italic font-playfair">INTEL <span className="text-[#10b981]">DEBRIEF</span></h2>
           <Accordion type="single" collapsible className="space-y-4">
             {[
               { q: "How long until I see results?", a: "Most students see first-page rankings for long-tail terms within 60 days. The timeline shows our roadmap for scaling to high-volume head terms over 12 months." },
@@ -553,9 +561,9 @@ export default function SEOPlaybookPage() {
           </div>
           <p className="text-slate-500 font-bold text-[10px] uppercase tracking-[0.3em] mb-12">Built for the next generation of traffic masters</p>
           <div className="flex justify-center gap-8 text-slate-400 font-medium">
-            <Link href="#" className="hover:text-[#10b981] transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-[#10b981] transition-colors">Terms</Link>
-            <Link href="#" className="hover:text-[#10b981] transition-colors">Support</Link>
+            <Link href="#" className="hover:text-[#10b981] transition-colors text-sm">Privacy</Link>
+            <Link href="#" className="hover:text-[#10b981] transition-colors text-sm">Terms</Link>
+            <Link href="#" className="hover:text-[#10b981] transition-colors text-sm">Support</Link>
           </div>
           <p className="mt-12 text-slate-600 text-[10px] uppercase tracking-widest">&copy; 2025 EldWorkStudio SEO Playbook. All rights reserved.</p>
         </div>
