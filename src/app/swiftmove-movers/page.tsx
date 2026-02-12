@@ -28,7 +28,8 @@ import {
   Minus,
   MessageSquare,
   AlertTriangle,
-  HelpCircle
+  HelpCircle,
+  Users
 } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -38,7 +39,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useFirestore, useMemoFirebase } from "@/firebase";
+import { useFirestore } from "@/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { useToast } from "@/hooks/use-toast";
@@ -97,7 +98,6 @@ const SIZE_MULTIPLIERS: Record<string, number> = {
 
 export default function SwiftMoveMoversPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [step, setStep] = useState(1);
   const [estimate, setEstimate] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -281,7 +281,7 @@ export default function SwiftMoveMoversPage() {
                   Moving Made <br/>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-blue-400">Simple & Swift.</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-xl font-medium leading-relaxed">
+                <p className="text-xl md:text-2xl text-slate-300 mb-10 max-xl font-medium leading-relaxed">
                   The most trusted movers in the nation. Stress-free packing, secure loading, and <span className="text-white">on-time delivery.</span> Guaranteed.
                 </p>
                 
