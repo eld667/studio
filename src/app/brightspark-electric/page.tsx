@@ -57,8 +57,13 @@ const emergencyServices = [
 
 export default function BrightSparkElectricPage() {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const { toast } = useToast();
   const firestore = useFirestore();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -110,7 +115,7 @@ export default function BrightSparkElectricPage() {
         <section className="relative min-h-[90vh] flex items-center overflow-hidden border-b border-white/5">
           {/* Subtle Electricity Particle Background */}
           <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-             {[...Array(20)].map((_, i) => (
+             {isMounted && [...Array(20)].map((_, i) => (
                <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-[#00d4ff] rounded-full blur-[1px]"
@@ -477,7 +482,7 @@ export default function BrightSparkElectricPage() {
         {/* 11. FINAL CTA */}
         <section className="py-24 bg-[#0a0a0a] relative overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
-             {[...Array(30)].map((_, i) => (
+             {isMounted && [...Array(30)].map((_, i) => (
                <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-[#ffb800] rounded-full blur-[1px]"
