@@ -4,170 +4,74 @@
     {
       "id": "dentist-hero",
       "description": "Clean modern dental office interior",
-      "imageUrl": "https://picsum.photos/seed/dentist1/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50YWwlMjBvZmZpY2V8ZW58MHx8fHwxNzcwNzYxMTk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "dental office"
-    },
-    {
-      "id": "dentist-team",
-      "description": "Friendly dental professional team",
-      "imageUrl": "https://picsum.photos/seed/dentist2/800/600",
-      "imageHint": "dentist team"
-    },
-    {
-      "id": "dentist-map",
-      "description": "Map location of the clinic",
-      "imageUrl": "https://picsum.photos/seed/dentist3/800/600",
-      "imageHint": "city map"
     },
     {
       "id": "hair-hero",
       "description": "Modern hair salon interior with mirrors",
-      "imageUrl": "https://picsum.photos/seed/hair1/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1562322140-8baeececf3df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoYWlyJTIwc2Fsb258ZW58MHx8fHwxNzcwNzY5MjExfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "hair salon"
-    },
-    {
-      "id": "hair-stylist",
-      "description": "Professional hairstylist working on a client",
-      "imageUrl": "https://picsum.photos/seed/hair2/800/600",
-      "imageHint": "hair stylist"
-    },
-    {
-      "id": "hair-interior",
-      "description": "Chic salon seating area",
-      "imageUrl": "https://picsum.photos/seed/hair3/800/600",
-      "imageHint": "salon interior"
-    },
-    {
-      "id": "hair-map",
-      "description": "Map location of the salon",
-      "imageUrl": "https://picsum.photos/seed/hair4/800/600",
-      "imageHint": "city map"
     },
     {
       "id": "roof-hero",
       "description": "Professional roofing crew working on a modern house",
-      "imageUrl": "https://picsum.photos/seed/roof1/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1635424710928-0544e8512eae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb29maW5nfGVufDB8fHx8MTc3MDk0MzU0MHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "roofing work"
-    },
-    {
-      "id": "roof-storm",
-      "description": "Damaged shingles after a storm",
-      "imageUrl": "https://picsum.photos/seed/roofstorm/1200/800",
-      "imageHint": "roof damage"
-    },
-    {
-      "id": "roof-commercial",
-      "description": "Large scale commercial roofing project",
-      "imageUrl": "https://picsum.photos/seed/roofcom/1200/800",
-      "imageHint": "commercial roof"
     },
     {
       "id": "lawn-hero",
       "description": "Perfect green lawn with Nashville skyline in background",
-      "imageUrl": "https://picsum.photos/seed/lawn1/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1558449028-b53a39d100fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXduJTIwY2FyZXxlbnwwfHx8fDE3NzA5NTAwMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "green lawn"
-    },
-    {
-      "id": "lawn-kids",
-      "description": "Happy children playing on safe organic lawn",
-      "imageUrl": "https://picsum.photos/seed/lawnkids/1200/800",
-      "imageHint": "kids playing"
     },
     {
       "id": "instructor-sarah",
       "description": "Professional headshot of Sarah Chen",
-      "imageUrl": "https://picsum.photos/seed/sarahhead/400/400",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400&h=400",
       "imageHint": "professional headshot"
-    },
-    {
-      "id": "ai-workshop-live",
-      "description": "Virtual workshop interface screenshot",
-      "imageUrl": "https://picsum.photos/seed/ailive/1080/720",
-      "imageHint": "virtual event"
-    },
-    {
-      "id": "ai-toolkit-preview",
-      "description": "Visual mockup of templates and prompt guides",
-      "imageUrl": "https://picsum.photos/seed/aitoolkit/800/600",
-      "imageHint": "ai templates"
-    },
-    {
-      "id": "attendee-1",
-      "description": "Attendee Jennifer Park headshot",
-      "imageUrl": "https://picsum.photos/seed/attendee1/200/200",
-      "imageHint": "attendee headshot"
     },
     {
       "id": "agency-office",
       "description": "Modern agency office space",
-      "imageUrl": "https://picsum.photos/seed/agencyoffice/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1568359415889-fbe562be5ea1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWdlbmN5JTIwb2ZmaWNlfGVufDB8fHx8MTc3MDk0MDQ0OHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "agency office"
-    },
-    {
-      "id": "coach-alex",
-      "description": "Agency coach Alex Chen",
-      "imageUrl": "https://picsum.photos/seed/alexchen/800/800",
-      "imageHint": "coach headshot"
     },
     {
       "id": "zen-garden",
       "description": "Japanese Zen garden",
-      "imageUrl": "https://picsum.photos/seed/zengarden/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1567372704182-ec2ea042c937?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx6ZW4lMjBnYXJkZW58ZW58MHx8fHwxNzcwOTEzOTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "zen garden"
     },
     {
-      "id": "kintsugi-bowl",
-      "description": "Broken bowl with gold repair",
-      "imageUrl": "https://picsum.photos/seed/kintsugibowl/1200/800",
-      "imageHint": "kintsugi bowl"
+      "id": "maison-ring",
+      "description": "Ultra luxury diamond ring",
+      "imageUrl": "https://images.unsplash.com/photo-1605100804567-1ffe942b5cd6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkaWFtb25kJTIwcmluZ3xlbnwwfHx8fDE3NzA4NDAxODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond ring"
     },
     {
-      "id": "startup-team",
-      "description": "Startup team collaboration",
-      "imageUrl": "https://picsum.photos/seed/startupoffice/1200/800",
-      "imageHint": "startup office"
+      "id": "whisky-vault",
+      "description": "Rows of whisky casks in a dark warehouse",
+      "imageUrl": "https://images.unsplash.com/photo-1527030280862-64139fba04ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "whisky warehouse"
     },
     {
-      "id": "seo-dashboard",
-      "description": "SEO analytics dashboard",
-      "imageUrl": "https://picsum.photos/seed/seograph/1200/800",
-      "imageHint": "google analytics graph"
+      "id": "whisky-still",
+      "description": "Copper whisky still in a distillery",
+      "imageUrl": "https://images.unsplash.com/photo-1590664095641-7fa05f689813?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+      "imageHint": "whisky distillery"
     },
     {
-      "id": "laptop-research",
-      "description": "Someone researching on a laptop",
-      "imageUrl": "https://picsum.photos/seed/laptopres/1200/800",
-      "imageHint": "office laptop research"
+      "id": "whisky-pour",
+      "description": "Whisky being poured into a crystal glass",
+      "imageUrl": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+      "imageHint": "whisky pour"
     },
     {
-      "id": "horizon-hero",
-      "description": "Modern architectural home",
-      "imageUrl": "https://picsum.photos/seed/horizonhero/1200/800",
-      "imageHint": "architecture building"
-    },
-    {
-      "id": "apex-plumbing",
-      "description": "Plumbing tools and pipes",
-      "imageUrl": "https://picsum.photos/seed/apexplumb/1200/800",
-      "imageHint": "plumbing tools"
-    },
-    {
-      "id": "lumina-interior",
-      "description": "Fine dining restaurant interior",
-      "imageUrl": "https://picsum.photos/seed/lumina/1200/800",
-      "imageHint": "restaurant interior"
-    },
-    {
-      "id": "verite-hero",
-      "description": "Tuscan landscape",
-      "imageUrl": "https://picsum.photos/seed/vhero/1920/1080",
-      "imageHint": "italy landscape"
-    },
-    {
-      "id": "artisan-hands",
-      "description": "Leather artisan at work",
-      "imageUrl": "https://picsum.photos/seed/hands/1200/800",
-      "imageHint": "leather craft"
+      "id": "whisky-glass",
+      "description": "Single glass of whisky on an old wooden table",
+      "imageUrl": "https://images.unsplash.com/photo-1527030280862-64139fba04ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+      "imageHint": "whisky glass"
     }
   ]
 }
