@@ -33,6 +33,7 @@ import { WorkshopHeader } from "@/components/layout/WorkshopHeader";
 import { AIDemoPreview } from "./AIDemoPreview";
 import { CountdownTimer } from "./CountdownTimer";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { cn } from "@/lib/utils";
 
 const registerSchema = z.object({
   name: z.string().min(1, "Name required"),
