@@ -41,6 +41,24 @@
       "description": "Map location of the salon",
       "imageUrl": "https://images.unsplash.com/photo-1619468129361-605ebea04b44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaXR5JTIwbWFwfGVufDB8fHx8MTc3MDgxNDA5NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city map"
+    },
+    {
+      "id": "roof-hero",
+      "description": "Professional roofing crew working on a modern house",
+      "imageUrl": "https://images.unsplash.com/photo-1635424710928-0544e8512eae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb29maW5nfGVufDB8fHx8MTc3MDk0MzU0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "roofing work"
+    },
+    {
+      "id": "roof-storm",
+      "description": "Damaged shingles after a storm",
+      "imageUrl": "https://images.unsplash.com/photo-1549480017-d76466a4b7e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxyb29mJTIwZGFtYWdlfGVufDB8fHx8MTc3MDk0MzU0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "roof damage"
+    },
+    {
+      "id": "roof-commercial",
+      "description": "Large scale commercial roofing project",
+      "imageUrl": "https://images.unsplash.com/photo-1508450859948-4e04f9ad548b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb21tZXJjaWFsJTIwcm9vZnxlbnwwfHx8fDE3NzA5NDM1NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "commercial roof"
     }
   ]
 }
