@@ -120,7 +120,9 @@ export default function SaaSChecklistPage() {
   const totalScore = useMemo(() => {
     return answers.reduce((sum, current, i) => {
       const q = questions[i];
+      if (!q) return sum; // Safety check for sync issues
       const opt = q.options[current];
+      if (!opt) return sum; // Safety check for sync issues
       return sum + opt.score;
     }, 0);
   }, [answers]);
@@ -133,11 +135,17 @@ export default function SaaSChecklistPage() {
   }, [totalScore]);
 
   const handleAnswer = (optionIndex: number) => {
+    // Only allow answers if we're in the quiz steps
+    if (currentStep < 1 || currentStep > questions.length) return;
+    
+    // Prevent double clicking/multiple answers for same step
+    if (answers.length >= currentStep) return;
+
     const newAnswers = [...answers, optionIndex];
     setAnswers(newAnswers);
-    if (currentStep < questions.length) {
-      setCurrentStep(currentStep + 1);
-    }
+    
+    // Always increment step to progress or reach results
+    setCurrentStep(prev => prev + 1);
   };
 
   const onContactSubmit = async (values: z.infer<typeof contactSchema>) => {
@@ -148,7 +156,10 @@ export default function SaaSChecklistPage() {
       source: "SaaS Launch Checklist Validator",
       score: totalScore,
       riskLevel: scoreStats.risk,
-      answers: answers.map((a, i) => ({ question: questions[i].text, answer: questions[i].options[a].label })),
+      answers: answers.map((a, i) => ({ 
+        question: questions[i]?.text || 'Unknown', 
+        answer: questions[i]?.options[a]?.label || 'Unknown' 
+      })),
       timestamp: new Date().toISOString(),
     };
 
@@ -188,7 +199,7 @@ export default function SaaSChecklistPage() {
                   <span className="text-orange-600 underline decoration-slate-200 underline-offset-8">WITHOUT THIS</span> <br/>
                   IS LIKE SKYDIVING...
                 </h1>
-                <p className="text-xl text-slate-600 mb-10 max-w-xl font-medium leading-relaxed">
+                <p className="text-xl text-slate-600 mb-10 max-xl font-medium leading-relaxed">
                   ...without checking your parachute. Use the 137-point roadmap derived from 50+ successful launches to stop guessing and start scaling.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -326,7 +337,7 @@ export default function SaaSChecklistPage() {
                     </h4>
                     <div className="space-y-4">
                       {answers.map((ans, i) => {
-                        const feedback = questions[i].options[ans].feedback;
+                        const feedback = questions[i]?.options[ans]?.feedback;
                         if (!feedback) return null;
                         return (
                           <div key={i} className="flex gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm">
