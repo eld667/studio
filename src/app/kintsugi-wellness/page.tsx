@@ -32,6 +32,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { FadeIn } from '@/app/FadeIn';
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 // --- SCHEMAS ---
 const bookingSchema = z.object({
@@ -73,7 +74,7 @@ const SEASONS: Record<Season, SeasonData> = {
     color: '#FFB7C5',
     accent: '#8FBC8F',
     bg: 'bg-[#FFF5F7]',
-    image: 'https://picsum.photos/seed/k-spring/1200/800'
+    image: "https://picsum.photos/seed/spring/1200/800"
   },
   summer: {
     id: 'summer',
@@ -87,7 +88,7 @@ const SEASONS: Record<Season, SeasonData> = {
     color: '#7BA05B',
     accent: '#87CEEB',
     bg: 'bg-[#F7FFF5]',
-    image: 'https://picsum.photos/seed/k-summer/1200/800'
+    image: "https://picsum.photos/seed/summer/1200/800"
   },
   autumn: {
     id: 'autumn',
@@ -101,7 +102,7 @@ const SEASONS: Record<Season, SeasonData> = {
     color: '#C41E3A',
     accent: '#FFBF00',
     bg: 'bg-[#FFF9F5]',
-    image: 'https://picsum.photos/seed/k-autumn/1200/800'
+    image: "https://picsum.photos/seed/autumn/1200/800"
   },
   winter: {
     id: 'winter',
@@ -115,7 +116,7 @@ const SEASONS: Record<Season, SeasonData> = {
     color: '#1C1C1C',
     accent: '#E5E4E2',
     bg: 'bg-[#F9F9FB]',
-    image: 'https://picsum.photos/seed/k-winter/1200/800'
+    image: "https://picsum.photos/seed/winter/1200/800"
   }
 };
 
@@ -197,6 +198,9 @@ export default function KintsugiWellnessPage() {
   const firestore = useFirestore();
 
   const theme = SEASONS[selectedSeason];
+
+  const zenGardenImg = PlaceHolderImages.find(img => img.id === 'zen-garden')?.imageUrl || "https://picsum.photos/seed/zen/1200/800";
+  const kintsugiBowlImg = PlaceHolderImages.find(img => img.id === 'kintsugi-bowl')?.imageUrl || "https://picsum.photos/seed/bowl/1200/800";
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
@@ -285,7 +289,7 @@ export default function KintsugiWellnessPage() {
         <section id="hero" className="h-screen w-full relative flex items-center justify-center overflow-hidden bg-slate-900">
           <div className="absolute inset-0 z-0">
             <Image 
-              src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070&auto=format&fit=crop" 
+              src={zenGardenImg} 
               alt="Japanese Zen Garden" 
               fill 
               className="object-cover opacity-40 grayscale-[20%]"
@@ -319,7 +323,7 @@ export default function KintsugiWellnessPage() {
             <FadeIn>
               <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl">
                 <Image 
-                  src="https://images.unsplash.com/photo-1615486511484-92e172cc4ee0?q=80&w=2070&auto=format&fit=crop" 
+                  src={kintsugiBowlImg} 
                   alt="Kintsugi Art" 
                   fill 
                   className="object-cover"

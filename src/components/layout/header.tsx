@@ -52,13 +52,10 @@ export function Header({ onScroll }: HeaderProps) {
       <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between h-14 px-4 sm:px-6 lg:px-8">
           <Link href="/" onClick={handleLogoClick} className="flex items-center space-x-2 flex-shrink-0">
-            <Image
-              src="/eldwork-logo2.png"
-              alt="EldWorkStudio Logo"
-              width={140}
-              height={32}
-              className="relative z-10"
-            />
+            <div className="relative z-10 flex items-center gap-2 group">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 via-purple-500 to-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">E</div>
+              <span className="text-xl font-bold tracking-tighter text-white">EldWorkStudio</span>
+            </div>
           </Link>
           
           <div className="hidden md:flex items-center gap-6">

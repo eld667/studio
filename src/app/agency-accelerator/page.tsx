@@ -39,6 +39,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { FadeIn } from '../FadeIn';
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 import {
   Form,
   FormControl,
@@ -108,6 +109,9 @@ export default function AgencyAcceleratorPage() {
 
   const { toast } = useToast();
   const firestore = useFirestore();
+
+  const agencyOfficeImg = PlaceHolderImages.find(img => img.id === 'agency-office')?.imageUrl || "https://picsum.photos/seed/agency/1200/800";
+  const coachAlexImg = PlaceHolderImages.find(img => img.id === 'coach-alex')?.imageUrl || "https://picsum.photos/seed/alex/800/800";
 
   // Gap Calculations
   const gapAnalysis = useMemo(() => {
@@ -211,7 +215,7 @@ export default function AgencyAcceleratorPage() {
             <FadeIn delay={0.2}>
               <div className="relative aspect-square md:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
                 <Image 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" 
+                  src={agencyOfficeImg} 
                   alt="Agency Team" 
                   fill 
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -450,21 +454,21 @@ export default function AgencyAcceleratorPage() {
                 before: "$480K/year, 70 hrs/week", 
                 after: "$1.1M/year, 35 hrs/week", 
                 problem: "Feast/famine cycles, no systems.",
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
+                image: "https://picsum.photos/seed/csd/800/600"
               },
               { 
                 name: "Digital Agency NYC", 
                 before: "$65K/mo, owner primary doer", 
                 after: "$140K/mo, owner sales only", 
                 problem: "Can't scale, owner burning out.",
-                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop"
+                image: "https://picsum.photos/seed/danyc/800/600"
               },
               { 
                 name: "Boutique Agency Austin", 
                 before: "$30K/mo, low margins", 
                 after: "$90K/mo, 50% margins", 
                 problem: "Scope creep, competing on price.",
-                image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop"
+                image: "https://picsum.photos/seed/baa/800/600"
               },
             ].map((c, i) => (
               <FadeIn key={i} delay={i * 0.1}>
@@ -498,7 +502,7 @@ export default function AgencyAcceleratorPage() {
           <div className="bg-white/5 border border-white/10 rounded-[4rem] p-8 md:p-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative aspect-square lg:aspect-auto h-full rounded-3xl overflow-hidden border border-[#d4af37]/30">
               <Image 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" 
+                src={coachAlexImg} 
                 alt="Alex Chen" 
                 fill 
                 className="object-cover"

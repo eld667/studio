@@ -15,15 +15,6 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 });
 
-// export const metadata: Metadata = {
-//   title: 'EldWorkStudio',
-//   description: 'Premium Web Solutions',
-//   icons: {
-//     icon: '/icon.png',
-//     apple: '/icon.png',
-//   },
-// };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,13 +23,11 @@ export default function RootLayout({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
-      // You can also add logic to re-enable scrolling here if you disabled it
       document.body.style.cursor = 'auto';
       window.scrollTo(0, 0);
-    }, 900); // Should be slightly less than the total preloader animation time
+    }, 900);
 
     return () => clearTimeout(timer);
   }, []);
@@ -47,7 +36,6 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <title>EldWorkStudio</title>
-        <link rel="icon" href="/icon.png" sizes="any" />
       </head>
       <body className={`${spaceGrotesk.className} font-body antialiased bg-gray-950 bg-[radial-gradient(ellipse_at_top_center,_var(--tw-gradient-stops))] from-gray-900 to-gray-950`}>
         <SmoothScroll>

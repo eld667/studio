@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { Header } from "@/components/layout/header";
@@ -10,8 +9,7 @@ import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mai
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import React,
-{ useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -41,9 +39,13 @@ import Link from "next/link";
 import { Image as ImageIcon, Zap, Sparkles, Server, Search, Phone } from 'lucide-react';
 import { EldworkStandard } from "@/components/layout/EldworkStandard";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 function CaseStudyShowcase() {
+  const horizonImg = PlaceHolderImages.find(img => img.id === 'horizon-hero')?.imageUrl || "https://picsum.photos/seed/horizon/600/400";
+  const apexImg = PlaceHolderImages.find(img => img.id === 'apex-plumbing')?.imageUrl || "https://picsum.photos/seed/apex/600/400";
+  const luminaImg = PlaceHolderImages.find(img => img.id === 'lumina-interior')?.imageUrl || "https://picsum.photos/seed/lumina/600/400";
+
   return (
     <motion.section
       id="work"
@@ -85,7 +87,7 @@ function CaseStudyShowcase() {
             <ProjectCard
               title="Horizon Architecture"
               description="A clean, image-centric portfolio for a high-end architecture firm."
-              imageUrl="https://picsum.photos/seed/4/600/400"
+              imageUrl={horizonImg}
               href="/demos/horizon"
               data-ai-hint="architecture building"
               features={[
@@ -118,7 +120,7 @@ function CaseStudyShowcase() {
           <ProjectCard
             title="Apex Plumbing Solutions"
             description="A mobile-first design for a local plumber."
-            imageUrl="https://picsum.photos/seed/2/600/400"
+            imageUrl={apexImg}
             href="/demos/apex-plumbing"
             data-ai-hint="plumbing tools"
             features={[
@@ -151,7 +153,7 @@ function CaseStudyShowcase() {
             <ProjectCard
               title="Lumina Bistro"
               description="An immersive site for a fine-dining restaurant."
-              imageUrl="https://picsum.photos/seed/3/600/400"
+              imageUrl={luminaImg}
               href="/demos/lumina-bistro"
               data-ai-hint="restaurant interior"
               features={[
@@ -476,7 +478,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
