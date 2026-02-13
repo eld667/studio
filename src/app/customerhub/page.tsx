@@ -1,7 +1,6 @@
-
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   BarChart3, 
@@ -166,7 +165,7 @@ const DashboardUI = () => {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={chartData}>
                     <defs>
-                      <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                      <linearGradient id="colorValue" x1="0" x2="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#7C3AED" stopOpacity={0.1}/>
                         <stop offset="95%" stopColor="#7C3AED" stopOpacity={0}/>
                       </linearGradient>
