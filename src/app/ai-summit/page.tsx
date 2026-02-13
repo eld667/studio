@@ -266,15 +266,15 @@ export default function AISummitPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { name: "Dr. James Wilson", role: "Former AI Lead, Goldman Sachs", bio: "From trading algorithms to compliance—practical AI at scale.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-1')?.imageUrl },
-                { name: "Sarah Chen", role: "VP Digital Transformation, Target", bio: "How we deployed AI across 1,900 stores.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-2')?.imageUrl },
-                { name: "Michael Roberts", role: "CEO, AI Implementation Partners", bio: "What I've learned from 200+ enterprise rollouts.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-3')?.imageUrl },
-                { name: "Dr. Emily Zhang", role: "Chief Data Officer, UnitedHealth", bio: "AI in regulated industries: the governance framework.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-4')?.imageUrl },
+                { name: "Dr. James Wilson", role: "Former AI Lead, Goldman Sachs", bio: "From trading algorithms to compliance—practical AI at scale.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-1')?.imageUrl || "https://picsum.photos/seed/speaker1/400/400" },
+                { name: "Sarah Chen", role: "VP Digital Transformation, Target", bio: "How we deployed AI across 1,900 stores.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-2')?.imageUrl || "https://picsum.photos/seed/speaker2/400/400" },
+                { name: "Michael Roberts", role: "CEO, AI Implementation Partners", bio: "What I've learned from 200+ enterprise rollouts.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-3')?.imageUrl || "https://picsum.photos/seed/speaker3/400/400" },
+                { name: "Dr. Emily Zhang", role: "Chief Data Officer, UnitedHealth", bio: "AI in regulated industries: the governance framework.", img: PlaceHolderImages.find(i => i.id === 'summit-speaker-4')?.imageUrl || "https://picsum.photos/seed/speaker4/400/400" },
               ].map((s, i) => (
                 <FadeIn key={i} delay={i * 0.1}>
                   <Card className="h-full border-none shadow-xl group cursor-pointer bg-white rounded-2xl overflow-hidden">
                     <div className="relative aspect-square overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                      <Image src={s.img!} alt={s.name} fill className="object-cover" />
+                      {s.img && <Image src={s.img} alt={s.name} fill className="object-cover" />}
                       <div className="absolute inset-0 bg-[#0A2540]/10" />
                     </div>
                     <CardContent className="p-8">
