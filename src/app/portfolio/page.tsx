@@ -52,7 +52,7 @@ const MISSIONS: Mission[] = [
   { id: 'm9', title: 'Nebula Sound Pro', slug: '/nebula-sound', pillar: 'PRODUCT-DEMO', outcome: 'Immersive audio-visual product demonstration.', isLive: true, tech: 'Next.js + Tailwind' },
   { id: 'm10', title: 'Lumina Desk', slug: '/lumina-desk', pillar: 'PRODUCT-DEMO', outcome: 'Feature-first hardware showcase.', isLive: true, tech: 'Next.js + Tailwind' },
   { id: 'm11', title: 'Haven Air Purifier', slug: '/haven-air', pillar: 'PRODUCT-DEMO', outcome: 'Scientific particle simulation air quality dashboard.', isLive: true, tech: 'Next.js + Tailwind' },
-  { id: 'm12', title: 'Summit Brew', slug: '/summit-brew', pillar: 'PRODUCT-DEMO', outcome: 'Process-centric coffee tech immersion.', isLive: false, tech: 'Next.js + Tailwind' },
+  { id: 'm12', title: 'Summit Brew', slug: '/summit-brew', pillar: 'PRODUCT-DEMO', outcome: 'Process-centric coffee tech immersion.', isLive: true, tech: 'Next.js + Tailwind' },
 
   // Group 4: PORTFOLIO-CREATIVE
   { id: 'm13', title: 'Atelier Noir', slug: '/atelier-noir', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Editorial layout for fashion houses.', isLive: true, tech: 'Next.js + Tailwind' },
