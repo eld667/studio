@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -20,7 +19,8 @@ import {
   Zap,
   Star,
   Quote,
-  X
+  X,
+  Home
 } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -359,21 +359,24 @@ export default function FounderRetreatPage() {
               { icon: Users, title: 'Programming', items: ['Facilitated sessions', 'Peer consulting circles', '1:1 Founder matching'] },
               { icon: MapPin, title: 'Logistics', items: ['Airport transfers', 'Local transport', 'Concierge support'] },
               { icon: Compass, title: 'Discovery', items: ['Jungle hikes', 'Sunset boat trip', 'Secret beach access'] }
-            ].map((box, i) => (
-              <FadeIn key={i} delay={i * 0.05}>
-                <div className="p-10 bg-white rounded-[2.5rem] shadow-xl border border-[#9CAF88]/10 h-full">
-                  <box.icon className="w-10 h-10 text-[#D4A373] mb-8" />
-                  <h4 className="text-xl font-serif italic text-[#2D5016] mb-6">{box.title}</h4>
-                  <ul className="space-y-3">
-                    {box.items.map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-3 text-slate-500 text-sm font-medium">
-                        <CheckCircle2 className="w-4 h-4 text-[#9CAF88]" /> {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeIn>
-            ))}
+            ].map((box, i) => {
+              const Icon = box.icon;
+              return (
+                <FadeIn key={i} delay={i * 0.05}>
+                  <div className="p-10 bg-white rounded-[2.5rem] shadow-xl border border-[#9CAF88]/10 h-full">
+                    <Icon className="w-10 h-10 text-[#D4A373] mb-8" />
+                    <h4 className="text-xl font-serif italic text-[#2D5016] mb-6">{box.title}</h4>
+                    <ul className="space-y-3">
+                      {box.items.map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-3 text-slate-500 text-sm font-medium">
+                          <CheckCircle2 className="w-4 h-4 text-[#9CAF88]" /> {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </FadeIn>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -499,7 +502,7 @@ export default function FounderRetreatPage() {
               </div>
               <div className="space-y-4">
                 <h3 className="text-3xl font-serif italic text-[#2D5016]">Application Received.</h3>
-                <p className="text-slate-500 max-w-sm mx-auto">Marcus will reach out within 48 hours to schedule your 20-minute alignment call.</p>
+                <p className="text-slate-500 max-sm mx-auto">Marcus will reach out within 48 hours to schedule your 20-minute alignment call.</p>
               </div>
             </motion.div>
           ) : (
