@@ -20,7 +20,8 @@ import {
   Lock,
   ChevronRight,
   Mail,
-  Smartphone
+  Smartphone,
+  Target
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -405,7 +406,7 @@ export default function FlowSyncPage() {
                 <Layers className="w-8 h-8 text-blue-500" />
                 <span className="text-2xl font-black tracking-tighter uppercase">FlowSync</span>
               </div>
-              <p className="text-slate-500 font-bold max-w-sm mb-12">The world's most intuitive workflow automation engine for hyper-growth teams. Built in San Francisco.</p>
+              <p className="text-slate-500 font-bold max-sm mb-12">The world's most intuitive workflow automation engine for hyper-growth teams. Built in San Francisco.</p>
               <div className="flex gap-6">
                 <Instagram className="w-6 h-6 text-slate-500 hover:text-white transition-colors cursor-pointer" />
                 <Twitter className="w-6 h-6 text-slate-500 hover:text-white transition-colors cursor-pointer" />
