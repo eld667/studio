@@ -23,7 +23,8 @@ import {
   Plus,
   Info,
   Layers,
-  Search
+  Search,
+  Globe
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -468,7 +469,7 @@ export default function SummitBrewPage() {
                 </div>
                 <span className="text-2xl font-black tracking-tighter uppercase italic text-white">Summit</span>
               </div>
-              <p className="text-crema-gold/60 font-medium max-w-sm mb-12 leading-relaxed">Dedicated to the science of extraction and the ritual of the morning. Designed in Seattle, WA. Crafted for the world.</p>
+              <p className="text-crema-gold/60 font-medium max-sm mb-12 leading-relaxed">Dedicated to the science of extraction and the ritual of the morning. Designed in Seattle, WA. Crafted for the world.</p>
               <div className="flex gap-6">
                 {['Instagram', 'Vimeo', 'X'].map(social => (
                   <span key={social} className="text-crema-gold/40 hover:text-white cursor-pointer font-black text-[10px] uppercase tracking-[0.3em] transition-colors">{social}</span>
