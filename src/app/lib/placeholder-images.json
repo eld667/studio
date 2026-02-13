@@ -2,6 +2,24 @@
 {
   "placeholderImages": [
     {
+      "id": "customerhub-dashboard",
+      "description": "High-fidelity analytics dashboard screenshot",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bbda6465fba1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "data dashboard"
+    },
+    {
+      "id": "customerhub-segment",
+      "description": "Visual customer segmentation interface",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "analytics software"
+    },
+    {
+      "id": "customerhub-journey",
+      "description": "Customer journey mapping visualization",
+      "imageUrl": "https://images.unsplash.com/photo-1551434678-e076c223a692?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "journey map"
+    },
+    {
       "id": "saastr-hero",
       "description": "Massive crowd at Moscone Center conference",
       "imageUrl": "https://images.unsplash.com/photo-1540575861501-7c93b707ffea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
@@ -54,6 +72,144 @@
       "description": "SaaStr night party at Pier 27",
       "imageUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "imageHint": "event party"
+    },
+    {
+      "id": "dentist-hero",
+      "description": "Clean modern dental office interior",
+      "imageUrl": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50YWwlMjBvZmZpY2V8ZW58MHx8fHwxNzcwNzYxMTk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental office"
+    },
+    {
+      "id": "dentist-team",
+      "description": "Friendly dental professional team",
+      "imageUrl": "https://images.unsplash.com/photo-1642844819197-5f5f21b89ff8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50YWxfdGVhbXxlbnwwfHx8fDE3NzA4NTM0MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dentist team"
+    },
+    {
+      "id": "dentist-map",
+      "description": "Map location of the clinic",
+      "imageUrl": "https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwfGVufDB8fHx8MTc3MDgxNDA5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "hair-hero",
+      "description": "Modern hair salon interior with mirrors",
+      "imageUrl": "https://images.unsplash.com/photo-1562322140-8baeececf3df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxoYWlyJTIwc2Fsb258ZW58MHx8fHwxNzcwNzY5MjExfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hair salon"
+    },
+    {
+      "id": "hair-stylist",
+      "description": "Professional hairstylist working on a client",
+      "imageUrl": "https://images.unsplash.com/photo-1559599101-f09722fb4948?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoYWlyJTIwc3R5bGlzdHxlbnwwfHx8fDE3NzA4NTM0MTMA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hair stylist"
+    },
+    {
+      "id": "hair-interior",
+      "description": "Chic salon seating area",
+      "imageUrl": "https://images.unsplash.com/photo-1695527081848-1e46c06e6458?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzYWxvbiUyMGludGVyaW9yfGVufDB8fHx8MTc3MDc1MzYwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "salon interior"
+    },
+    {
+      "id": "hair-map",
+      "description": "Map location of the salon",
+      "imageUrl": "https://images.unsplash.com/photo-1619468129361-605ebea04b44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaXR5JTIwbWFwfGVufDB8fHx8MTc3MDgxNDA5NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "roof-hero",
+      "description": "Professional roofing crew working on a modern house",
+      "imageUrl": "https://images.unsplash.com/photo-1635424710928-0544e8512eae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb29maW5nfGVufDB8fHx8MTc3MDk0MzU0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "roofing work"
+    },
+    {
+      "id": "roof-storm",
+      "description": "Damaged shingles after a storm",
+      "imageUrl": "https://images.unsplash.com/photo-1549480017-d76466a4b7e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxyb29mJTIwZGFtYWdlfGVufDB8fHx8MTc3MDk0MzU0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "roof damage"
+    },
+    {
+      "id": "roof-commercial",
+      "description": "Large scale commercial roofing project",
+      "imageUrl": "https://images.unsplash.com/photo-1508450859948-4e04f9ad548b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb21tZXJjaWFsJTIwcm9vZnxlbnwwfHx8fDE3NzA5NDM1NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "commercial roof"
+    },
+    {
+      "id": "lawn-hero",
+      "description": "Perfect green lawn with Nashville skyline in background",
+      "imageUrl": "https://images.unsplash.com/photo-1558449028-b53a39d100fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXduJTIwY2FyZXxlbnwwfHx8fDE3NzA5NTAwMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "green lawn"
+    },
+    {
+      "id": "lawn-kids",
+      "description": "Happy children playing on safe organic lawn",
+      "imageUrl": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwbGF3bnxlbnwwfHx8fDE3NzA5NTAwMDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kids playing"
+    },
+    {
+      "id": "instructor-sarah",
+      "description": "Professional headshot of Sarah Chen",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400&h=400",
+      "imageHint": "professional headshot"
+    },
+    {
+      "id": "ai-workshop-live",
+      "description": "Virtual workshop interface screenshot",
+      "imageUrl": "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "virtual event"
+    },
+    {
+      "id": "ai-toolkit-preview",
+      "description": "Visual mockup of templates and prompt guides",
+      "imageUrl": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+      "imageHint": "ai templates"
+    },
+    {
+      "id": "attendee-1",
+      "description": "Attendee Jennifer Park headshot",
+      "imageUrl": "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200&h=200",
+      "imageHint": "attendee headshot"
+    },
+    {
+      "id": "agency-office",
+      "description": "Modern agency office space",
+      "imageUrl": "https://images.unsplash.com/photo-1568359415889-fbe562be5ea1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWdlbmN5JTIwb2ZmaWNlfGVufDB8fHx8MTc3MDk0MDQ0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "agency office"
+    },
+    {
+      "id": "coach-alex",
+      "description": "Agency coach Alex Chen",
+      "imageUrl": "https://images.unsplash.com/photo-1744960152791-3c3edef9037b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb2FjaCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MDk0MDQ0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coach headshot"
+    },
+    {
+      "id": "zen-garden",
+      "description": "Japanese Zen garden",
+      "imageUrl": "https://images.unsplash.com/photo-1567372704182-ec2ea042c937?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx6ZW4lMjBnYXJkZW58ZW58MHx8fHwxNzcwOTEzOTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "zen garden"
+    },
+    {
+      "id": "kintsugi-bowl",
+      "description": "Broken bowl with gold repair",
+      "imageUrl": "https://picsum.photos/seed/kintsugibowl/1200/800",
+      "imageHint": "kintsugi bowl"
+    },
+    {
+      "id": "maison-diamond",
+      "description": "Floating brilliant cut diamond",
+      "imageUrl": "https://images.unsplash.com/photo-1735480165122-65e06bbbd926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGlhbW9uZCUyMGdlbXN0b25lfGVufDB8fHx8MTc3MDk0MDQ0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond gemstone"
+    },
+    {
+      "id": "maison-ring",
+      "description": "Ultra luxury diamond ring",
+      "imageUrl": "https://images.unsplash.com/photo-1605100804567-1ffe942b5cd6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkaWFtb25kJTIwcmluZ3xlbnwwfHx8fDE3NzA4NDAxODJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diamond ring"
+    },
+    {
+      "id": "maison-salon",
+      "description": "Private jewelry salon interior",
+      "imageUrl": "https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBpbnRlcmlvcnxlbnwwfHx8fDE3NzA4Nzc5MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury interior"
     }
   ]
 }
