@@ -16,7 +16,8 @@ import {
   Target, 
   Cpu, 
   Search,
-  ChevronRight
+  ChevronRight,
+  Users
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
