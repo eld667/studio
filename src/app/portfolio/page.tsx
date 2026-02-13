@@ -50,7 +50,7 @@ const MISSIONS: Mission[] = [
 
   // Group 3: PRODUCT-DEMO
   { id: 'm9', title: 'Nebula Sound Pro', slug: '/nebula-sound', pillar: 'PRODUCT-DEMO', outcome: 'Immersive audio-visual product demonstration.', isLive: true, tech: 'Next.js + Tailwind' },
-  { id: 'm10', title: 'Lumina Desk', slug: '/lumina-desk', pillar: 'PRODUCT-DEMO', outcome: 'Feature-first hardware showcase.', isLive: false, tech: 'Next.js + Tailwind' },
+  { id: 'm10', title: 'Lumina Desk', slug: '/lumina-desk', pillar: 'PRODUCT-DEMO', outcome: 'Feature-first hardware showcase.', isLive: true, tech: 'Next.js + Tailwind' },
   { id: 'm11', title: 'Haven Air Purifier', slug: '/haven-air', pillar: 'PRODUCT-DEMO', outcome: 'Clean UX reflecting pure air technology.', isLive: false, tech: 'Next.js + Tailwind' },
   { id: 'm12', title: 'Summit Brew', slug: '/summit-brew', pillar: 'PRODUCT-DEMO', outcome: 'Process-centric coffee tech immersion.', isLive: false, tech: 'Next.js + Tailwind' },
 
