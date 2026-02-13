@@ -51,7 +51,7 @@ const MISSIONS: Mission[] = [
   // Group 3: PRODUCT-DEMO
   { id: 'm9', title: 'Nebula Sound Pro', slug: '/nebula-sound', pillar: 'PRODUCT-DEMO', outcome: 'Immersive audio-visual product demonstration.', isLive: true, tech: 'Next.js + Tailwind' },
   { id: 'm10', title: 'Lumina Desk', slug: '/lumina-desk', pillar: 'PRODUCT-DEMO', outcome: 'Feature-first hardware showcase.', isLive: true, tech: 'Next.js + Tailwind' },
-  { id: 'm11', title: 'Haven Air Purifier', slug: '/haven-air', pillar: 'PRODUCT-DEMO', outcome: 'Clean UX reflecting pure air technology.', isLive: false, tech: 'Next.js + Tailwind' },
+  { id: 'm11', title: 'Haven Air Purifier', slug: '/haven-air', pillar: 'PRODUCT-DEMO', outcome: 'Scientific particle simulation air quality dashboard.', isLive: true, tech: 'Next.js + Tailwind' },
   { id: 'm12', title: 'Summit Brew', slug: '/summit-brew', pillar: 'PRODUCT-DEMO', outcome: 'Process-centric coffee tech immersion.', isLive: false, tech: 'Next.js + Tailwind' },
 
   // Group 4: PORTFOLIO-CREATIVE
@@ -113,7 +113,7 @@ export default function PortfolioPage() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.2em] mb-8">
                 <div className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                 </div>
                 Currently Deploying 28 Systems of Intelligence. {liveCount} Missions Live.
               </div>
