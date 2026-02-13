@@ -38,9 +38,17 @@ import { useToast } from "@/hooks/use-toast";
 // --- SUB-COMPONENTS ---
 
 const SteamParticle = ({ i }: { i: number }) => {
-  const duration = 2 + Math.random() * 2;
-  const delay = Math.random() * 2;
-  const x = -20 + Math.random() * 40;
+  const [randomValues, setRandomValues] = useState<{ duration: number; delay: number; x: number } | null>(null);
+
+  useEffect(() => {
+    setRandomValues({
+      duration: 2 + Math.random() * 2,
+      delay: Math.random() * 2,
+      x: -20 + Math.random() * 40
+    });
+  }, []);
+
+  if (!randomValues) return null;
 
   return (
     <motion.div
@@ -48,14 +56,14 @@ const SteamParticle = ({ i }: { i: number }) => {
       initial={{ y: 0, x: 0, opacity: 0, scale: 0.5 }}
       animate={{ 
         y: -150, 
-        x: x,
+        x: randomValues.x,
         opacity: [0, 0.4, 0],
         scale: [0.5, 1.5, 2]
       }}
       transition={{ 
-        duration, 
+        duration: randomValues.duration, 
         repeat: Infinity, 
-        delay,
+        delay: randomValues.delay,
         ease: "easeOut" 
       }}
     />
@@ -164,6 +172,7 @@ const TempGauge = () => {
 export default function SummitBrewPage() {
   const { toast } = useToast();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [aromaParticles, setAromaParticles] = useState<{ top: string; left: string }[]>([]);
   
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -174,6 +183,14 @@ export default function SummitBrewPage() {
   const farmOpacity = useTransform(scrollYProgress, [0, 0.2], [0.4, 0]);
   const machineScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
   const aromaY = useTransform(scrollYProgress, [0, 1], [0, -500]);
+
+  useEffect(() => {
+    // Generate aroma particles positions after mount to avoid hydration mismatch
+    setAromaParticles([...Array(20)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+    })));
+  }, []);
 
   const handleAddToCart = () => {
     toast({
@@ -190,13 +207,13 @@ export default function SummitBrewPage() {
         style={{ y: aromaY }}
         className="fixed inset-0 z-0 pointer-events-none opacity-10"
       >
-        {[...Array(20)].map((_, i) => (
+        {aromaParticles.map((p, i) => (
           <div 
             key={i} 
             className="absolute w-1 h-1 bg-crema-gold rounded-full"
             style={{ 
-              top: `${Math.random() * 100}%`, 
-              left: `${Math.random() * 100}%`,
+              top: p.top, 
+              left: p.left,
               filter: 'blur(2px)' 
             }} 
           />
@@ -205,7 +222,7 @@ export default function SummitBrewPage() {
 
       {/* --- NAVIGATION --- */}
       <nav className="fixed top-0 left-0 w-full z-[100] h-20 px-6 md:px-12 flex items-center justify-between border-b border-white/5 backdrop-blur-md bg-coffee-brown/80">
-        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+        <div className="flex items-center gap-2 cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
           <div className="w-10 h-10 rounded-xl bg-crema-gold flex items-center justify-center text-coffee-brown shadow-lg group-hover:rotate-6 transition-transform">
             <Coffee className="w-6 h-6" />
           </div>
