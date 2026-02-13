@@ -14,6 +14,7 @@ import {
   Zap, 
   Search, 
   CheckCircle2,
+  Check,
   ChevronRight,
   Globe,
   Settings,
@@ -312,9 +313,9 @@ export default function CodeReviewProPage() {
               <h4 className="font-black text-xs uppercase tracking-[0.3em] text-blue-400 mb-8">Registry</h4>
               <ul className="space-y-4 text-slate-500 font-bold text-xs">
                 <li className="hover:text-white cursor-pointer transition-colors">Documentation</li>
-                <li className="hover:text-white cursor-pointer transition-colors">Changelog</li>
-                <li className="hover:text-white cursor-pointer transition-colors">Security Model</li>
-                <li className="hover:text-white cursor-pointer transition-colors">API Keys</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Changelog</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Security Model</li>
+                <li className="hover:text-white transition-colors cursor-pointer">API Keys</li>
               </ul>
             </div>
             <div>
