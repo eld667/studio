@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -66,10 +67,10 @@ const MISSIONS: Mission[] = [
   { id: 'm20', title: 'AI Marketing Workshop', slug: '/ai-workshop', pillar: 'LANDING-PAGE', outcome: 'Live demo hook for technical training.', isLive: true, tech: 'Next.js + Tailwind' },
 
   // Group 6: SAAS-MARKETING
-  { id: 'm21', title: 'FlowSync', slug: '/flowsync', pillar: 'SAAS-MARKETING', outcome: 'Feature-heavy software growth marketing.', isLive: false, tech: 'Next.js + Tailwind' },
-  { id: 'm22', title: 'CustomerHub', slug: '/customerhub', pillar: 'SAAS-MARKETING', outcome: 'Metric-centric CRM platform landing page.', isLive: false, tech: 'Next.js + Tailwind' },
-  { id: 'm23', title: 'InvoiceFlow', slug: '/invoiceflow', pillar: 'SAAS-MARKETING', outcome: 'Security-first fintech marketing UX.', isLive: false, tech: 'Next.js + Tailwind' },
-  { id: 'm24', title: 'CodeReview Pro', slug: '/codereview-pro', pillar: 'SAAS-MARKETING', outcome: 'Developer-centric SaaS positioning.', isLive: false, tech: 'Next.js + Tailwind' },
+  { id: 'm21', title: 'FlowSync', slug: '/flowsync', pillar: 'SAAS-MARKETING', outcome: 'Feature-heavy software growth marketing.', isLive: true, tech: 'Next.js + Tailwind' },
+  { id: 'm22', title: 'CustomerHub', slug: '/customerhub', pillar: 'SAAS-MARKETING', outcome: 'Metric-centric CRM platform landing page.', isLive: true, tech: 'Next.js + Tailwind' },
+  { id: 'm23', title: 'InvoiceFlow', slug: '/invoiceflow', pillar: 'SAAS-MARKETING', outcome: 'Security-first fintech marketing UX.', isLive: true, tech: 'Next.js + Tailwind' },
+  { id: 'm24', title: 'CodeReview Pro', slug: '/codereview-pro', pillar: 'SAAS-MARKETING', outcome: 'Developer-centric SaaS positioning.', isLive: true, tech: 'Next.js + Tailwind' },
 
   // Group 7: EVENT-PROMO
   { id: 'm25', title: 'SaaStr Annual', slug: '/saastr-annual', pillar: 'EVENT-PROMO', outcome: 'FOMO-driven industry networking tool.', isLive: true, tech: 'Next.js + Tailwind' },
