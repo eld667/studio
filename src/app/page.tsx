@@ -4,8 +4,7 @@
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
-import { ProjectCard } from "@/app/ProjectCard";
-import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mail } from "lucide-react";
+import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mail, ArrowUpRight, ExternalLink, Cpu, BarChart3, Target, Zap, Sparkles, Globe } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -36,136 +35,151 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FadeIn } from "./FadeIn";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Image as ImageIcon, Zap, Sparkles, Server, Search, Phone } from 'lucide-react';
 import { EldworkStandard } from "@/components/layout/EldworkStandard";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import Image from "next/image";
+
+function CaseStudyCard({ 
+  title, 
+  niche, 
+  description, 
+  imageUrl, 
+  href, 
+  specs, 
+  accentColor 
+}: { 
+  title: string; 
+  niche: string; 
+  description: string; 
+  imageUrl: string; 
+  href: string; 
+  specs: string[]; 
+  accentColor: string;
+}) {
+  return (
+    <FadeIn>
+      <div className="group relative bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden hover:border-white/20 transition-all duration-500">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+          {/* Image side */}
+          <div className="relative aspect-video lg:aspect-auto overflow-hidden">
+            <Image 
+              src={imageUrl} 
+              alt={title} 
+              fill 
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent lg:hidden" />
+          </div>
+
+          {/* Content side */}
+          <div className="p-8 md:p-12 flex flex-col justify-center">
+            <div className="flex items-center gap-3 mb-6">
+              <span className={cn("text-[10px] font-mono font-bold uppercase tracking-[0.3em] px-2 py-1 rounded bg-white/5 border border-white/10", accentColor)}>
+                {niche}
+              </span>
+              <div className="h-px flex-grow bg-white/10" />
+            </div>
+            
+            <h3 className="text-3xl md:text-5xl font-bold mb-6 text-white uppercase tracking-tighter italic">
+              {title}
+            </h3>
+            
+            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+              {description}
+            </p>
+
+            <div className="flex flex-wrap gap-3 mb-10">
+              {specs.map((spec, i) => (
+                <span key={i} className="text-[10px] font-mono text-gray-500 uppercase tracking-widest bg-black/30 px-3 py-1 rounded-full border border-white/5">
+                  {spec}
+                </span>
+              ))}
+            </div>
+
+            <Link href={href} target="_blank">
+              <Button 
+                size="lg" 
+                className="bg-white text-black hover:bg-white/90 font-black px-10 py-8 h-auto rounded-xl uppercase tracking-tighter transition-all group/btn"
+              >
+                Launch Live Site <ArrowUpRight className="ml-2 w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
 
 function CaseStudyShowcase() {
-  const horizonImg = PlaceHolderImages.find(img => img.id === 'horizon-hero')?.imageUrl || "https://picsum.photos/seed/horizon/600/400";
-  const apexImg = PlaceHolderImages.find(img => img.id === 'apex-plumbing')?.imageUrl || "https://picsum.photos/seed/apex/600/400";
-  const luminaImg = PlaceHolderImages.find(img => img.id === 'lumina-interior')?.imageUrl || "https://picsum.photos/seed/lumina/600/400";
+  const swiftmoveImg = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop";
+  const whiskyImg = PlaceHolderImages.find(img => img.id === 'whisky-vault')?.imageUrl || "https://picsum.photos/seed/whisky1/1200/800";
+  const customerhubImg = PlaceHolderImages.find(img => img.id === 'customerhub-dashboard')?.imageUrl || "https://picsum.photos/seed/data/1200/800";
 
   return (
-    <motion.section
-      id="work"
-      className="w-full max-w-5xl mx-auto py-24 px-6"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
-      <FadeIn>
-        <h2 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))]">
-          Our Work
-        </h2>
-      </FadeIn>
-      <FadeIn delay={0.2}>
-        <p className="text-lg text-gray-400 max-w-2xl text-center mx-auto mb-24">
-          We don't build generic templates. We craft a unique solution for each specific goal. Here are our three core 'Purposes'.
-        </p>
-      </FadeIn>
+    <section id="work" className="w-full max-w-7xl mx-auto py-32 px-6">
+      <div className="text-center mb-24">
+        <FadeIn>
+          <h2 className="text-4xl md:text-7xl font-black mb-6 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent uppercase italic tracking-tighter">
+            Flagship Missions
+          </h2>
+          <p className="text-xl text-gray-500 max-w-2xl mx-auto font-medium">
+            Strategic web architectures designed for high-performance business outcomes.
+          </p>
+        </FadeIn>
+      </div>
       
-      {/* --- Project 1: Horizon Architecture --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center mb-24">
+      <div className="flex flex-col gap-12 md:gap-24">
+        <CaseStudyCard 
+          title="SwiftMove Movers"
+          niche="Logistics Optimization & UX"
+          description="A high-conversion multi-step quote engine that reduced booking friction by 40%. Engineered for mobile-first rapid response."
+          imageUrl={swiftmoveImg}
+          href="/swiftmove-movers"
+          accentColor="text-blue-400"
+          specs={["Real-time Estimator", "Next.js 15", "Lead Capture API"]}
+        />
+
+        <CaseStudyCard 
+          title="Whisky Vault"
+          niche="Premium E-commerce Experience"
+          description="A gated luxury marketplace featuring a cinematic 'Vault' entry sequence and real-time secondary market value tracking."
+          imageUrl={whiskyImg}
+          href="/reserve-whisky"
+          accentColor="text-amber-500"
+          specs={["Membership Gating", "3D Cask Viewer", "Asset Valuation"]}
+        />
+
+        <CaseStudyCard 
+          title="CustomerHub"
+          niche="SaaS Data Dashboarding"
+          description="Interactive CDP platform visualizing complex customer journeys. Features live metric simulations and usage-based pricing logic."
+          imageUrl={customerhubImg}
+          href="/customerhub"
+          accentColor="text-purple-400"
+          specs={["Live Recharts", "CDP Architecture", "Usage Sliders"]}
+        />
+      </div>
+
+      {/* --- PORTFOLIO BRIDGE --- */}
+      <div className="mt-32 pt-24 border-t border-white/5 text-center">
         <FadeIn>
-          <div>
-            <p className="text-sm font-bold text-blue-400 mb-2">Real Estate & Design</p>
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-              Minimalist Luxury Showcase
-            </h3>
-            <p className="text-gray-400 text-lg mb-4">
-              A clean, image-centric portfolio for a high-end architecture firm. Features smooth gallery transitions, property filtering, and a "Virtual Tour" request system.
-            </p>
-            <span className="inline-block bg-blue-500/10 text-blue-300 border border-blue-500/20 text-xs font-semibold px-3 py-1 rounded-full">
-              Brand Authority
-            </span>
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.2}>
-            <ProjectCard
-              title="Horizon Architecture"
-              description="A clean, image-centric portfolio for a high-end architecture firm."
-              imageUrl={horizonImg}
-              href="/demos/horizon"
-              data-ai-hint="architecture building"
-              features={[
-                { icon: ImageIcon, text: "4K Gallery Support" },
-                { icon: Video, text: "Virtual Tour Ready" },
-                { icon: Sparkles, text: "Luxury Identity" }
-              ]}
-            />
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
+            Looking for a specific industry solution?
+          </h3>
+          <Link href="/portfolio">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-2 border-white/10 hover:bg-white/5 text-gray-400 hover:text-white px-12 py-8 h-auto rounded-full font-mono text-xs uppercase tracking-[0.3em] transition-all"
+            >
+              Explore Full Portfolio & Demos
+            </Button>
+          </Link>
         </FadeIn>
       </div>
-
-      {/* --- Project 2: Apex Plumbing Solutions --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center mb-24">
-        <FadeIn className="md:order-last">
-          <div>
-            <p className="text-sm font-bold text-emerald-400 mb-2">Local Service Business</p>
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent">
-              Lead Generation Engine
-            </h3>
-            <p className="text-gray-400 text-lg mb-4">
-              A mobile-first design focused on speed and instant booking. Replaced a static brochure site with a dynamic lead funnel, featuring one-tap calling and automated service area mapping.
-            </p>
-            <span className="inline-block bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-xs font-semibold px-3 py-1 rounded-full">
-              +40% Conversion Rate
-            </span>
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.2} className="md:order-first">
-          <ProjectCard
-            title="Apex Plumbing Solutions"
-            description="A mobile-first design for a local plumber."
-            imageUrl={apexImg}
-            href="/demos/apex-plumbing"
-            data-ai-hint="plumbing tools"
-            features={[
-                { icon: Search, text: "SEO Optimized" },
-                { icon: Phone, text: "Instant Call-to-Action" },
-                { icon: Zap, text: "99/100 Speed Score" }
-              ]}
-          />
-        </FadeIn>
-      </div>
-
-      {/* --- Project 3: Lumina Bistro --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-        <FadeIn>
-          <div>
-            <p className="text-sm font-bold text-purple-400 mb-2">Hospitality & Dining</p>
-            <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-emerald-400 bg-clip-text text-transparent">
-              Atmospheric Visual Experience
-            </h3>
-            <p className="text-gray-400 text-lg mb-4">
-              An image-heavy, immersive site capturing the restaurant's evening ambiance. Features a live menu integration and a seamless reservation system that reduces table gaps.
-            </p>
-            <span className="inline-block bg-purple-500/10 text-purple-300 border border-purple-500/20 text-xs font-semibold px-3 py-1 rounded-full">
-              Brand Elevation
-            </span>
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.2}>
-            <ProjectCard
-              title="Lumina Bistro"
-              description="An immersive site for a fine-dining restaurant."
-              imageUrl={luminaImg}
-              href="/demos/lumina-bistro"
-              data-ai-hint="restaurant interior"
-              features={[
-                { icon: Server, text: "Live Digital Menu" },
-                { icon: Check, text: "Auto-Reservation" },
-                { icon: Sparkles, text: "Atmospheric UI" }
-              ]}
-            />
-        </FadeIn>
-      </div>
-
-    </motion.section>
+    </section>
   );
 }
 
