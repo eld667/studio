@@ -46,51 +46,74 @@ function ProjectViewport({
   impact, 
   image, 
   speed, 
-  href 
+  href,
+  height
 }: { 
   title: string; 
   impact: string; 
   image: string; 
   speed: string; 
   href: string;
+  height: number;
 }) {
   const isMobile = useIsMobile();
   const numericSpeed = parseFloat(speed) || 7;
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [viewportHeight, setViewportHeight] = useState(0);
+  
+  // triggers when 60% of the element is visible (the "Hot Zone")
+  const isInView = useInView(viewportRef, { amount: 0.6 });
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (viewportRef.current) {
+        setViewportHeight(viewportRef.current.offsetHeight);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
+  const scrollTarget = `calc(-100% + ${viewportHeight}px)`;
 
   return (
     <FadeIn>
       <div className="flex flex-col gap-6 group">
         {/* The Scroll Engine Viewport */}
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[12px] bg-zinc-900 border border-white/10 shadow-2xl">
-          {/* Glass Reflection Overlay */}
+        <div 
+          ref={viewportRef}
+          className="relative aspect-[16/10] overflow-hidden rounded-[12px] bg-zinc-900 border border-white/10 shadow-2xl"
+        >
+          {/* Glass Reflection Overlay - pointer-events-none ensures interaction reaches the motion div */}
           <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-40" />
           
           {/* Scrolling Long Image Engine */}
           <motion.div 
-            className={cn(
-              "w-full absolute top-0 left-0 transition-transform ease-linear",
-              !isMobile && "group-hover:translate-y-[calc(-100%+250px)]"
-            )}
-            style={{ 
-              transitionDuration: !isMobile ? speed : '0s'
-            }}
-            animate={isMobile ? {
-              y: ["0%", "-70%", "0%"]
+            className="w-full absolute top-0 left-0"
+            initial={{ y: 0 }}
+            animate={isMobile && isInView ? {
+              y: scrollTarget
             } : { y: 0 }}
-            transition={isMobile ? {
-              duration: numericSpeed * 4,
-              repeat: Infinity,
+            whileHover={!isMobile ? {
+              y: scrollTarget
+            } : undefined}
+            transition={{
+              duration: isMobile ? numericSpeed * 4 : numericSpeed,
               ease: "linear",
-              repeatDelay: 2
-            } : {}}
+              repeat: isMobile && isInView ? Infinity : 0,
+              repeatType: "reverse"
+            }}
           >
-            {/* The Full Image Container - Maintaining high vertical aspect for long screenshots */}
-            <div className="relative w-full aspect-[9/40]">
+            {/* The Full Image Container */}
+            <div className="relative w-full">
               <Image 
                 src={image} 
                 alt={title} 
-                fill 
-                className="object-top object-cover"
+                width={1440}
+                height={height}
+                className="w-full h-auto"
                 sizes="(max-width: 768px) 100vw, 33vw"
                 priority={false}
               />
@@ -155,6 +178,7 @@ function CaseStudyShowcase() {
             image="/images/swiftmovemoversfs.webp"
             speed="7.5s"
             href="/swiftmove-movers"
+            height={5993}
           />
 
           <ProjectViewport 
@@ -163,6 +187,7 @@ function CaseStudyShowcase() {
             image="/images/reservewhiskyfs.webp"
             speed="7s"
             href="/reserve-whisky"
+            height={5650}
           />
 
           <ProjectViewport 
@@ -171,6 +196,7 @@ function CaseStudyShowcase() {
             image="/images/customerhubfs.webp"
             speed="9.5s"
             href="/customerhub"
+            height={7355}
           />
         </div>
 
