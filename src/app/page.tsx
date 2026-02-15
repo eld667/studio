@@ -39,6 +39,7 @@ import { EldworkStandard } from "@/components/layout/EldworkStandard";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 function ProjectViewport({ 
   title, 
@@ -53,6 +54,9 @@ function ProjectViewport({
   speed: string; 
   href: string;
 }) {
+  const isMobile = useIsMobile();
+  const numericSpeed = parseFloat(speed) || 7;
+
   return (
     <FadeIn>
       <div className="flex flex-col gap-6 group">
@@ -61,21 +65,37 @@ function ProjectViewport({
           {/* Glass Reflection Overlay */}
           <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-40" />
           
-          {/* Scrolling Long Image */}
-          <div 
-            className="w-full h-auto absolute top-0 left-0 transition-transform ease-linear"
+          {/* Scrolling Long Image Engine */}
+          <motion.div 
+            className={cn(
+              "w-full absolute top-0 left-0 transition-transform ease-linear",
+              !isMobile && "group-hover:translate-y-[calc(-100%+250px)]"
+            )}
             style={{ 
-              transitionDuration: speed,
-              transform: 'translateY(0)'
+              transitionDuration: !isMobile ? speed : '0s'
             }}
+            animate={isMobile ? {
+              y: ["0%", "-70%", "0%"]
+            } : { y: 0 }}
+            transition={isMobile ? {
+              duration: numericSpeed * 4,
+              repeat: Infinity,
+              ease: "linear",
+              repeatDelay: 2
+            } : {}}
           >
-            <img 
-              src={image} 
-              alt={title} 
-              className="w-full h-auto transition-transform ease-linear group-hover:translate-y-[calc(-100%+400px)]"
-              style={{ transitionDuration: speed }}
-            />
-          </div>
+            {/* The Full Image Container - Maintaining high vertical aspect for long screenshots */}
+            <div className="relative w-full aspect-[9/40]">
+              <Image 
+                src={image} 
+                alt={title} 
+                fill 
+                className="object-top object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority={false}
+              />
+            </div>
+          </motion.div>
         </div>
 
         {/* Impact Statements & Actions */}
@@ -469,7 +489,7 @@ export default function Home() {
       <main className="flex-grow">
         <Hero onExploreClick={(e) => handleScroll(e, 'work')}>
           <p className="text-lg text-gray-400 max-w-2xl text-center mt-6">
-            In 2025, a generic website is costing you customers. We build high-trust, purpose-driven sites that turn visitors into clients.
+            In 2026, a generic website is costing you customers. We build high-trust, purpose-driven sites that turn visitors into clients.
           </p>
         </Hero>
         <CaseStudyShowcase />
