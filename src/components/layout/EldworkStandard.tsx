@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState } from 'react';
@@ -87,7 +86,7 @@ export function EldworkStandard() {
   return (
     <section id="philosophy" className="w-full max-w-5xl mx-auto py-24 px-6">
       <FadeIn>
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))]">
+        <h2 className="text-2xl font-medium text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))] tracking-tight">
           THE ELDWORK STANDARD
         </h2>
       </FadeIn>
@@ -127,7 +126,7 @@ export function EldworkStandard() {
                     <span
                       className={cn(
                         `text-3xl md:text-5xl font-extralight transition-colors duration-300`,
-                         isOpen ? 'text-blue-400' : 'text-gray-600'
+                         isOpen ? 'text-blue-400' : 'text-zinc-600'
                       )}
                     >
                       0{index + 1}
@@ -135,15 +134,15 @@ export function EldworkStandard() {
                     <div
                       className={cn(
                         'transition-colors duration-300',
-                        isOpen ? 'text-blue-400' : 'text-gray-100'
+                        isOpen ? 'text-blue-400' : 'text-zinc-100'
                       )}
                     >
                       <Icon />
                     </div>
                     <h3
                        className={cn(
-                        'text-lg md:text-2xl font-bold transition-colors duration-300',
-                        isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-gray-100'
+                        'text-base md:text-lg font-medium transition-colors duration-300 tracking-tight',
+                        isOpen ? 'bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent' : 'text-zinc-100'
                       )}
                     >
                       {item.title}
@@ -182,7 +181,7 @@ export function EldworkStandard() {
                       transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
                       className="px-6 relative z-10"
                     >
-                      <div className="pb-6 md:pl-[124px] text-gray-400 max-w-prose text-sm md:text-base">
+                      <div className="pb-6 md:pl-[124px] text-zinc-400 max-w-prose text-[14px] font-normal">
                         {item.description}
                       </div>
                     </motion.section>
