@@ -4,7 +4,7 @@
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
 import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
-import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mail, ArrowUpRight, ExternalLink, Cpu, BarChart3, Target, Zap, Sparkles, Globe } from "lucide-react";
+import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mail, ArrowUpRight, ExternalLink, Cpu, BarChart3, Target, Zap, Sparkles, Globe, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -40,71 +40,71 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
 
-function CaseStudyCard({ 
+function ProjectViewport({ 
   title, 
-  niche, 
-  description, 
-  imageUrl, 
-  href, 
-  specs, 
-  accentColor 
+  impact, 
+  image, 
+  speed, 
+  href 
 }: { 
   title: string; 
-  niche: string; 
-  description: string; 
-  imageUrl: string; 
-  href: string; 
-  specs: string[]; 
-  accentColor: string;
+  impact: string; 
+  image: string; 
+  speed: string; 
+  href: string;
 }) {
   return (
     <FadeIn>
-      <div className="group relative bg-zinc-900/50 border border-white/10 rounded-[2rem] overflow-hidden hover:border-white/20 transition-all duration-500">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-          {/* Image side */}
-          <div className="relative aspect-video lg:aspect-auto overflow-hidden">
-            <Image 
-              src={imageUrl} 
+      <div className="flex flex-col gap-6 group">
+        {/* The Scroll Engine Viewport */}
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[12px] bg-zinc-900 border border-white/10 shadow-2xl">
+          {/* Glass Reflection Overlay */}
+          <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-40" />
+          
+          {/* Scrolling Long Image */}
+          <div 
+            className="w-full h-auto absolute top-0 left-0 transition-transform ease-linear"
+            style={{ 
+              transitionDuration: speed,
+              transform: 'translateY(0)'
+            }}
+          >
+            <img 
+              src={image} 
               alt={title} 
-              fill 
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-auto transition-transform ease-linear group-hover:translate-y-[calc(-100%+400px)]"
+              style={{ transitionDuration: speed }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent lg:hidden" />
           </div>
+        </div>
 
-          {/* Content side */}
-          <div className="p-8 md:p-12 flex flex-col justify-center">
-            <div className="flex items-center gap-3 mb-6">
-              <span className={cn("text-[10px] font-mono font-bold uppercase tracking-[0.3em] px-2 py-1 rounded bg-white/5 border border-white/10", accentColor)}>
-                {niche}
-              </span>
-              <div className="h-px flex-grow bg-white/10" />
-            </div>
-            
-            <h3 className="text-3xl md:text-5xl font-bold mb-6 text-white uppercase tracking-tighter italic">
+        {/* Impact Statements & Actions */}
+        <div className="space-y-4">
+          <div>
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-1">
               {title}
             </h3>
-            
-            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-              {description}
+            <p className="text-gray-400 text-sm font-medium leading-relaxed min-h-[40px]">
+              {impact}
             </p>
-
-            <div className="flex flex-wrap gap-3 mb-10">
-              {specs.map((spec, i) => (
-                <span key={i} className="text-[10px] font-mono text-gray-500 uppercase tracking-widest bg-black/30 px-3 py-1 rounded-full border border-white/5">
-                  {spec}
-                </span>
-              ))}
-            </div>
-
-            <Link href={href} target="_blank">
+          </div>
+          
+          <div className="flex gap-3 pt-2">
+            <Link href={href} className="flex-1">
               <Button 
-                size="lg" 
-                className="bg-white text-black hover:bg-white/90 font-black px-10 py-8 h-auto rounded-xl uppercase tracking-tighter transition-all group/btn"
+                size="sm" 
+                className="w-full bg-white text-black hover:bg-white/90 font-black uppercase text-[10px] tracking-widest h-10 rounded-none"
               >
-                Launch Live Site <ArrowUpRight className="ml-2 w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                Launch Live Demo
               </Button>
             </Link>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex-1 border-white/20 text-white hover:bg-white/5 font-black uppercase text-[10px] tracking-widest h-10 rounded-none"
+            >
+              Systems Architecture
+            </Button>
           </div>
         </div>
       </div>
@@ -113,70 +113,58 @@ function CaseStudyCard({
 }
 
 function CaseStudyShowcase() {
-  const swiftmoveImg = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop";
-  const whiskyImg = PlaceHolderImages.find(img => img.id === 'whisky-vault')?.imageUrl || "https://picsum.photos/seed/whisky1/1200/800";
-  const customerhubImg = PlaceHolderImages.find(img => img.id === 'customerhub-dashboard')?.imageUrl || "https://picsum.photos/seed/data/1200/800";
-
   return (
-    <section id="work" className="w-full max-w-7xl mx-auto py-32 px-6">
-      <div className="text-center mb-24">
+    <section id="work" className="w-full bg-black py-32 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-24">
+          <FadeIn>
+            <h2 className="text-4xl md:text-7xl font-black mb-6 text-white uppercase italic tracking-tighter">
+              Flagship Operations
+            </h2>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-medium">
+              High-performance digital architectures engineered for conversion.
+            </p>
+          </FadeIn>
+        </div>
+        
+        {/* Horizontal Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-24">
+          <ProjectViewport 
+            title="SwiftMove Movers"
+            impact="Scaling Logistics with AI-Driven Dispatch & Real-Time UX."
+            image="/images/swiftmovemoversfs.webp"
+            speed="7.5s"
+            href="/swiftmove-movers"
+          />
+
+          <ProjectViewport 
+            title="Whisky Vault"
+            impact="A Premium Digital Cellar: High-End E-commerce & Branding."
+            image="/images/reservewhiskyfs.webp"
+            speed="7s"
+            href="/reserve-whisky"
+          />
+
+          <ProjectViewport 
+            title="CustomerHub"
+            impact="The Intelligence Hub: Advanced SaaS Data Visualization & Sync."
+            image="/images/customerhubfs.webp"
+            speed="9.5s"
+            href="/customerhub"
+          />
+        </div>
+
+        {/* Global Bridge */}
         <FadeIn>
-          <h2 className="text-4xl md:text-7xl font-black mb-6 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent uppercase italic tracking-tighter">
-            Flagship Missions
-          </h2>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto font-medium">
-            Strategic web architectures designed for high-performance business outcomes.
-          </p>
-        </FadeIn>
-      </div>
-      
-      <div className="flex flex-col gap-12 md:gap-24">
-        <CaseStudyCard 
-          title="SwiftMove Movers"
-          niche="Logistics Optimization & UX"
-          description="A high-conversion multi-step quote engine that reduced booking friction by 40%. Engineered for mobile-first rapid response."
-          imageUrl={swiftmoveImg}
-          href="/swiftmove-movers"
-          accentColor="text-blue-400"
-          specs={["Real-time Estimator", "Next.js 15", "Lead Capture API"]}
-        />
-
-        <CaseStudyCard 
-          title="Whisky Vault"
-          niche="Premium E-commerce Experience"
-          description="A gated luxury marketplace featuring a cinematic 'Vault' entry sequence and real-time secondary market value tracking."
-          imageUrl={whiskyImg}
-          href="/reserve-whisky"
-          accentColor="text-amber-500"
-          specs={["Membership Gating", "3D Cask Viewer", "Asset Valuation"]}
-        />
-
-        <CaseStudyCard 
-          title="CustomerHub"
-          niche="SaaS Data Dashboarding"
-          description="Interactive CDP platform visualizing complex customer journeys. Features live metric simulations and usage-based pricing logic."
-          imageUrl={customerhubImg}
-          href="/customerhub"
-          accentColor="text-purple-400"
-          specs={["Live Recharts", "CDP Architecture", "Usage Sliders"]}
-        />
-      </div>
-
-      {/* --- PORTFOLIO BRIDGE --- */}
-      <div className="mt-32 pt-24 border-t border-white/5 text-center">
-        <FadeIn>
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
-            Looking for a specific industry solution?
-          </h3>
-          <Link href="/portfolio">
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-2 border-white/10 hover:bg-white/5 text-gray-400 hover:text-white px-12 py-8 h-auto rounded-full font-mono text-xs uppercase tracking-[0.3em] transition-all"
-            >
-              Explore Full Portfolio & Demos
-            </Button>
-          </Link>
+          <div className="pt-16 border-t border-white/10">
+            <Link href="/portfolio">
+              <Button 
+                className="w-full bg-white text-black hover:bg-white/90 font-black py-10 text-xl md:text-2xl uppercase tracking-[0.2em] transition-all group rounded-none"
+              >
+                PROCEED TO FULL REPOSITORY <ArrowRight className="ml-4 w-8 h-8 group-hover:translate-x-2 transition-transform" />
+              </Button>
+            </Link>
+          </div>
         </FadeIn>
       </div>
     </section>
