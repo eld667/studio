@@ -1,8 +1,6 @@
-
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -24,27 +22,26 @@ const navLinks = [
 export function Header({ onScroll }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const isCvPage = pathname === '/cv';
-  const isPortfolioPage = pathname === '/portfolio';
+  const isHome = pathname === "/";
 
-  // Only run useActiveSection on the homepage
-  const activeSection = (isCvPage || isPortfolioPage) ? null : useActiveSection(navLinks.map(l => l.id).concat('contact'));
+  // Only run useActiveSection on the homepage for highlighting
+  const activeSection = isHome ? useActiveSection(navLinks.map(l => l.id).concat('contact')) : null;
 
   const handleLinkClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => {
-    onScroll(e, id);
+    if (isHome) {
+      onScroll(e, id);
+    }
     setIsOpen(false);
   };
   
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    if (isCvPage || isPortfolioPage) {
-      window.location.href = '/';
-      return;
+    if (isHome) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   }
 
   return (
@@ -58,43 +55,43 @@ export function Header({ onScroll }: HeaderProps) {
             </div>
           </Link>
           
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a 
-                key={link.id}
-                href={`/#${link.id}`}
-                onClick={(e) => onScroll(e, link.id)}
-                className={cn(
-                  "text-gray-400 hover:text-white transition-all duration-300 text-sm",
-                  activeSection === link.id && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
-                )}
-              >
-              {link.label}
-            </a>
-            ))}
-             <Link
-                href="/portfolio"
-                className={cn(
-                  "text-gray-400 hover:text-white transition-all duration-300 text-sm",
-                  isPortfolioPage && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
-                )}
-              >
+          <div className="hidden md:flex items-center">
+            {/* Group A: Internal */}
+            <div className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.id}
+                  href={isHome ? `#${link.id}` : `/#${link.id}`}
+                  onClick={(e) => handleLinkClick(e, link.id)}
+                  className={cn(
+                    "text-gray-400 hover:text-white transition-all duration-300 text-sm",
+                    activeSection === link.id && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                  )}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* The Divider */}
+            <div className="w-[1px] h-4 bg-white/20 mx-4" />
+
+            {/* Group B: External */}
+            <Link
+              href="/portfolio"
+              className={cn(
+                "text-gray-400 hover:text-white transition-all duration-300 text-sm",
+                pathname === "/portfolio" && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+              )}
+            >
               Portfolio
-            </Link>
-             <Link
-                href="/cv"
-                className={cn(
-                  "text-gray-400 hover:text-white transition-all duration-300 text-sm",
-                  isCvPage && "font-bold bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
-                )}
-              >
-              CV
             </Link>
           </div>
           
+          {/* Group C: Action */}
           <div className="flex items-center gap-4">
             <Button
-              onClick={(e) => onScroll(e, 'contact')}
+              onClick={(e) => handleLinkClick(e, 'contact')}
               className={cn(
                 "font-semibold transition-all duration-300 ease-in-out text-primary-foreground hidden md:inline-flex",
                  activeSection === 'contact' 
@@ -146,39 +143,39 @@ export function Header({ onScroll }: HeaderProps) {
                   </button>
               </div>
               <nav className="flex flex-col items-center gap-8">
-                {navLinks.map((link) => (
-                   <a
-                    key={link.id}
-                    href={`/#${link.id}`}
-                    onClick={(e) => handleLinkClick(e, link.id)}
-                    className={cn(
-                      "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
-                      activeSection === link.id && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
-                    )}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {/* Group A (Mobile) */}
+                <div className="flex flex-col items-center gap-6">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.id}
+                      href={isHome ? `#${link.id}` : `/#${link.id}`}
+                      onClick={(e) => handleLinkClick(e, link.id)}
+                      className={cn(
+                        "text-xl font-bold text-gray-300 hover:text-white transition-colors",
+                        activeSection === link.id && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+
+                {/* Horizontal Divider (Mobile) */}
+                <div className="w-full h-[1px] bg-white/10" />
+
+                {/* Group B (Mobile) */}
                 <Link
                   href="/portfolio"
                   onClick={() => setIsOpen(false)}
                   className={cn(
                       "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
-                      isPortfolioPage && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
+                      pathname === "/portfolio" && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
                     )}
                 >
                   Portfolio
                 </Link>
-                <Link
-                  href="/cv"
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                      "text-2xl font-bold text-gray-300 hover:text-white transition-colors",
-                      isCvPage && "bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent"
-                    )}
-                >
-                  CV
-                </Link>
+
+                {/* Group C (Mobile) */}
                 <Button
                   size="lg"
                   onClick={(e) => handleLinkClick(e, 'contact')}
