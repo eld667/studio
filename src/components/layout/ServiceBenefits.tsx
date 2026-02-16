@@ -50,17 +50,7 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
       <div className="flex gap-6">
         <div className="flex flex-col items-center gap-4 mt-1.5">
           <span className="font-mono text-[10px] text-white/20">{pillar.id} /</span>
-          <motion.div 
-            variants={{
-              initial: { opacity: 0.4, scale: 1 },
-              active: { 
-                opacity: [0.4, 1, 0.4],
-                scale: [1, 1.2, 1],
-                transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-              }
-            }}
-            className="w-1.5 h-1.5 rounded-full bg-[#007AFF] shadow-[0_0_8px_#007AFF]" 
-          />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#007AFF]" />
         </div>
         <div className="space-y-3">
           <h3 className="text-lg md:text-xl font-medium text-white tracking-tight flex items-center gap-3">
@@ -78,9 +68,6 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
 export function ServiceBenefits() {
   return (
     <section id="benefits" className="w-full py-24 md:py-32 bg-[#0A0A0A] relative overflow-hidden">
-      {/* Background Atmosphere: Emerald Light Leak */}
-      <div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-emerald-500/5 blur-[160px] rounded-full pointer-events-none" />
-
       {/* Path of Growth Line Decoration */}
       <svg className="absolute top-0 left-[45%] w-px h-full opacity-10 pointer-events-none hidden lg:block">
         <line x1="0" y1="0" x2="0" y2="100%" stroke="url(#growth-gradient)" strokeWidth="2" strokeDasharray="4 4" />
@@ -92,31 +79,17 @@ export function ServiceBenefits() {
         </defs>
       </svg>
 
-      {/* Decoration Layer 01: Glassmorphic Floating Pill */}
-      <div className="absolute -top-6 right-12 z-30 pointer-events-none">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-2xl">
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-mono text-[10px] uppercase tracking-tighter text-white/60">Status: Active Growth</span>
-        </div>
-      </div>
-
-      {/* Decoration Layer 02: The Linear Scanning Beam */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent absolute top-0 animate-scan" />
-      </div>
-
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           
           {/* Left Side: Sticky Content */}
           <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit">
-            {/* Glassmorphic Background Card */}
-            <div className="absolute -inset-8 bg-white/[0.02] backdrop-blur-3xl border border-white/[0.05] rounded-[2.5rem] shadow-2xl -z-10" />
+            {/* Background Card */}
+            <div className="absolute -inset-8 bg-white/[0.02] border border-white/[0.05] rounded-[2.5rem] -z-10" />
             
             <FadeIn>
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
                 </div>
                 <span className="font-mono text-[11px] uppercase tracking-widest text-white/40">
