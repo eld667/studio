@@ -1,13 +1,12 @@
 
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useSpring, useMotionValue } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FadeIn } from '@/app/FadeIn';
-import { ArrowRight, ArrowUpRight, Globe, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 interface Project {
   id: string;
@@ -53,7 +52,7 @@ const projects: Project[] = [
   }
 ];
 
-const LedgerRow = ({ project, index, onHover }: { project: Project, index: number, onHover: (img: string | null) => void }) => {
+const LedgerRow = ({ project, index }: { project: Project, index: number }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: -10, borderBottomWidth: 0 }}
@@ -64,8 +63,6 @@ const LedgerRow = ({ project, index, onHover }: { project: Project, index: numbe
         delay: index * 0.15,
         ease: [0.22, 1, 0.36, 1]
       }}
-      onMouseEnter={() => onHover(project.image)}
-      onMouseLeave={() => onHover(null)}
       className="group relative flex flex-col md:grid md:grid-cols-12 gap-4 py-10 px-4 border-b border-white/[0.08] hover:bg-white/[0.02] transition-all duration-300 hover:pl-6 cursor-pointer"
     >
       <div className="md:col-span-4 space-y-2">
@@ -107,31 +104,8 @@ const LedgerRow = ({ project, index, onHover }: { project: Project, index: numbe
 };
 
 export function EvidenceOfImpact() {
-  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 150 };
-  const x = useSpring(mouseX, springConfig);
-  const y = useSpring(mouseY, springConfig);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        mouseX.set(e.clientX - 100); // offset to center image on cursor
-        mouseY.set(e.clientY - 100);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
   return (
-    <section id="evidence" className="w-full py-24 bg-[#0A0A0A] relative" ref={containerRef}>
+    <section id="evidence" className="w-full py-24 bg-[#0A0A0A] relative">
       {/* Background Blueprint Grid */}
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
@@ -167,37 +141,8 @@ export function EvidenceOfImpact() {
               key={project.id} 
               project={project} 
               index={i} 
-              onHover={setHoveredImage}
             />
           ))}
-
-          {/* Cursor Follower Image Preview */}
-          <AnimatePresence>
-            {hoveredImage && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                style={{ 
-                  position: 'fixed',
-                  left: x,
-                  top: y,
-                  width: 200,
-                  height: 200,
-                  pointerEvents: 'none',
-                  zIndex: 50
-                }}
-                className="rounded-lg overflow-hidden border border-white/20 shadow-2xl"
-              >
-                <img 
-                  src={hoveredImage} 
-                  alt="Project Preview" 
-                  className="w-full h-full object-cover grayscale brightness-75"
-                />
-                <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay" />
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
         {/* CTAs */}
