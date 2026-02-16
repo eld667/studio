@@ -1,52 +1,45 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn } from "@/app/FadeIn";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 interface HeroProps {
   onExploreClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export function Hero({ onExploreClick, children }: HeroProps) {
-  const headline = "ENGINEERING EFFICIENCY";
-  const letters = headline.split("");
+const services = [
+  "Web Platforms",
+  "Data Pipelines",
+  "AI Automations",
+  "Agentic Systems"
+];
+
+export function Hero({ onExploreClick }: HeroProps) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % services.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section 
-      className="relative w-full flex flex-col items-center justify-center min-h-screen pt-32 pb-48 overflow-hidden bg-black"
+      className="relative w-full flex flex-col items-center md:items-start justify-center min-h-screen pt-24 pb-32 md:pt-32 md:pb-48 overflow-hidden bg-black"
       style={{
         maskImage: 'linear-gradient(to bottom, black 80%, transparent)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)'
       }}
     >
-      {/* 1. Grid Background */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* 1. Subtle Static Grid */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
 
-      {/* 2. Background Beams */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <motion.div 
-          animate={{ 
-            opacity: [0.05, 0.15, 0.05],
-            x: [-100, 100, -100]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -left-1/4 w-[150%] h-[300px] bg-blue-500/10 blur-[120px] rotate-12"
-        />
-        <motion.div 
-          animate={{ 
-            opacity: [0.05, 0.1, 0.05],
-            x: [100, -100, 100]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 -right-1/4 w-[150%] h-[200px] bg-purple-500/5 blur-[100px] -rotate-12"
-        />
-      </div>
-
-      <div className="container relative z-10 flex flex-col items-center gap-8 px-4 text-center">
+      <div className="container relative z-10 flex flex-col items-center md:items-start gap-8 px-6 text-center md:text-left max-w-5xl mx-auto">
         {/* Tagline */}
         <FadeIn>
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-4">
@@ -54,72 +47,53 @@ export function Hero({ onExploreClick, children }: HeroProps) {
           </span>
         </FadeIn>
 
-        {/* Kinetic Headline */}
+        {/* Headline with Rotating Engine */}
         <div className="relative">
-          <h1 className="flex flex-wrap justify-center text-5xl md:text-8xl font-medium tracking-tighter text-zinc-100 leading-[0.9] uppercase relative z-10">
-            {letters.map((letter, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: i * 0.05,
-                  ease: [0.16, 1, 0.3, 1] 
-                }}
-                className="inline-block"
-              >
-                {letter === " " ? "\u00A0" : letter}
-              </motion.span>
-            ))}
+          <h1 className="text-2xl md:text-4xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase max-w-4xl">
+            We engineer high-performance{" "}
+            <span className="relative inline-block h-[1em] min-w-[180px] md:min-w-[320px] text-blue-500 align-bottom overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={index}
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -30, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    ease: [0.16, 1, 0.3, 1] 
+                  }}
+                  className="absolute left-0 w-full"
+                >
+                  {services[index]}
+                </motion.span>
+              </AnimatePresence>
+            </span>{" "}
+            <br className="hidden md:block" />
+            for modern enterprises.
           </h1>
-          
-          {/* Silver Shimmer Effect */}
-          <motion.div 
-            className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
-            style={{ mixBlendMode: 'plus-lighter' }}
-          >
-            <motion.div 
-              className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
-              initial={{ x: "-100%" }}
-              animate={{ x: "200%" }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
-            />
-          </motion.div>
         </div>
 
-        {/* Subtext */}
-        <FadeIn delay={1.5}>
-          <div className="max-w-[550px] mx-auto text-zinc-400 text-sm md:text-base leading-relaxed mt-6 font-normal">
-            {children}
+        {/* Direct Response Subtext */}
+        <FadeIn delay={0.5}>
+          <div className="max-w-[500px] text-zinc-400 text-[14px] leading-relaxed mt-2 font-normal">
+            Transforming operational complexity into automated digital infrastructure. We maximize intelligence density while minimizing overhead.
           </div>
         </FadeIn>
 
-        {/* 3. The Monolith */}
-        <FadeIn delay={2}>
-          <motion.div
-            animate={{ y: [-5, 5, -5] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="mt-12 w-32 h-64 bg-zinc-950/20 backdrop-blur-2xl border border-white/10 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.1)] flex items-center justify-center"
-          >
-            <div className="w-px h-1/2 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent opacity-20" />
-          </motion.div>
-        </FadeIn>
-
         {/* Primary Action Button */}
-        <FadeIn delay={2.5}>
+        <FadeIn delay={0.8}>
           <Button
             size="lg"
             onClick={onExploreClick}
-            className="font-medium text-zinc-950 bg-zinc-100 hover:bg-white transition-all rounded-none px-10 h-12 uppercase text-[10px] tracking-widest mt-8 shadow-2xl"
+            className="font-medium text-zinc-950 bg-zinc-100 hover:bg-white transition-all rounded-none px-10 h-12 uppercase text-[10px] tracking-widest mt-4 shadow-2xl"
           >
             Explore the Repository
           </Button>
         </FadeIn>
       </div>
 
-      {/* Visual Scent Detail (Scroll Indicator) */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 pointer-events-none opacity-40">
+      {/* Visual Scent (Scroll Indicator) */}
+      <div className="absolute bottom-12 left-1/2 md:left-12 md:translate-x-0 -translate-x-1/2 flex flex-col items-center md:items-start gap-4 z-30 pointer-events-none opacity-40">
         <span className="font-mono text-[8px] uppercase tracking-[0.5em] text-zinc-500">[ SCROLL TO DISCOVER ]</span>
         <div className="w-px h-10 bg-gradient-to-b from-zinc-500 to-transparent" />
       </div>
