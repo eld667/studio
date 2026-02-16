@@ -101,7 +101,7 @@ export default function PortfolioPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-gray-300 font-sans selection:bg-blue-500 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-black text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white">
       <Header onScroll={(e, id) => handleScroll(e, id)} />
       
       <main className="flex-grow pt-24 pb-32">
@@ -110,36 +110,33 @@ export default function PortfolioPage() {
           {/* --- HERO: SYSTEM STATUS --- */}
           <section className="mb-24 text-center">
             <FadeIn>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.2em] mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 mb-8">
                 <div className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-400"></span>
                 </div>
-                Currently Deploying 28 Systems of Intelligence. {liveCount} Missions Live.
+                Active Missions: {liveCount} // Deployment Status: Online
               </div>
-              <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter text-white uppercase italic">
-                The EldWork <br />
-                <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent">
-                  Mission Registry.
-                </span>
+              <h1 className="text-4xl md:text-6xl font-medium mb-6 tracking-tighter text-zinc-100 uppercase">
+                OPERATIONAL INDEX
               </h1>
-              <p className="text-xl text-gray-500 max-w-3xl mx-auto font-medium">
-                Optimized for speed, conversion, and intelligence density. Select a strategic pillar to inspect the architecture.
+              <p className="text-sm md:text-base text-zinc-500 max-w-2xl mx-auto font-normal leading-relaxed">
+                A registry of high-performance digital architectures engineered for conversion and visual authority.
               </p>
             </FadeIn>
           </section>
 
           {/* --- STICKY SYSTEM FILTER --- */}
-          <div className="sticky top-14 z-40 -mx-6 px-6 py-4 bg-black/80 backdrop-blur-xl border-b border-white/5 mb-16">
-            <div className="max-w-7xl mx-auto flex items-center gap-4 overflow-x-auto no-scrollbar pb-2 md:pb-0">
-              <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest mr-4">Filter_By:</span>
+          <div className="sticky top-14 z-40 -mx-6 px-6 py-4 bg-black/80 backdrop-blur-xl border-b border-zinc-800 mb-16">
+            <div className="max-w-7xl mx-auto flex items-center gap-6 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+              <span className="text-[10px] font-mono font-bold text-zinc-600 uppercase tracking-widest mr-2">Index_Registry:</span>
               {PILLARS.map((p) => (
                 <button
                   key={p.id}
                   onClick={(e) => handleScroll(e, p.id)}
-                  className="whitespace-nowrap px-4 py-2 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:border-white/30 transition-all"
+                  className="whitespace-nowrap py-2 text-[11px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-100 transition-colors"
                 >
-                  [{p.label}]
+                  {p.label}
                 </button>
               ))}
             </div>
@@ -153,13 +150,13 @@ export default function PortfolioPage() {
 
               return (
                 <section key={pillar.id} id={pillar.id} className="scroll-mt-32">
-                  <div className="flex items-center gap-4 mb-12 border-b border-white/5 pb-6">
-                    <pillar.icon className="w-6 h-6 text-blue-500" />
-                    <h2 className="text-2xl font-black text-white uppercase tracking-widest">{pillar.label}</h2>
-                    <span className="text-xs font-mono text-gray-600 ml-auto">{missions.length} ACTIVE_MISSIONS</span>
+                  <div className="flex items-center gap-4 mb-12 border-b border-zinc-800 pb-6">
+                    <pillar.icon className="w-4 h-4 text-zinc-500" />
+                    <h2 className="text-xs font-medium text-zinc-100 uppercase tracking-[0.3em]">{pillar.label}</h2>
+                    <span className="text-[10px] font-mono text-zinc-600 ml-auto">{missions.length} SYSTEMS</span>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
                     {missions.map((mission) => (
                       <MissionCard key={mission.id} mission={mission} />
                     ))}
@@ -170,15 +167,15 @@ export default function PortfolioPage() {
           </div>
 
           {/* --- PENDING MISSIONS FOOTER --- */}
-          <section className="mt-48 p-12 rounded-[2rem] border border-white/5 bg-zinc-950/50 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05),transparent)] pointer-events-none" />
-            <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-widest">Incoming Data</h3>
-            <p className="text-gray-500 max-w-2xl mx-auto mb-12 italic">
-              10 additional missions are currently in the pre-deployment queue, including automated SaaS growth tools and product immersion demos.
+          <section className="mt-48 p-12 rounded-xl border border-zinc-800 bg-[#050505] text-left relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02),transparent)] pointer-events-none" />
+            <h3 className="text-xs font-medium text-zinc-100 uppercase tracking-[0.3em] mb-4">Pipeline_Registry</h3>
+            <p className="text-[13px] text-zinc-500 max-w-2xl font-normal leading-relaxed mb-12">
+              Additional missions are currently in the pre-deployment queue, including automated SaaS growth tools and luxury product immersion demos.
             </p>
-            <div className="flex flex-wrap justify-center gap-3 opacity-30 grayscale pointer-events-none">
+            <div className="flex flex-wrap gap-3 opacity-20 pointer-events-none">
               {MISSIONS.filter(m => !m.isLive).map(m => (
-                <span key={m.id} className="px-3 py-1 bg-white/5 border border-white/10 rounded font-mono text-[10px]">{m.title}</span>
+                <span key={m.id} className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-sm font-mono text-[9px] uppercase tracking-widest">{m.title}</span>
               ))}
             </div>
           </section>
@@ -186,17 +183,17 @@ export default function PortfolioPage() {
       </main>
 
       {/* --- PERFORMANCE FOOTER --- */}
-      <footer className="w-full border-t border-white/10 bg-black py-16">
-        <div className="max-w-7xl mx-auto px-6 text-center space-y-6">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Cpu className="w-5 h-5 text-blue-500" />
-            <span className="font-mono text-[10px] text-gray-500 uppercase tracking-[0.3em]">System Intelligence Compliance</span>
+      <footer className="w-full border-t border-zinc-800 bg-black py-16">
+        <div className="max-w-7xl mx-auto px-6 text-left space-y-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Cpu className="w-4 h-4 text-zinc-600" />
+            <span className="font-mono text-[10px] text-zinc-600 uppercase tracking-[0.3em]">Operational Protocol v2.4.0</span>
           </div>
-          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">
-            Every system shown is optimized for &lt;1s load times and maximum intelligence density.
+          <p className="text-[11px] font-normal text-zinc-500 uppercase tracking-widest">
+            Every system in this index is optimized for high-density performance and conversion architecture.
           </p>
-          <p className="text-[10px] font-mono text-gray-600">
-            &copy; 2025 EldWorkStudio. Global Mission Registry. v2.4.0
+          <p className="text-[10px] font-mono text-zinc-700">
+            &copy; 2025 ELDWORKSTUDIO. ALL RIGHTS RESERVED.
           </p>
         </div>
       </footer>
@@ -207,22 +204,22 @@ export default function PortfolioPage() {
 function MissionCard({ mission }: { mission: Mission }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative flex flex-col h-full bg-[#0a0a0a] border border-[#1a1a1a] p-6 hover:border-blue-500/50 transition-all duration-500"
+      className="group flex flex-col h-full bg-[#050505] border border-zinc-800 p-6 transition-all duration-300 hover:border-zinc-600"
     >
       <div className="flex justify-between items-start mb-6">
-        <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded text-[8px] font-mono font-bold text-gray-500 uppercase">
+        <span className="text-[9px] font-mono font-bold text-zinc-600 uppercase tracking-widest">
           {mission.tech}
         </span>
-        <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+        <div className="w-1.5 h-1.5 rounded-full bg-zinc-700 group-hover:bg-zinc-400 transition-colors" />
       </div>
 
-      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors uppercase italic">
+      <h3 className="text-[14px] font-medium text-zinc-100 mb-3 uppercase tracking-tight">
         {mission.title}
       </h3>
-      <p className="text-sm text-gray-500 leading-relaxed mb-8 flex-grow">
+      <p className="text-[13px] text-zinc-500 leading-relaxed mb-10 flex-grow font-normal">
         {mission.outcome}
       </p>
 
@@ -231,8 +228,8 @@ function MissionCard({ mission }: { mission: Mission }) {
         target="_blank"
         className="mt-auto"
       >
-        <button className="w-full py-3 bg-white text-black font-black text-[10px] uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all flex items-center justify-center gap-2">
-          Inspect Live Build <ArrowUpRight className="w-3 h-3" />
+        <button className="w-full py-4 bg-transparent border border-zinc-800 text-zinc-300 font-mono text-[10px] uppercase tracking-[0.2em] transition-all hover:bg-zinc-100 hover:text-black">
+          Inspect_Build
         </button>
       </Link>
     </motion.div>
