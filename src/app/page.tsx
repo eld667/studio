@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Header } from "@/components/layout/header";
@@ -35,7 +34,7 @@ import { Card } from "@/components/ui/card";
 import { FadeIn } from "./FadeIn";
 import Link from "next/link";
 import { EldworkStandard } from "@/components/layout/EldworkStandard";
-import { EvidenceOfImpact } from "@/components/layout/EvidenceOfImpact";
+import { ServiceBenefits } from "@/components/layout/ServiceBenefits";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -516,7 +515,7 @@ export default function Home() {
         </Hero>
         <CaseStudyShowcase />
         <EldworkStandard />
-        <EvidenceOfImpact />
+        <ServiceBenefits />
         <ThreeStepPlan />
         <ContactMe />
       </main>
