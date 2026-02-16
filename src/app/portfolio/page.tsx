@@ -78,9 +78,8 @@ function MissionCard({ mission }: { mission: Mission }) {
 
   const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const naturalHeight = e.currentTarget.naturalHeight;
-    // Target Speed: ~50px per second.
-    // Distance: 85% of total height.
-    const calculatedDuration = (naturalHeight * 0.85) / 50;
+    // Optimized Speed: 1:1000 ratio (6000px = 6s)
+    const calculatedDuration = naturalHeight / 1000;
     setDuration(calculatedDuration > 0 ? calculatedDuration : 6);
   };
 
@@ -99,7 +98,7 @@ function MissionCard({ mission }: { mission: Mission }) {
           onLoad={handleImageLoad}
           className="w-full h-auto absolute top-0 left-0"
           animate={{ y: isScrolling ? "-85%" : "0%" }}
-          transition={{ duration: duration, ease: "linear" }}
+          transition={{ duration: duration, ease: "linear", type: "tween" }}
         />
       </div>
 
@@ -123,6 +122,66 @@ function MissionCard({ mission }: { mission: Mission }) {
   );
 }
 
+function SystemsClosing() {
+  return (
+    <section className="w-full py-32 bg-zinc-950/30 border-t border-zinc-900">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-20">
+          <FadeIn>
+            <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-[0.3em] mb-4">
+              [ SYSTEM ARCHITECTURE COMPLIANCE ]
+            </p>
+            <h2 className="text-3xl md:text-5xl font-medium text-zinc-100 uppercase tracking-tighter leading-tight max-w-4xl">
+              WE DON'T JUST BUILD WEBSITES. <br />
+              WE DEPLOY DIGITAL INFRASTRUCTURE.
+            </h2>
+          </FadeIn>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-32">
+          <FadeIn delay={0.1}>
+            <div className="space-y-4">
+              <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">01 // PERFORMANCE</p>
+              <p className="text-zinc-400 text-sm leading-relaxed uppercase">
+                "EVERY BUILD IS OPTIMIZED FOR &lt;1S LOAD TIMES. NO BLOAT. NO TRASH CODE."
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="space-y-4">
+              <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">02 // SCALABILITY</p>
+              <p className="text-zinc-400 text-sm leading-relaxed uppercase">
+                "BUILT ON NEXT.JS AND FIREBASE. YOUR SITE GROWS WITH YOUR USERBASE, NOT AGAINST IT."
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.3}>
+            <div className="space-y-4">
+              <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">03 // RETENTION</p>
+              <p className="text-zinc-400 text-sm leading-relaxed uppercase">
+                "DESIGNED TO STICK. WE FOCUS ON USER PSYCHOLOGY TO TURN VISITORS INTO LONG-TERM CLIENTS."
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+
+        <FadeIn>
+          <div className="max-w-3xl mx-auto text-center p-12 md:p-20 bg-black border border-zinc-800 rounded-sm">
+            <h3 className="text-2xl md:text-4xl font-medium text-zinc-100 uppercase tracking-tighter mb-10">
+              READY TO ARCHITECT YOUR GROWTH?
+            </h3>
+            <Link href="/#contact">
+              <Button className="bg-white text-black hover:bg-zinc-200 font-bold px-10 h-14 rounded-none uppercase tracking-widest text-xs">
+                INITIALIZE PROJECT // START HERE
+              </Button>
+            </Link>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
 export default function PortfolioPage() {
   const activeSection = useActiveSection(PILLARS.map(p => p.id));
 
@@ -138,8 +197,8 @@ export default function PortfolioPage() {
     <div className="flex flex-col min-h-screen bg-black text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white">
       <Header onScroll={(e, id) => handleScroll(e, id)} />
       
-      <main className="flex-grow pt-32 pb-32">
-        <div className="w-full max-w-7xl mx-auto px-6">
+      <main className="flex-grow pt-32">
+        <div className="w-full max-w-7xl mx-auto px-6 mb-32">
           
           {/* --- HERO SECTION --- */}
           <section className="mb-24 text-left">
@@ -210,6 +269,9 @@ export default function PortfolioPage() {
             })}
           </div>
         </div>
+
+        {/* --- SYSTEMS CLOSING --- */}
+        <SystemsClosing />
       </main>
     </div>
   );
