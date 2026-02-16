@@ -12,6 +12,7 @@ interface CapabilityProps {
   id: string;
   index: number;
   label: string;
+  refCode: string;
   title: string;
   description: string;
   icon: React.ElementType;
@@ -22,6 +23,7 @@ const capabilities: CapabilityProps[] = [
     id: "performance",
     index: 0,
     label: "CAPABILITY_INDEX_01",
+    refCode: "REF_001",
     title: "Performance Engineering",
     description: "Stop losing users to millisecond delays. We optimize the critical rendering path to ensure your product feels instantaneous, regardless of data complexity.",
     icon: Zap
@@ -30,6 +32,7 @@ const capabilities: CapabilityProps[] = [
     id: "design",
     index: 1,
     label: "CAPABILITY_INDEX_02",
+    refCode: "REF_002",
     title: "Scalable Design Systems",
     description: "Design that grows with you. We build atomic, component-based systems that allow your team to ship new features in hours, not weeks.",
     icon: Layers
@@ -38,6 +41,7 @@ const capabilities: CapabilityProps[] = [
     id: "integrity",
     index: 2,
     label: "CAPABILITY_INDEX_03",
+    refCode: "REF_003",
     title: "Technical Integrity",
     description: "Clean code isn’t a luxury; it’s a requirement. Our stack is built on type-safety, rigorous testing, and future-proof documentation.",
     icon: ShieldCheck
@@ -54,8 +58,11 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: capability.index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-[#111111] p-8 flex flex-col justify-between transition-colors duration-300 hover:bg-[#161616] aspect-auto md:aspect-square"
+      className="group relative bg-[#111111] p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#161616] aspect-auto md:aspect-square border border-white/10 rounded-sm"
     >
+      {/* Internal Corner Accent */}
+      <div className="absolute top-2 left-2 w-2 h-2 border-t border-l border-white/20 pointer-events-none" />
+      
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="relative">
@@ -77,8 +84,9 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
         </div>
       </div>
 
-      <div className="mt-8 flex items-center gap-2 font-mono text-[9px] text-white/10 uppercase tracking-tighter">
-        SYSTEMS_ARCHITECTURE • VERIFIED_OUTPUT
+      <div className="mt-8 flex items-center justify-between font-mono text-[9px] uppercase tracking-tighter">
+        <span className="text-white/10">SYSTEMS_ARCHITECTURE • VERIFIED_OUTPUT</span>
+        <span className="text-white/30 font-bold">{capability.refCode}</span>
       </div>
     </motion.div>
   );
@@ -87,6 +95,9 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
 export function EldworkStandard() {
   return (
     <section id="philosophy" className="w-full py-24 bg-[#0A0A0A] relative overflow-hidden">
+      {/* Background Spine Line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-white/10 via-white/5 to-transparent pointer-events-none" />
+
       {/* Decoration Layer 01: Corner Brackets */}
       <div className="absolute inset-0 pointer-events-none z-20">
         {/* Top Left Bracket */}
@@ -102,7 +113,7 @@ export function EldworkStandard() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="mb-16 text-left max-w-2xl">
           <FadeIn>
@@ -118,9 +129,9 @@ export function EldworkStandard() {
           </FadeIn>
         </div>
 
-        {/* Bento Grid with Linear Gap Logic */}
+        {/* Grid with Linear Gap Logic */}
         <div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-white/[0.06] border border-white/[0.06] overflow-hidden"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
           style={{ contentVisibility: 'auto' } as React.CSSProperties}
         >
           {capabilities.map((item) => (
