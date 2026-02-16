@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
   ChevronRight, 
@@ -80,7 +80,7 @@ const SERVICES = [
 
 // --- COMPONENTS ---
 
-const LoadingSequence = ({ onComplete }: { onScroll: any, onComplete: () => void }) => {
+const LoadingSequence = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     const timer = setTimeout(onComplete, 2000);
     return () => clearTimeout(timer);
@@ -115,7 +115,7 @@ const LoadingSequence = ({ onComplete }: { onScroll: any, onComplete: () => void
 
 const ProjectChapter = ({ project, index }: { project: typeof PROJECTS[0], index: number }) => {
   return (
-    <div className="relative h-screen w-screen flex-shrink-0 bg-black overflow-hidden snap-start">
+    <div className="relative h-screen w-full bg-black overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video 
@@ -224,22 +224,11 @@ const ProjectChapter = ({ project, index }: { project: typeof PROJECTS[0], index
 
 export default function AtelierNoirPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-  
-  // Use scrollYProgress to drive horizontal movement
-  const x = useTransform(scrollYProgress, [0, 0.8], ["0%", "-200%"]);
-  
-  const springX = useSpring(x, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#D4AF37] selection:text-black font-sans">
       <AnimatePresence>
-        {isLoading && <LoadingSequence onComplete={() => setIsLoading(false)} onScroll={undefined} />}
+        {isLoading && <LoadingSequence onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       {/* --- NAVIGATION --- */}
@@ -248,11 +237,11 @@ export default function AtelierNoirPage() {
           Atelier Noir<span className="text-[#D4AF37]">.</span>
         </Link>
         <div className="hidden md:flex items-center gap-12 font-bold text-[10px] uppercase tracking-[0.3em] text-white/40 pointer-events-auto">
-          <button onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })} className="hover:text-white transition-colors">Work</button>
+          <button onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Work</button>
           <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-white transition-colors">Studio</button>
           <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="px-6 py-2 border border-white/10 hover:border-[#D4AF37] hover:text-white transition-all">Inquiry</button>
         </div>
-        <button className="md:hidden pointer-events-auto"><Menu className="w-6 h-6 text-white" /></button>
+        <button className="md:hidden pointer-events-auto"><Menu className="w-6 h-6" /></button>
       </nav>
 
       {/* --- HERO: THE MONOGRAM --- */}
@@ -291,15 +280,11 @@ export default function AtelierNoirPage() {
         </div>
       </section>
 
-      {/* --- PORTFOLIO: HORIZONTAL SHOWCASE --- */}
-      <section ref={containerRef} className="relative h-[300vh]">
-        <div className="sticky top-0 h-screen flex overflow-hidden">
-          <motion.div style={{ x: springX }} className="flex h-full w-fit">
-            {PROJECTS.map((project, i) => (
-              <ProjectChapter key={project.id} project={project} index={i} />
-            ))}
-          </motion.div>
-        </div>
+      {/* --- PORTFOLIO: SHOWCASE --- */}
+      <section id="work">
+        {PROJECTS.map((project, i) => (
+          <ProjectChapter key={project.id} project={project} index={i} />
+        ))}
       </section>
 
       {/* --- ABOUT: DOCUMENTARY STYLE --- */}
