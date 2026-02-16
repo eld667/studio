@@ -177,7 +177,7 @@ function CaseStudyShowcase() {
           <ProjectViewport 
             title="SwiftMove Movers"
             impact="Scaling Logistics with AI-Driven Dispatch & Real-Time UX."
-            image="/images/swiftmovemoversfs.webp"
+            image="/images/swiftmove-movers.webp"
             speed="7.5s"
             href="/swiftmove-movers"
             height={5993}
@@ -186,7 +186,7 @@ function CaseStudyShowcase() {
           <ProjectViewport 
             title="Whisky Vault"
             impact="A Premium Digital Cellar: High-End E-commerce & Branding."
-            image="/images/reservewhiskyfs.webp"
+            image="/images/reserve-whisky.webp"
             speed="7s"
             href="/reserve-whisky"
             height={5650}
@@ -195,7 +195,7 @@ function CaseStudyShowcase() {
           <ProjectViewport 
             title="CustomerHub"
             impact="The Intelligence Hub: Advanced SaaS Data Visualization & Sync."
-            image="/images/customerhubfs.webp"
+            image="/images/customerhub.webp"
             speed="9.5s"
             href="/customerhub"
             height={7355}
