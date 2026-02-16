@@ -6,22 +6,15 @@ import { Header } from '@/components/layout/header';
 import { FadeIn } from '../FadeIn';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Zap, 
-  Sparkles, 
-  Code, 
-  ArrowUpRight, 
-  ShieldCheck, 
-  BarChart3, 
-  Layout, 
   Target, 
-  Cpu, 
-  Search,
-  ChevronRight,
-  Users,
-  ExternalLink
+  Sparkles, 
+  Layout, 
+  Code, 
+  Zap, 
+  BarChart3, 
+  Users
 } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useActiveSection } from '@/hooks/use-active-section';
 import { Button } from '@/components/ui/button';
@@ -35,39 +28,37 @@ interface Mission {
   slug: string;
   pillar: Pillar;
   outcome: string;
-  isLive: boolean;
-  tech: string;
 }
 
 const MISSIONS: Mission[] = [
-  { id: 'm1', title: 'Elite Roofing', slug: '/elite-roofing', pillar: 'LEAD-MACHINE', outcome: 'Engineered for high-intent homeowner lead capture.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm2', title: 'PureGreen Lawn', slug: '/puregreen-lawn', pillar: 'LEAD-MACHINE', outcome: 'Optimized conversion funnel for local services.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm3', title: 'BrightSpark Electric', slug: '/brightspark-electric', pillar: 'LEAD-MACHINE', outcome: 'Emergency response UX for rapid dispatching.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm4', title: 'SwiftMove Movers', slug: '/swiftmove-movers', pillar: 'LEAD-MACHINE', outcome: 'Multi-step quote calculator for logistics growth.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm5', title: 'Atelier Vérité', slug: '/atelier-verite', pillar: 'LUXURY-SHOWCASE', outcome: 'Cinematic storytelling for high-end craft.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm6', title: 'Maison d\'Or', slug: '/maison-dor', pillar: 'LUXURY-SHOWCASE', outcome: 'Interactive jewelry salon with 3D product focus.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm7', title: 'Reserve Whisky Vault', slug: '/reserve-whisky', pillar: 'LUXURY-SHOWCASE', outcome: 'Gated membership experience for collectors.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm8', title: 'Kintsugi Wellness', slug: '/kintsugi-wellness', pillar: 'LUXURY-SHOWCASE', outcome: 'Minimalist healing sanctuary visual design.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm9', title: 'Nebula Sound Pro', slug: '/nebula-sound', pillar: 'PRODUCT-DEMO', outcome: 'Immersive audio-visual product demonstration.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm10', title: 'Lumina Desk', slug: '/lumina-desk', pillar: 'PRODUCT-DEMO', outcome: 'Feature-first hardware showcase.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm11', title: 'Haven Air Purifier', slug: '/haven-air', pillar: 'PRODUCT-DEMO', outcome: 'Scientific air quality dashboard.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm12', title: 'Summit Brew', slug: '/summit-brew', pillar: 'PRODUCT-DEMO', outcome: 'Process-centric coffee tech immersion.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm13', title: 'Atelier Noir', slug: '/atelier-noir', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Editorial layout for fashion houses.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm14', title: 'Kinship Studio', slug: '/kinship-studio', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Minimalist photography portfolio architecture.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm15', title: 'Momentum Films', slug: '/momentum-films', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Cinematic video-first production showcase.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm16', title: 'Form & Field', slug: '/form-field', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Geometric industrial design studio explorer.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm17', title: 'SEO Playbook', slug: '/seo-playbook', pillar: 'LANDING-PAGE', outcome: 'Direct response curriculum sales funnel.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm18', title: 'Agency Accelerator', slug: '/agency-accelerator', pillar: 'LANDING-PAGE', outcome: 'High-ticket coaching application system.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm19', title: 'SaaS Launch Checklist', slug: '/saas-checklist', pillar: 'LANDING-PAGE', outcome: 'Lead magnet strategy for software founders.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm20', title: 'AI Marketing Workshop', slug: '/ai-workshop', pillar: 'LANDING-PAGE', outcome: 'Live demo hook for technical training.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm21', title: 'FlowSync', slug: '/flowsync', pillar: 'SAAS-MARKETING', outcome: 'Feature-heavy software growth marketing.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm22', title: 'CustomerHub', slug: '/customerhub', pillar: 'SAAS-MARKETING', outcome: 'Metric-centric CRM platform landing page.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm23', title: 'InvoiceFlow', slug: '/invoiceflow', pillar: 'SAAS-MARKETING', outcome: 'Security-first fintech marketing UX.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm24', title: 'CodeReview Pro', slug: '/codereview-pro', pillar: 'SAAS-MARKETING', outcome: 'Developer-centric SaaS positioning.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm25', title: 'SaaStr Annual', slug: '/saastr-annual', pillar: 'EVENT-PROMO', outcome: 'FOMO-driven industry networking tool.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm26', title: 'Design Matters', slug: '/design-matters', pillar: 'EVENT-PROMO', outcome: 'Interactive concept visualizer for festivals.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm27', title: 'AI for Business Summit', slug: '/ai-summit', pillar: 'EVENT-PROMO', outcome: 'Credible ROI calculator for executives.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
-  { id: 'm28', title: 'Founder Retreat', slug: '/founder-retreat', pillar: 'EVENT-PROMO', outcome: 'Intimate cohort preview for retreat vetting.', isLive: true, tech: 'NEXT.JS + TAILWIND' },
+  { id: 'm1', title: 'Elite Roofing', slug: '/elite-roofing', pillar: 'LEAD-MACHINE', outcome: 'Engineered for high-intent homeowner lead capture.' },
+  { id: 'm2', title: 'PureGreen Lawn', slug: '/puregreen-lawn', pillar: 'LEAD-MACHINE', outcome: 'Optimized conversion funnel for local services.' },
+  { id: 'm3', title: 'BrightSpark Electric', slug: '/brightspark-electric', pillar: 'LEAD-MACHINE', outcome: 'Emergency response UX for rapid dispatching.' },
+  { id: 'm4', title: 'SwiftMove Movers', slug: '/swiftmove-movers', pillar: 'LEAD-MACHINE', outcome: 'Multi-step quote calculator for logistics growth.' },
+  { id: 'm5', title: 'Atelier Vérité', slug: '/atelier-verite', pillar: 'LUXURY-SHOWCASE', outcome: 'Cinematic storytelling for high-end craft.' },
+  { id: 'm6', title: 'Maison d\'Or', slug: '/maison-dor', pillar: 'LUXURY-SHOWCASE', outcome: 'Interactive jewelry salon with 3D product focus.' },
+  { id: 'm7', title: 'Reserve Whisky Vault', slug: '/reserve-whisky', pillar: 'LUXURY-SHOWCASE', outcome: 'Gated membership experience for collectors.' },
+  { id: 'm8', title: 'Kintsugi Wellness', slug: '/kintsugi-wellness', pillar: 'LUXURY-SHOWCASE', outcome: 'Minimalist healing sanctuary visual design.' },
+  { id: 'm9', title: 'Nebula Sound Pro', slug: '/nebula-sound', pillar: 'PRODUCT-DEMO', outcome: 'Immersive audio-visual product demonstration.' },
+  { id: 'm10', title: 'Lumina Desk', slug: '/lumina-desk', pillar: 'PRODUCT-DEMO', outcome: 'Feature-first hardware showcase.' },
+  { id: 'm11', title: 'Haven Air Purifier', slug: '/haven-air', pillar: 'PRODUCT-DEMO', outcome: 'Scientific air quality dashboard.' },
+  { id: 'm12', title: 'Summit Brew', slug: '/summit-brew', pillar: 'PRODUCT-DEMO', outcome: 'Process-centric coffee tech immersion.' },
+  { id: 'm13', title: 'Atelier Noir', slug: '/atelier-noir', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Editorial layout for fashion houses.' },
+  { id: 'm14', title: 'Kinship Studio', slug: '/kinship-studio', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Minimalist photography portfolio architecture.' },
+  { id: 'm15', title: 'Momentum Films', slug: '/momentum-films', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Cinematic video-first production showcase.' },
+  { id: 'm16', title: 'Form & Field', slug: '/form-field', pillar: 'PORTFOLIO-CREATIVE', outcome: 'Geometric industrial design studio explorer.' },
+  { id: 'm17', title: 'SEO Playbook', slug: '/seo-playbook', pillar: 'LANDING-PAGE', outcome: 'Direct response curriculum sales funnel.' },
+  { id: 'm18', title: 'Agency Accelerator', slug: '/agency-accelerator', pillar: 'LANDING-PAGE', outcome: 'High-ticket coaching application system.' },
+  { id: 'm19', title: 'SaaS Launch Checklist', slug: '/saas-checklist', pillar: 'LANDING-PAGE', outcome: 'Lead magnet strategy for software founders.' },
+  { id: 'm20', title: 'AI Marketing Workshop', slug: '/ai-workshop', pillar: 'LANDING-PAGE', outcome: 'Live demo hook for technical training.' },
+  { id: 'm21', title: 'FlowSync', slug: '/flowsync', pillar: 'SAAS-MARKETING', outcome: 'Feature-heavy software growth marketing.' },
+  { id: 'm22', title: 'CustomerHub', slug: '/customerhub', pillar: 'SAAS-MARKETING', outcome: 'Metric-centric CRM platform landing page.' },
+  { id: 'm23', title: 'InvoiceFlow', slug: '/invoiceflow', pillar: 'SAAS-MARKETING', outcome: 'Security-first fintech marketing UX.' },
+  { id: 'm24', title: 'CodeReview Pro', slug: '/codereview-pro', pillar: 'SAAS-MARKETING', outcome: 'Developer-centric SaaS positioning.' },
+  { id: 'm25', title: 'SaaStr Annual', slug: '/saastr-annual', pillar: 'EVENT-PROMO', outcome: 'FOMO-driven industry networking tool.' },
+  { id: 'm26', title: 'Design Matters', slug: '/design-matters', pillar: 'EVENT-PROMO', outcome: 'Interactive concept visualizer for festivals.' },
+  { id: 'm27', title: 'AI for Business Summit', slug: '/ai-summit', pillar: 'EVENT-PROMO', outcome: 'Credible ROI calculator for executives.' },
+  { id: 'm28', title: 'Founder Retreat', slug: '/founder-retreat', pillar: 'EVENT-PROMO', outcome: 'Intimate cohort preview for retreat vetting.' },
 ];
 
 const PILLARS: { id: Pillar; label: string; icon: any }[] = [
@@ -82,67 +73,38 @@ const PILLARS: { id: Pillar; label: string; icon: any }[] = [
 
 function MissionCard({ mission }: { mission: Mission }) {
   const [isScrolling, setIsScrolling] = useState(false);
-  const imagePath = `/images${mission.slug}.webp`;
+  const imgSrc = `/images${mission.slug}.webp`;
 
   return (
-    <div 
-      className="group flex flex-col w-[85vw] md:w-full shrink-0 snap-start"
-      onMouseEnter={() => setIsScrolling(true)}
-      onMouseLeave={() => setIsScrolling(false)}
-      onClick={() => setIsScrolling(!isScrolling)}
-    >
+    <div className="flex flex-col w-[42vw] md:w-full shrink-0 snap-start group">
       {/* --- KINETIC VIEWPORT --- */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden border border-zinc-800 bg-[#050505] rounded-sm">
-        <motion.div
-          className="absolute top-0 left-0 w-full"
-          initial={{ y: 0 }}
-          animate={isScrolling ? { y: "-80%" } : { y: 0 }}
+      <div 
+        className="relative aspect-[16/10] w-full overflow-hidden border border-zinc-800 bg-zinc-900 rounded-sm cursor-pointer"
+        onMouseEnter={() => setIsScrolling(true)}
+        onMouseLeave={() => setIsScrolling(false)}
+        onClick={() => setIsScrolling(!isScrolling)}
+      >
+        <motion.img
+          src={imgSrc}
+          alt={mission.title}
+          className="w-full h-auto absolute top-0 left-0"
+          animate={{ y: isScrolling ? "-80%" : "0%" }}
           transition={{ duration: 6, ease: "linear" }}
-        >
-          <Image
-            src={imagePath}
-            alt={mission.title}
-            width={1200}
-            height={4000}
-            className="w-full h-auto"
-            priority={false}
-          />
-        </motion.div>
-
-        {/* System Scrolling Tag */}
-        <AnimatePresence>
-          {isScrolling && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute top-2 right-2 z-20 bg-black/60 backdrop-blur-md px-2 py-1 border border-white/10 rounded-sm"
-            >
-              <p className="font-mono text-[8px] uppercase tracking-widest text-[#10b981] animate-pulse">
-                [ SYSTEM_SCROLLING ]
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        />
       </div>
 
       {/* --- ACTION & METADATA --- */}
       <Link href={mission.slug} target="_blank" className="block mt-2">
-        <button className="w-full py-2.5 bg-transparent border border-zinc-800 text-zinc-400 text-[10px] font-mono uppercase tracking-[0.2em] transition-all hover:bg-zinc-100 hover:text-black hover:border-zinc-100">
+        <button className="w-full py-2.5 bg-transparent border border-zinc-800 text-zinc-400 text-[9px] font-mono uppercase tracking-[0.2em] transition-all hover:bg-white hover:text-black hover:border-zinc-100">
           VISIT_SITE_LIVE
         </button>
       </Link>
 
       <div className="mt-3">
-        <div className="flex justify-between items-baseline gap-2">
-          <h3 className="text-[13px] font-medium text-zinc-100 uppercase tracking-tighter">
-            {mission.title}
-          </h3>
-          <span className="text-[9px] font-mono text-zinc-600 uppercase tracking-widest flex-shrink-0">
-            {mission.tech}
-          </span>
-        </div>
-        <p className="text-[11px] text-zinc-500 uppercase line-clamp-1 mt-1 tracking-tight">
+        <h3 className="text-[13px] font-medium text-zinc-100 uppercase tracking-tighter leading-none">
+          {mission.title}
+        </h3>
+        <p className="text-[11px] text-zinc-500 uppercase line-clamp-1 mt-1 font-normal tracking-tight">
           {mission.outcome}
         </p>
       </div>
@@ -168,7 +130,7 @@ export default function PortfolioPage() {
       <main className="flex-grow pt-32 pb-32">
         <div className="w-full max-w-7xl mx-auto px-6">
           
-          {/* --- HERO: SYSTEM STATUS --- */}
+          {/* --- HERO SECTION --- */}
           <section className="mb-24 text-left">
             <FadeIn>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 mb-8">
@@ -182,7 +144,7 @@ export default function PortfolioPage() {
                 OUR WORK.
               </h1>
               <p className="text-sm md:text-base text-zinc-500 max-w-2xl font-normal leading-relaxed uppercase tracking-tight">
-                HIGH-PERFORMANCE WEBSITES AND SMART SYSTEMS BUILT TO HELP YOUR BUSINESS GROW. SELECT A CATEGORY BELOW TO SEE OUR SOLUTIONS IN ACTION.
+                High-performance websites and smart systems built to help your business grow. Select a category below to see our solutions in action.
               </p>
             </FadeIn>
           </section>
@@ -216,7 +178,7 @@ export default function PortfolioPage() {
           {/* --- MISSION SECTIONS --- */}
           <div className="space-y-32">
             {PILLARS.map((pillar) => {
-              const missions = MISSIONS.filter(m => m.pillar === pillar.id && m.isLive);
+              const missions = MISSIONS.filter(m => m.pillar === pillar.id);
               if (missions.length === 0) return null;
 
               return (
@@ -228,7 +190,7 @@ export default function PortfolioPage() {
                   </div>
 
                   {/* High Density Grid / Slider */}
-                  <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 no-scrollbar snap-x snap-mandatory">
+                  <div className="flex overflow-x-auto md:grid md:grid-cols-4 snap-x snap-mandatory gap-4 md:gap-6 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
                     {missions.map((mission) => (
                       <MissionCard key={mission.id} mission={mission} />
                     ))}
@@ -237,21 +199,6 @@ export default function PortfolioPage() {
               );
             })}
           </div>
-
-          {/* --- PERFORMANCE FOOTER --- */}
-          <section className="mt-48 p-12 border border-zinc-800 bg-black text-left relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02),transparent)] pointer-events-none" />
-            <div className="flex items-center gap-2 mb-4">
-              <Cpu className="w-4 h-4 text-zinc-600" />
-              <span className="font-mono text-[10px] text-zinc-600 uppercase tracking-[0.3em]">OPERATIONAL_PROTOCOL_V2.4.0</span>
-            </div>
-            <p className="text-[11px] font-normal text-zinc-500 uppercase tracking-widest max-w-2xl leading-relaxed">
-              EVERY SYSTEM IN THIS INDEX IS OPTIMIZED FOR HIGH-DENSITY PERFORMANCE AND CONVERSION ARCHITECTURE. WE MAXIMIZE INTELLIGENCE DENSITY WHILE MINIMIZING OVERHEAD.
-            </p>
-            <p className="text-[10px] font-mono text-zinc-700 mt-12 uppercase">
-              &copy; 2025 ELDWORKSTUDIO. ALL RIGHTS RESERVED.
-            </p>
-          </section>
         </div>
       </main>
     </div>
