@@ -12,10 +12,11 @@ interface HeroProps {
 }
 
 const services = [
-  "Digital Platforms",
-  "Growth Engines",
-  "Automated Systems",
-  "High-End Sites"
+  "Online Stores",
+  "Booking Systems",
+  "Lead Generators",
+  "Customer Portals",
+  "Auto-Reply Bots"
 ];
 
 export function Hero({ onExploreClick }: HeroProps) {
@@ -47,28 +48,28 @@ export function Hero({ onExploreClick }: HeroProps) {
           </span>
         </FadeIn>
 
-        {/* Headline with Rotating Engine */}
+        {/* Headline with Stabilized Slot Engine */}
         <div className="relative w-full">
-          <h1 className="text-2xl md:text-4xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase max-w-4xl flex flex-row flex-wrap items-center justify-center md:justify-start gap-x-2">
+          <h1 className="text-2xl md:text-4xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase max-w-4xl flex flex-row flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-4">
             <span className="whitespace-nowrap">We build</span>
-            <span className="relative inline-block h-[1.2em] min-w-[220px] md:min-w-[340px] text-blue-400 overflow-hidden">
-              <AnimatePresence>
+            <span className="relative inline-block h-[1.4em] min-w-[180px] md:min-w-[240px] border border-white/10 bg-white/5 rounded-md px-2 py-1 text-center overflow-hidden align-middle">
+              <AnimatePresence mode="popLayout">
                 <motion.span
                   key={index}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ 
-                    duration: 0.4, 
-                    ease: [0.16, 1, 0.3, 1] 
+                    duration: 0.2, 
+                    ease: "easeOut" 
                   }}
-                  className="absolute left-0 w-full"
+                  className="absolute left-0 w-full text-blue-400"
                 >
                   {services[index]}
                 </motion.span>
               </AnimatePresence>
             </span>
-            <span className="whitespace-nowrap">that drive results.</span>
+            <span className="whitespace-nowrap">that grow your business.</span>
           </h1>
         </div>
 
