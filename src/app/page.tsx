@@ -3,8 +3,8 @@
 
 import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/layout/hero";
-import { motion, useInView, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
-import { ClipboardSignature, Code, Rocket, Check, Shield, Smartphone, Video, Mail, ArrowUpRight, ExternalLink, Cpu, BarChart3, Target, Zap, Sparkles, Globe, ArrowRight } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { ClipboardSignature, Code, Rocket, Check, Mail, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -31,13 +31,11 @@ import { useToast } from "@/hooks/use-toast";
 import { useFirestore } from "@/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { FadeIn } from "./FadeIn";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { EldworkStandard } from "@/components/layout/EldworkStandard";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -162,7 +160,7 @@ function ProjectViewport({
 
 function CaseStudyShowcase() {
   return (
-    <section id="work" className="w-full bg-black py-32 px-6">
+    <section id="work" className="w-full bg-black py-24 px-6 -mt-32 md:-mt-40 relative z-30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-24">
           <FadeIn>
@@ -358,7 +356,7 @@ function ContactMe() {
                     size="lg"
                     className="w-full font-medium text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
                   >
-                    <Video className="mr-2 h-5 w-5" />
+                    <Mail className="mr-2 h-5 w-5" />
                     Book a Free Strategy Call
                   </Button>
                 </Link>
@@ -513,9 +511,7 @@ export default function Home() {
       <Header onScroll={handleScroll} />
       <main className="flex-grow">
         <Hero onExploreClick={(e) => handleScroll(e, 'work')}>
-          <p className="text-[14px] text-zinc-400 font-normal max-w-2xl text-center mt-6">
-            In 2026, a generic website is costing you customers. We build high-trust, purpose-driven sites that turn visitors into clients.
-          </p>
+          In 2026, a generic website is costing you customers. We build high-trust, purpose-driven sites that turn visitors into clients.
         </Hero>
         <CaseStudyShowcase />
         <EldworkStandard />
