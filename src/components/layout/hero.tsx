@@ -15,7 +15,8 @@ const services = [
   "ONLINE STORES",
   "AUTOMATIONS",
   "CHATBOTS",
-  "SMART SYSTEMS"
+  "SMART SYSTEMS",
+  "WEB PLATFORMS"
 ];
 
 export function Hero({ onExploreClick }: HeroProps) {
@@ -24,7 +25,7 @@ export function Hero({ onExploreClick }: HeroProps) {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % services.length);
-    }, 2200);
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -36,7 +37,7 @@ export function Hero({ onExploreClick }: HeroProps) {
         WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)'
       }}
     >
-      {/* 1. Subtle Static Grid */}
+      {/* Subtle Static Grid */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
 
       <div className="container relative z-10 flex flex-col items-start gap-8 px-6 text-left max-w-5xl mx-auto">
@@ -47,35 +48,35 @@ export function Hero({ onExploreClick }: HeroProps) {
           </span>
         </FadeIn>
 
-        {/* Headline with Blueprint Layout */}
-        <h1 className="text-3xl md:text-5xl font-medium tracking-tighter text-zinc-100 leading-tight flex flex-col items-start">
-          <div className="flex flex-wrap items-center">
-            <span className="lowercase">we build</span>
-            <span className="relative inline-block h-[1.4em] min-w-[200px] md:min-w-[280px] border border-zinc-800 bg-zinc-900/50 rounded px-3 py-1 mx-2 overflow-hidden align-middle">
+        {/* Headline with Seamless Kinetic Typography */}
+        <h1 className="text-3xl md:text-5xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase flex flex-col items-start">
+          <div className="flex flex-row items-baseline gap-x-2">
+            <span>WE BUILD</span>
+            <span className="relative inline-block h-[1.2em] min-w-[250px] md:min-w-[400px] text-left">
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={index}
-                  initial={{ opacity: 0, filter: "blur(10px)", scale: 0.95 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                  exit={{ opacity: 0, filter: "blur(10px)", scale: 1.05 }}
+                  initial={{ opacity: 0, filter: "blur(12px)", x: -5 }}
+                  animate={{ opacity: 1, filter: "blur(0px)", x: 0 }}
+                  exit={{ opacity: 0, filter: "blur(12px)", x: 5 }}
                   transition={{ 
                     duration: 0.15, 
-                    ease: "easeOut" 
+                    ease: "easeInOut" 
                   }}
-                  className="absolute left-0 w-full text-center text-blue-400 font-mono uppercase whitespace-nowrap"
+                  className="absolute left-0 w-full text-blue-400 whitespace-nowrap"
                 >
                   {services[index]}
                 </motion.span>
               </AnimatePresence>
             </span>
           </div>
-          <span className="lowercase mt-2">tailored to your needs.</span>
+          <span>TAILORED TO YOUR NEEDS.</span>
         </h1>
 
         {/* Sales-Driven Subtext */}
         <FadeIn delay={0.5}>
           <div className="max-w-[550px] text-zinc-400 text-sm md:text-base leading-relaxed mt-2 font-normal">
-            High-performance digital solutions engineered for growth and designed to stick.
+            We build exactly what your business needs to grow, engineered for performance and designed to stick.
           </div>
         </FadeIn>
 
