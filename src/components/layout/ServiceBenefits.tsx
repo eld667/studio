@@ -35,9 +35,13 @@ const pillars = [
 const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
   return (
     <motion.div
-      initial={{ opacity: 0.4 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: false, amount: 0.7 }}
+      initial="initial"
+      whileInView="active"
+      viewport={{ once: false, amount: 0.5 }}
+      variants={{
+        initial: { opacity: 0.4 },
+        active: { opacity: 1 }
+      }}
       transition={{ duration: 0.5 }}
       className={cn(
         "group relative py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-white/[0.02] px-4 -mx-4 rounded-xl"
@@ -47,8 +51,14 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
         <div className="flex flex-col items-center gap-4 mt-1.5">
           <span className="font-mono text-[10px] text-white/20">{pillar.id} /</span>
           <motion.div 
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            variants={{
+              initial: { opacity: 0.4, scale: 1 },
+              active: { 
+                opacity: [0.4, 1, 0.4],
+                scale: [1, 1.2, 1],
+                transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+              }
+            }}
             className="w-1.5 h-1.5 rounded-full bg-[#007AFF] shadow-[0_0_8px_#007AFF]" 
           />
         </div>
