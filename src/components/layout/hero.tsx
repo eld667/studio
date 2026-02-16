@@ -1,9 +1,9 @@
 
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { FadeIn } from "@/app/FadeIn";
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 
 interface HeroProps {
@@ -12,122 +12,102 @@ interface HeroProps {
 }
 
 export function Hero({ onExploreClick, children }: HeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Mouse tilt logic for the Core
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 });
-
-  const rotateX = useTransform(springY, [-0.5, 0.5], [15, -15]);
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-15, 15]);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  const headline = "ENGINEERING EFFICIENCY";
+  const letters = headline.split("");
 
   return (
     <section 
-      ref={containerRef}
       className="relative w-full flex flex-col items-center justify-center min-h-screen pt-32 pb-48 overflow-hidden bg-black"
       style={{
         maskImage: 'linear-gradient(to bottom, black 80%, transparent)',
         WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)'
       }}
     >
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-          <filter id="noiseFilter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
-        </svg>
+      {/* 1. Grid Background */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+
+      {/* 2. Background Beams */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <motion.div 
+          animate={{ 
+            opacity: [0.05, 0.15, 0.05],
+            x: [-100, 100, -100]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -left-1/4 w-[150%] h-[300px] bg-blue-500/10 blur-[120px] rotate-12"
+        />
+        <motion.div 
+          animate={{ 
+            opacity: [0.05, 0.1, 0.05],
+            x: [100, -100, 100]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 -right-1/4 w-[150%] h-[200px] bg-purple-500/5 blur-[100px] -rotate-12"
+        />
       </div>
 
-      {/* Atmospheric Background Halo */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
-      
       <div className="container relative z-10 flex flex-col items-center gap-8 px-4 text-center">
-        {/* Typography Group */}
-        <div className="space-y-6">
-          <FadeIn>
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-4">
-              [ SYSTEM ARCHITECTS // 2026 ]
-            </span>
-            <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter text-zinc-100 leading-[0.9]">
-              Engineering Agentic Efficiency.
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <div className="max-w-[550px] mx-auto text-zinc-400 text-sm md:text-base leading-relaxed mt-6 font-normal">
-              {children}
-            </div>
-          </FadeIn>
+        {/* Tagline */}
+        <FadeIn>
+          <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-4">
+            [ SYSTEM ARCHITECTS // 2026 ]
+          </span>
+        </FadeIn>
+
+        {/* Kinetic Headline */}
+        <div className="relative">
+          <h1 className="flex flex-wrap justify-center text-5xl md:text-8xl font-medium tracking-tighter text-zinc-100 leading-[0.9] uppercase relative z-10">
+            {letters.map((letter, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: i * 0.05,
+                  ease: [0.16, 1, 0.3, 1] 
+                }}
+                className="inline-block"
+              >
+                {letter === " " ? "\u00A0" : letter}
+              </motion.span>
+            ))}
+          </h1>
+          
+          {/* Silver Shimmer Effect */}
+          <motion.div 
+            className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
+            style={{ mixBlendMode: 'plus-lighter' }}
+          >
+            <motion.div 
+              className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
+              initial={{ x: "-100%" }}
+              animate={{ x: "200%" }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
+            />
+          </motion.div>
         </div>
 
-        {/* The Eldwork Core (Interactive Dashboard) */}
-        <FadeIn delay={0.4}>
+        {/* Subtext */}
+        <FadeIn delay={1.5}>
+          <div className="max-w-[550px] mx-auto text-zinc-400 text-sm md:text-base leading-relaxed mt-6 font-normal">
+            {children}
+          </div>
+        </FadeIn>
+
+        {/* 3. The Monolith */}
+        <FadeIn delay={2}>
           <motion.div
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: "preserve-3d",
-              perspective: 1000,
-            }}
-            className="relative w-72 h-40 mt-12 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-xl overflow-hidden shadow-2xl"
+            animate={{ y: [-5, 5, -5] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="mt-12 w-32 h-64 bg-zinc-950/20 backdrop-blur-2xl border border-white/10 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.1)] flex items-center justify-center"
           >
-            {/* Subtle Gradient Glow inside the core */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5" />
-            
-            <div className="relative h-full p-6 flex flex-col justify-between text-left">
-              <div className="flex justify-between items-start">
-                <div className="space-y-1">
-                  <p className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest">System_Status</p>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <p className="text-[10px] font-mono text-zinc-300 uppercase">Operational</p>
-                  </div>
-                </div>
-                <div className="w-8 h-8 rounded bg-white/5 border border-white/10 flex items-center justify-center">
-                  <div className="w-4 h-0.5 bg-blue-500 rounded-full" />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest italic">Intelligence_Metric</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter text-zinc-100">87%</span>
-                  <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-tighter">Efficiency Gain</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Scanning line animation inside the core */}
-            <motion.div 
-              className="absolute left-0 w-full h-px bg-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.5)]"
-              animate={{ top: ["0%", "100%", "0%"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            />
+            <div className="w-px h-1/2 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent opacity-20" />
           </motion.div>
         </FadeIn>
 
         {/* Primary Action Button */}
-        <FadeIn delay={0.6}>
+        <FadeIn delay={2.5}>
           <Button
             size="lg"
             onClick={onExploreClick}
