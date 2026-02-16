@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useActiveSection } from '@/hooks/use-active-section';
 
 // --- MISSION DATABASE ---
 type Pillar = 'LEAD-MACHINE' | 'LUXURY-SHOWCASE' | 'PRODUCT-DEMO' | 'PORTFOLIO-CREATIVE' | 'LANDING-PAGE' | 'SAAS-MARKETING' | 'EVENT-PROMO';
@@ -80,17 +81,18 @@ const MISSIONS: Mission[] = [
 ];
 
 const PILLARS: { id: Pillar; label: string; icon: any }[] = [
-  { id: 'LEAD-MACHINE', label: 'Lead Machines', icon: Target },
-  { id: 'LUXURY-SHOWCASE', label: 'Luxury Showcases', icon: Sparkles },
-  { id: 'PRODUCT-DEMO', label: 'Product Demos', icon: Layout },
-  { id: 'PORTFOLIO-CREATIVE', label: 'Creative Portfolios', icon: Code },
-  { id: 'LANDING-PAGE', label: 'Direct Response', icon: Zap },
-  { id: 'SAAS-MARKETING', label: 'SaaS Growth', icon: BarChart3 },
-  { id: 'EVENT-PROMO', label: 'Event Promos', icon: Users },
+  { id: 'LEAD-MACHINE', label: 'LEAD GENERATION', icon: Target },
+  { id: 'LUXURY-SHOWCASE', label: 'PREMIUM BRANDS', icon: Sparkles },
+  { id: 'PRODUCT-DEMO', label: 'PRODUCT SALES', icon: Layout },
+  { id: 'PORTFOLIO-CREATIVE', label: 'CREATIVE SITES', icon: Code },
+  { id: 'LANDING-PAGE', label: 'PROMO PAGES', icon: Zap },
+  { id: 'SAAS-MARKETING', label: 'SOFTWARE & APPS', icon: BarChart3 },
+  { id: 'EVENT-PROMO', label: 'EVENTS & GIGS', icon: Users },
 ];
 
 export default function PortfolioPage() {
   const liveCount = MISSIONS.filter(m => m.isLive).length;
+  const activeSection = useActiveSection(PILLARS.map(p => p.id));
 
   const handleScroll = (e: React.MouseEvent<HTMLElement>, id: string) => {
     e.preventDefault();
@@ -104,11 +106,11 @@ export default function PortfolioPage() {
     <div className="flex flex-col min-h-screen bg-black text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white">
       <Header onScroll={(e, id) => handleScroll(e, id)} />
       
-      <main className="flex-grow pt-24 pb-32">
+      <main className="flex-grow pt-32 pb-32">
         <div className="w-full max-w-7xl mx-auto px-6">
           
           {/* --- HERO: SYSTEM STATUS --- */}
-          <section className="mb-24 text-center">
+          <section className="mb-24 text-left">
             <FadeIn>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 mb-8">
                 <div className="relative flex h-2 w-2">
@@ -118,27 +120,37 @@ export default function PortfolioPage() {
                 Active Missions: {liveCount} // Deployment Status: Online
               </div>
               <h1 className="text-4xl md:text-6xl font-medium mb-6 tracking-tighter text-zinc-100 uppercase">
-                OPERATIONAL INDEX
+                OUR WORK.
               </h1>
-              <p className="text-sm md:text-base text-zinc-500 max-w-2xl mx-auto font-normal leading-relaxed">
-                A registry of high-performance digital architectures engineered for conversion and visual authority.
+              <p className="text-sm md:text-base text-zinc-500 max-w-2xl font-normal leading-relaxed">
+                High-performance websites and smart systems built to help your business grow. Select a category below to see our solutions in action.
               </p>
             </FadeIn>
           </section>
 
-          {/* --- STICKY SYSTEM FILTER --- */}
-          <div className="sticky top-14 z-40 -mx-6 px-6 py-4 bg-black/80 backdrop-blur-xl border-b border-zinc-800 mb-16">
-            <div className="max-w-7xl mx-auto flex items-center gap-6 overflow-x-auto no-scrollbar pb-2 md:pb-0">
-              <span className="text-[10px] font-mono font-bold text-zinc-600 uppercase tracking-widest mr-2">Index_Registry:</span>
-              {PILLARS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={(e) => handleScroll(e, p.id)}
-                  className="whitespace-nowrap py-2 text-[11px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-100 transition-colors"
-                >
-                  {p.label}
-                </button>
-              ))}
+          {/* --- STICKY TACTILE NAV --- */}
+          <div className="sticky top-14 z-40 -mx-6 px-6 py-6 bg-black/80 backdrop-blur-xl border-b border-zinc-800 mb-16">
+            <div className="max-w-7xl mx-auto">
+              <p className="text-[10px] font-mono font-bold text-zinc-600 uppercase tracking-widest mb-4">EXPLORE BY NEED:</p>
+              <div className="flex md:grid md:grid-cols-7 gap-2 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+                {PILLARS.map((p) => {
+                  const isActive = activeSection === p.id;
+                  return (
+                    <button
+                      key={p.id}
+                      onClick={(e) => handleScroll(e, p.id)}
+                      className={cn(
+                        "whitespace-nowrap py-3 px-4 text-[10px] font-mono uppercase tracking-widest transition-all duration-200 border text-center flex-1",
+                        isActive 
+                          ? "bg-zinc-100 text-black border-zinc-100 shadow-[0_0_20px_rgba(255,255,255,0.1)]" 
+                          : "bg-transparent border-zinc-800 text-zinc-500 hover:bg-zinc-900 hover:border-zinc-700 hover:text-zinc-100"
+                      )}
+                    >
+                      {p.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -149,7 +161,7 @@ export default function PortfolioPage() {
               if (missions.length === 0) return null;
 
               return (
-                <section key={pillar.id} id={pillar.id} className="scroll-mt-32">
+                <section key={pillar.id} id={pillar.id} className="scroll-mt-48">
                   <div className="flex items-center gap-4 mb-12 border-b border-zinc-800 pb-6">
                     <pillar.icon className="w-4 h-4 text-zinc-500" />
                     <h2 className="text-xs font-medium text-zinc-100 uppercase tracking-[0.3em]">{pillar.label}</h2>
