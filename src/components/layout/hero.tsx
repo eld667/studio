@@ -43,7 +43,7 @@ export function Hero({ onExploreClick, children }: HeroProps) {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full flex flex-col items-center justify-center min-h-screen pt-32 pb-48 overflow-hidden bg-black"
+      className="relative w-full flex flex-col items-center justify-center min-h-screen pt-24 pb-32 md:pt-32 md:pb-48 overflow-hidden bg-black"
     >
       {/* Atmospheric Background Halo */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)] pointer-events-none" />
@@ -133,7 +133,7 @@ export function Hero({ onExploreClick, children }: HeroProps) {
       </div>
 
       {/* Black Hole Mask - Sinking Transition Effect */}
-      <div className="absolute bottom-0 left-0 w-full h-96 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 w-full h-32 md:h-96 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-20" />
     </section>
   );
 }
