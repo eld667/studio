@@ -50,25 +50,25 @@ export function Hero({ onExploreClick }: HeroProps) {
 
         {/* Headline with Seamless Kinetic Typography */}
         <h1 className="text-3xl md:text-5xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase flex flex-col items-start">
-          <div className="flex flex-row items-baseline gap-x-2">
+          <div className="flex flex-row items-baseline justify-start gap-x-2 w-full">
             <span>WE BUILD</span>
-            <span className="relative inline-block h-[1.2em] min-w-[250px] md:min-w-[400px] text-left">
+            <div className="relative inline-flex h-auto leading-none min-w-[200px] md:min-w-[300px] text-left">
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={index}
-                  initial={{ opacity: 0, filter: "blur(12px)", x: -5 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", x: 0 }}
-                  exit={{ opacity: 0, filter: "blur(12px)", x: 5 }}
+                  initial={{ opacity: 0, y: 2, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -2, filter: "blur(8px)" }}
                   transition={{ 
-                    duration: 0.15, 
-                    ease: "easeInOut" 
+                    duration: 0.1, 
+                    ease: "easeOut" 
                   }}
-                  className="absolute left-0 w-full text-blue-400 whitespace-nowrap"
+                  className="inline-flex text-blue-400 whitespace-nowrap"
                 >
                   {services[index]}
                 </motion.span>
               </AnimatePresence>
-            </span>
+            </div>
           </div>
           <span>TAILORED TO YOUR NEEDS.</span>
         </h1>
