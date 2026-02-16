@@ -80,40 +80,51 @@ function ProjectViewport({
   return (
     <FadeIn>
       <div className="flex flex-col gap-6 group">
-        <div 
-          ref={viewportRef}
-          className="relative aspect-[16/10] overflow-hidden rounded-[12px] bg-zinc-900 border border-white/10 shadow-2xl"
-        >
-          <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-40" />
-          
-          <motion.div 
-            className="w-full absolute top-0 left-0"
-            initial={{ y: 0 }}
-            animate={isMobile && isInView ? {
-              y: scrollTarget
-            } : { y: 0 }}
-            whileHover={!isMobile ? {
-              y: scrollTarget
-            } : undefined}
-            transition={{
-              duration: isMobile ? numericSpeed * 4 : numericSpeed,
-              ease: "linear",
-              repeat: isMobile && isInView ? Infinity : 0,
-              repeatType: "reverse"
-            }}
-          >
-            <div className="relative w-full">
-              <Image 
-                src={image} 
-                alt={title} 
-                width={1440}
-                height={height}
-                className="w-full h-auto"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                priority={false}
-              />
+        <div className="relative">
+          {/* Workstation Lid (Screen Enclosure) */}
+          <div className="border-2 border-zinc-800 bg-zinc-950 px-2 pt-4 pb-2 rounded-t-md shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)]">
+            <div 
+              ref={viewportRef}
+              className="relative aspect-[16/10] overflow-hidden bg-zinc-900"
+            >
+              <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-40" />
+              
+              <motion.div 
+                className="w-full absolute top-0 left-0"
+                initial={{ y: 0 }}
+                animate={isMobile && isInView ? {
+                  y: scrollTarget
+                } : { y: 0 }}
+                whileHover={!isMobile ? {
+                  y: scrollTarget
+                } : undefined}
+                transition={{
+                  duration: isMobile ? numericSpeed * 4 : numericSpeed,
+                  ease: "linear",
+                  repeat: isMobile && isInView ? Infinity : 0,
+                  repeatType: "reverse"
+                }}
+              >
+                <div className="relative w-full">
+                  <Image 
+                    src={image} 
+                    alt={title} 
+                    width={1440}
+                    height={height}
+                    className="w-full h-auto"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    priority={false}
+                  />
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
+          
+          {/* Hinge Gap */}
+          <div className="h-[2px] bg-black w-full" />
+          
+          {/* Workstation Base (Metallic Body) */}
+          <div className="mx-[-4px] h-[14px] rounded-b-md bg-zinc-800 bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800 border-b-[3px] border-zinc-900 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)]" />
         </div>
 
         <div className="space-y-4">
