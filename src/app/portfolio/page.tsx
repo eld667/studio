@@ -73,10 +73,19 @@ const PILLARS: { id: Pillar; label: string; icon: any }[] = [
 
 function MissionCard({ mission }: { mission: Mission }) {
   const [isScrolling, setIsScrolling] = useState(false);
-  const imgSrc = `/images${mission.slug}.webp`;
+  const [duration, setDuration] = useState(6);
+  const imagePath = "/images" + mission.slug + ".webp";
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const naturalHeight = e.currentTarget.naturalHeight;
+    // Target Speed: ~50px per second.
+    // Distance: 85% of total height.
+    const calculatedDuration = (naturalHeight * 0.85) / 50;
+    setDuration(calculatedDuration > 0 ? calculatedDuration : 6);
+  };
 
   return (
-    <div className="flex flex-col w-[42vw] md:w-full shrink-0 snap-start group">
+    <div className="flex flex-col w-[42vw] md:w-full shrink-0 snap-start group text-left">
       {/* --- KINETIC VIEWPORT --- */}
       <div 
         className="relative aspect-[16/10] w-full overflow-hidden border border-zinc-800 bg-zinc-900 rounded-sm cursor-pointer"
@@ -85,26 +94,28 @@ function MissionCard({ mission }: { mission: Mission }) {
         onClick={() => setIsScrolling(!isScrolling)}
       >
         <motion.img
-          src={imgSrc}
+          src={imagePath}
           alt={mission.title}
+          onLoad={handleImageLoad}
           className="w-full h-auto absolute top-0 left-0"
-          animate={{ y: isScrolling ? "-80%" : "0%" }}
-          transition={{ duration: 6, ease: "linear" }}
+          animate={{ y: isScrolling ? "-85%" : "0%" }}
+          transition={{ duration: duration, ease: "linear" }}
         />
       </div>
 
-      {/* --- ACTION & METADATA --- */}
+      {/* --- ACTION --- */}
       <Link href={mission.slug} target="_blank" className="block mt-2">
         <button className="w-full py-2.5 bg-transparent border border-zinc-800 text-zinc-400 text-[9px] font-mono uppercase tracking-[0.2em] transition-all hover:bg-white hover:text-black hover:border-zinc-100">
           VISIT_SITE_LIVE
         </button>
       </Link>
 
-      <div className="mt-3">
-        <h3 className="text-[13px] font-medium text-zinc-100 uppercase tracking-tighter leading-none">
+      {/* --- METADATA --- */}
+      <div className="mt-3 space-y-1">
+        <h3 className="text-[13px] font-medium text-zinc-100 uppercase tracking-tighter leading-none font-sans">
           {mission.title}
         </h3>
-        <p className="text-[11px] text-zinc-500 uppercase line-clamp-1 mt-1 font-normal tracking-tight">
+        <p className="text-[11px] text-zinc-500 uppercase line-clamp-1 font-mono tracking-tight">
           {mission.outcome}
         </p>
       </div>
@@ -149,7 +160,7 @@ export default function PortfolioPage() {
             </FadeIn>
           </section>
 
-          {/* --- STICKY TACTILE NAV --- */}
+          {/* --- STICKY NAV --- */}
           <div className="sticky top-14 z-40 -mx-6 px-6 py-6 bg-black/80 backdrop-blur-xl border-b border-zinc-800 mb-16">
             <div className="max-w-7xl mx-auto">
               <p className="text-[10px] font-mono font-bold text-zinc-600 uppercase tracking-widest mb-4">EXPLORE BY NEED:</p>
@@ -182,14 +193,13 @@ export default function PortfolioPage() {
               if (missions.length === 0) return null;
 
               return (
-                <section key={pillar.id} id={pillar.id} className="scroll-mt-48">
+                <section key={pillar.id} id={pillar.id} className="scroll-mt-48 text-left">
                   <div className="flex items-center gap-4 mb-12 border-b border-zinc-800 pb-6">
                     <pillar.icon className="w-4 h-4 text-zinc-500" />
                     <h2 className="text-xs font-medium text-zinc-100 uppercase tracking-[0.3em]">{pillar.label}</h2>
                     <span className="text-[10px] font-mono text-zinc-600 ml-auto">{missions.length} SYSTEMS</span>
                   </div>
 
-                  {/* High Density Grid / Slider */}
                   <div className="flex overflow-x-auto md:grid md:grid-cols-4 snap-x snap-mandatory gap-4 md:gap-6 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
                     {missions.map((mission) => (
                       <MissionCard key={mission.id} mission={mission} />
