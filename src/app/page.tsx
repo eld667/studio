@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Header } from "@/components/layout/header";
@@ -35,6 +36,7 @@ import { FadeIn } from "./FadeIn";
 import Link from "next/link";
 import { EldworkStandard } from "@/components/layout/EldworkStandard";
 import { ServiceBenefits } from "@/components/layout/ServiceBenefits";
+import { FullServiceBundle } from "@/components/layout/FullServiceBundle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -516,6 +518,7 @@ export default function Home() {
         <CaseStudyShowcase />
         <EldworkStandard />
         <ServiceBenefits />
+        <FullServiceBundle />
         <ThreeStepPlan />
         <ContactMe />
       </main>
