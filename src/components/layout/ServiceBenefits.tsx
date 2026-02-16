@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -59,7 +60,20 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
 
 export function ServiceBenefits() {
   return (
-    <section id="benefits" className="w-full py-24 md:py-32 bg-[#0A0A0A] relative">
+    <section id="benefits" className="w-full py-24 md:py-32 bg-[#0A0A0A] relative overflow-hidden">
+      {/* Decoration Layer 01: Glassmorphic Floating Pill */}
+      <div className="absolute -top-6 right-12 z-30 pointer-events-none">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-2xl">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-mono text-[10px] uppercase tracking-tighter text-white/60">Status: Active Growth</span>
+        </div>
+      </div>
+
+      {/* Decoration Layer 02: The Linear Scanning Beam */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent absolute top-0 animate-scan" />
+      </div>
+
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           

@@ -87,6 +87,21 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
 export function EldworkStandard() {
   return (
     <section id="philosophy" className="w-full py-24 bg-[#0A0A0A] relative overflow-hidden">
+      {/* Decoration Layer 01: Corner Brackets */}
+      <div className="absolute inset-0 pointer-events-none z-20">
+        {/* Top Left Bracket */}
+        <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-white/20 rounded-tl-sm" />
+        {/* Bottom Right Bracket */}
+        <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-white/20 rounded-br-sm" />
+      </div>
+
+      {/* Decoration Layer 02: Vertical System Margin */}
+      <div className="absolute top-0 left-6 h-full w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none hidden xl:block">
+        <div className="absolute top-1/4 -left-2 rotate-180 [writing-mode:vertical-lr] font-mono text-[9px] uppercase tracking-widest text-white/20">
+          System_Architecture_v2.0
+        </div>
+      </div>
+
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <div className="mb-16 text-left max-w-2xl">
