@@ -12,10 +12,10 @@ interface HeroProps {
 }
 
 const services = [
-  "Web Platforms",
-  "Data Pipelines",
-  "AI Automations",
-  "Agentic Systems"
+  "Digital Platforms",
+  "Growth Engines",
+  "Automated Systems",
+  "High-End Sites"
 ];
 
 export function Hero({ onExploreClick }: HeroProps) {
@@ -43,23 +43,23 @@ export function Hero({ onExploreClick }: HeroProps) {
         {/* Tagline */}
         <FadeIn>
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em] block mb-4">
-            [ SYSTEM ARCHITECTS // 2026 ]
+            [ BUILT FOR YOUR GROWTH ]
           </span>
         </FadeIn>
 
         {/* Headline with Rotating Engine */}
-        <div className="relative">
-          <h1 className="text-2xl md:text-4xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase max-w-4xl">
-            We engineer high-performance{" "}
-            <span className="relative inline-block h-[1em] min-w-[180px] md:min-w-[320px] text-blue-500 align-bottom overflow-hidden">
-              <AnimatePresence mode="wait">
+        <div className="relative w-full">
+          <h1 className="text-2xl md:text-4xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase max-w-4xl flex flex-row flex-wrap items-center justify-center md:justify-start gap-x-2">
+            <span className="whitespace-nowrap">We build</span>
+            <span className="relative inline-block h-[1.2em] min-w-[220px] md:min-w-[340px] text-blue-400 overflow-hidden">
+              <AnimatePresence>
                 <motion.span
                   key={index}
-                  initial={{ y: 30, opacity: 0 }}
+                  initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -30, opacity: 0 }}
+                  exit={{ y: -20, opacity: 0 }}
                   transition={{ 
-                    duration: 0.5, 
+                    duration: 0.4, 
                     ease: [0.16, 1, 0.3, 1] 
                   }}
                   className="absolute left-0 w-full"
@@ -67,16 +67,15 @@ export function Hero({ onExploreClick }: HeroProps) {
                   {services[index]}
                 </motion.span>
               </AnimatePresence>
-            </span>{" "}
-            <br className="hidden md:block" />
-            for modern enterprises.
+            </span>
+            <span className="whitespace-nowrap">that drive results.</span>
           </h1>
         </div>
 
-        {/* Direct Response Subtext */}
+        {/* Sales-Driven Subtext */}
         <FadeIn delay={0.5}>
-          <div className="max-w-[500px] text-zinc-400 text-[14px] leading-relaxed mt-2 font-normal">
-            Transforming operational complexity into automated digital infrastructure. We maximize intelligence density while minimizing overhead.
+          <div className="max-w-[500px] text-zinc-400 text-sm md:text-base leading-relaxed mt-2 font-normal">
+            We build exactly what your business needs to grow, engineered for performance and designed to stick.
           </div>
         </FadeIn>
 
