@@ -8,6 +8,7 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const pillars = [
   {
@@ -33,21 +34,23 @@ const pillars = [
 ];
 
 const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
+  const isMobile = useIsMobile();
+  
   return (
     <motion.div
       initial="initial"
       whileInView="active"
-      viewport={{ once: false, amount: 0.5 }}
+      viewport={{ once: false, amount: isMobile ? 0.8 : 0.5 }}
       variants={{
         initial: { opacity: 0.4 },
         active: { opacity: 1 }
       }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "group relative py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-white/[0.02] px-4 -mx-4 rounded-xl"
+        "group relative py-8 lg:py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-white/[0.02] px-4 -mx-4 rounded-xl"
       )}
     >
-      <div className="flex gap-6">
+      <div className="flex gap-4 lg:gap-6">
         <div className="flex flex-col items-center gap-4 mt-1.5">
           <span className="font-mono text-[10px] text-white/20">{pillar.id} /</span>
           <div className="w-1.5 h-1.5 rounded-full bg-[#007AFF]" />
@@ -67,7 +70,7 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
 
 export function ServiceBenefits() {
   return (
-    <section id="benefits" className="w-full py-24 md:py-32 bg-[#0A0A0A] relative overflow-hidden">
+    <section id="benefits" className="w-full py-16 lg:py-32 bg-[#0A0A0A] relative overflow-hidden">
       {/* Path of Growth Line Decoration */}
       <svg className="absolute top-0 left-[45%] w-px h-full opacity-10 pointer-events-none hidden lg:block">
         <line x1="0" y1="0" x2="0" y2="100%" stroke="url(#growth-gradient)" strokeWidth="2" strokeDasharray="4 4" />
@@ -83,12 +86,12 @@ export function ServiceBenefits() {
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           
           {/* Left Side: Sticky Content */}
-          <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit">
+          <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit text-center lg:text-left">
             {/* Background Card */}
-            <div className="absolute -inset-8 bg-white/[0.02] border border-white/[0.05] rounded-[2.5rem] -z-10" />
+            <div className="absolute -inset-8 bg-white/[0.02] border border-white/[0.05] rounded-[2.5rem] -z-10 hidden lg:block" />
             
             <FadeIn>
-              <div className="inline-flex items-center gap-3 mb-6">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
                 <div className="relative flex h-2 w-2">
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
                 </div>
@@ -101,17 +104,17 @@ export function ServiceBenefits() {
                 A website that works as hard as you do.
               </h2>
               
-              <p className="text-sm md:text-base text-white/60 leading-relaxed font-normal mb-8">
+              <p className="text-sm md:text-base text-white/60 leading-relaxed font-normal mb-8 max-w-md mx-auto lg:mx-0">
                 You’re busy running a business. We build the digital tools that find your customers, book your appointments, and make you look like the leader in your industry.
               </p>
 
-              <div className="flex flex-col items-start gap-4 pt-4">
-                <Link href="/#contact">
-                  <Button size="lg" className="w-full sm:w-auto bg-white text-black hover:bg-zinc-200 font-bold uppercase tracking-widest text-[10px] h-12 rounded-none">
+              <div className="flex flex-col items-center lg:items-start gap-4 pt-4">
+                <Link href="/#contact" className="w-full lg:w-auto">
+                  <Button size="lg" className="w-full lg:w-auto bg-white text-black hover:bg-zinc-200 font-bold uppercase tracking-widest text-[10px] h-12 rounded-none">
                     Let's Grow Your Business
                   </Button>
                 </Link>
-                <Link href="/#plan">
+                <Link href="/#plan" className="mx-auto lg:mx-0">
                   <button className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors flex items-center gap-2 group">
                     See Our Pricing <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </button>
