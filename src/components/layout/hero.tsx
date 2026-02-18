@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn } from "@/app/FadeIn";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 interface HeroProps {
   onExploreClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -19,6 +20,9 @@ const services = [
   "WEB PLATFORMS"
 ];
 
+// Find the longest service name for the measure span
+const longestService = services.reduce((a, b) => a.length > b.length ? a : b, "");
+
 export function Hero({ onExploreClick }: HeroProps) {
   const [index, setIndex] = useState(0);
 
@@ -30,15 +34,27 @@ export function Hero({ onExploreClick }: HeroProps) {
   }, []);
 
   return (
-    <section 
+    <section
       className="relative w-full flex flex-col items-start justify-center min-h-screen pt-24 pb-32 md:pt-32 md:pb-48 overflow-hidden bg-black"
       style={{
-        maskImage: 'linear-gradient(to bottom, black 80%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)'
+        maskImage: 'linear-gradient(to bottom, black 90%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black 90%, transparent)'
       }}
     >
       {/* Subtle Static Grid */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
+
+      {/* Radial Gradient Glow Behind Headline */}
+      <div
+        className="absolute z-[1] pointer-events-none"
+        style={{
+          top: '30%',
+          left: '15%',
+          width: '60%',
+          height: '40%',
+          background: 'radial-gradient(ellipse at 30% 50%, rgba(0,122,255,0.08) 0%, rgba(0,122,255,0.03) 40%, transparent 70%)',
+        }}
+      />
 
       <div className="container relative z-10 flex flex-col items-start gap-8 px-6 text-left max-w-5xl mx-auto">
         {/* Tagline */}
@@ -52,18 +68,22 @@ export function Hero({ onExploreClick }: HeroProps) {
         <h1 className="text-3xl md:text-5xl font-medium tracking-tighter text-zinc-100 leading-tight uppercase flex flex-col items-start">
           <div className="flex flex-row items-baseline justify-start gap-x-2 w-full">
             <span>WE BUILD</span>
-            <div className="relative inline-flex h-auto leading-none min-w-[200px] md:min-w-[300px] text-left">
+            <div className="relative inline-flex h-auto leading-none text-left">
+              {/* Hidden measure span that sizes the container to the longest word */}
+              <span className="invisible whitespace-nowrap" aria-hidden="true">
+                {longestService}
+              </span>
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={index}
                   initial={{ opacity: 0, y: 2, filter: "blur(8px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   exit={{ opacity: 0, y: -2, filter: "blur(8px)" }}
-                  transition={{ 
-                    duration: 0.1, 
-                    ease: "easeOut" 
+                  transition={{
+                    duration: 0.1,
+                    ease: "easeOut"
                   }}
-                  className="inline-flex text-blue-400 whitespace-nowrap"
+                  className="absolute left-0 top-0 inline-flex text-blue-400 whitespace-nowrap"
                 >
                   {services[index]}
                 </motion.span>
@@ -80,15 +100,25 @@ export function Hero({ onExploreClick }: HeroProps) {
           </div>
         </FadeIn>
 
-        {/* Primary Action Button */}
+        {/* Primary + Secondary Action Buttons */}
         <FadeIn delay={0.8}>
-          <Button
-            size="lg"
-            onClick={onExploreClick}
-            className="font-medium text-zinc-950 bg-zinc-100 hover:bg-white transition-all rounded-none px-10 h-12 uppercase text-[10px] tracking-widest mt-4 shadow-2xl"
-          >
-            Explore the Repository
-          </Button>
+          <div className="flex flex-col sm:flex-row items-start gap-4 mt-4">
+            <Button
+              size="lg"
+              onClick={onExploreClick}
+              className="font-medium text-zinc-950 bg-zinc-100 hover:bg-white transition-all rounded-sm px-10 h-12 uppercase text-[10px] tracking-widest shadow-2xl"
+            >
+              Explore the Repository
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={onExploreClick}
+              className="border-white/10 text-white/50 hover:text-white hover:border-white/20 font-medium px-8 h-12 rounded-sm uppercase text-[10px] tracking-[0.2em] group"
+            >
+              View Our Work <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </div>
         </FadeIn>
       </div>
 

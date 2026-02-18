@@ -16,7 +16,6 @@ interface Project {
   context: string;
   metric: string;
   win: string;
-  image: string;
 }
 
 const projects: Project[] = [
@@ -28,7 +27,6 @@ const projects: Project[] = [
     context: "Core Banking Overhaul: Migrating a monolithic legacy system to a high-frequency, distributed architecture.",
     metric: "99.99% Uptime",
     win: "-140ms Latency ($12M Savings)",
-    image: "https://picsum.photos/seed/fintech/400/400"
   },
   {
     id: "02",
@@ -38,7 +36,6 @@ const projects: Project[] = [
     context: "Telemetry Dashboard: Real-time data visualization for satellite constellation health.",
     metric: "60fps Rendering",
     win: "Mission Control Optimization",
-    image: "https://picsum.photos/seed/aerospace/400/400"
   },
   {
     id: "03",
@@ -48,7 +45,6 @@ const projects: Project[] = [
     context: "L2 Scaling Interface: Designing the developer-facing dashboard for a modular blockchain stack.",
     metric: "15k+ Daily Devs",
     win: "65% Faster Onboarding",
-    image: "https://picsum.photos/seed/protocol/400/400"
   }
 ];
 
@@ -58,12 +54,12 @@ const LedgerRow = ({ project, index }: { project: Project, index: number }) => {
       initial={{ opacity: 0, x: -10, borderBottomWidth: 0 }}
       whileInView={{ opacity: 1, x: 0, borderBottomWidth: 1 }}
       viewport={{ once: true }}
-      transition={{ 
-        duration: 0.7, 
+      transition={{
+        duration: 0.7,
         delay: index * 0.15,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className="group relative flex flex-col md:grid md:grid-cols-12 gap-4 py-10 px-4 border-b border-white/[0.08] hover:bg-white/[0.02] transition-all duration-300 hover:pl-6 cursor-pointer"
+      className="group relative flex flex-col md:grid md:grid-cols-12 gap-4 py-10 px-4 border-b border-white/[0.08] hover:bg-white/[0.02] transition-all duration-300 hover:translate-x-2"
     >
       <div className="md:col-span-4 space-y-2">
         <div className="flex items-center gap-3">
@@ -75,6 +71,15 @@ const LedgerRow = ({ project, index }: { project: Project, index: number }) => {
         <p className="text-sm text-white/50 max-w-sm font-normal">
           {project.context}
         </p>
+        {/* Sector + Year visible on mobile as inline tags */}
+        <div className="flex items-center gap-2 md:hidden mt-2">
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 border border-white/10 px-2 py-0.5 rounded-full">
+            {project.sector}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 border border-white/10 px-2 py-0.5 rounded-full">
+            {project.year}
+          </span>
+        </div>
       </div>
 
       <div className="hidden md:flex md:col-span-2 items-center">
@@ -106,9 +111,9 @@ const LedgerRow = ({ project, index }: { project: Project, index: number }) => {
 export function EvidenceOfImpact() {
   return (
     <section id="evidence" className="w-full py-24 bg-[#0A0A0A] relative">
-      {/* Background Blueprint Grid */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      {/* Horizontal Scan-Line Background (distinct from FullServiceBundle's dot matrix) */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.5) 39px, rgba(255,255,255,0.5) 40px)', backgroundSize: '100% 40px' }} />
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Header */}
@@ -121,7 +126,7 @@ export function EvidenceOfImpact() {
               Evidence of Impact.
             </h2>
             <p className="text-sm md:text-base text-white/50 leading-relaxed font-normal max-w-2xl">
-              We don’t just ship features; we solve bottlenecks. Explore how our architectural approach transformed category leaders from "legacy" to "limitless."
+              We don't just ship features; we solve bottlenecks. Explore how our architectural approach transformed category leaders from "legacy" to "limitless."
             </p>
           </FadeIn>
         </div>
@@ -137,10 +142,10 @@ export function EvidenceOfImpact() {
         {/* The Ledger Rows */}
         <div className="relative">
           {projects.map((project, i) => (
-            <LedgerRow 
-              key={project.id} 
-              project={project} 
-              index={i} 
+            <LedgerRow
+              key={project.id}
+              project={project}
+              index={i}
             />
           ))}
         </div>
@@ -150,7 +155,7 @@ export function EvidenceOfImpact() {
           <div className="mt-20 flex flex-col md:flex-row items-center justify-between gap-8 pt-12 border-t border-white/[0.08]">
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <Link href="/portfolio">
-                <Button 
+                <Button
                   size="lg"
                   className="w-full sm:w-auto bg-white text-black hover:bg-zinc-200 font-medium px-8 h-12 rounded-none uppercase text-[10px] tracking-[0.2em]"
                 >
@@ -158,7 +163,7 @@ export function EvidenceOfImpact() {
                 </Button>
               </Link>
               <Link href="/portfolio/nexus-fintech">
-                <Button 
+                <Button
                   variant="outline"
                   size="lg"
                   className="w-full sm:w-auto border-white/10 text-white/50 hover:text-white hover:border-white/20 font-medium px-8 h-12 rounded-none uppercase text-[10px] tracking-[0.2em]"
@@ -167,10 +172,6 @@ export function EvidenceOfImpact() {
                 </Button>
               </Link>
             </div>
-            
-            <p className="font-mono text-[9px] text-white/10 uppercase tracking-tighter hidden lg:block">
-              //_SYSTEMS_AUTHENTICATED • REF_ID: ARCHIVE_992
-            </p>
           </div>
         </FadeIn>
       </div>

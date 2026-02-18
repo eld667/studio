@@ -41,18 +41,18 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-function ProjectViewport({ 
-  title, 
-  impact, 
-  image, 
-  speed, 
+function ProjectViewport({
+  title,
+  impact,
+  image,
+  speed,
   href,
   height
-}: { 
-  title: string; 
-  impact: string; 
-  image: string; 
-  speed: string; 
+}: {
+  title: string;
+  impact: string;
+  image: string;
+  speed: string;
   href: string;
   height: number;
 }) {
@@ -60,7 +60,7 @@ function ProjectViewport({
   const numericSpeed = parseFloat(speed) || 7;
   const viewportRef = useRef<HTMLDivElement>(null);
   const [viewportHeight, setViewportHeight] = useState(0);
-  
+
   const isInView = useInView(viewportRef, { amount: 0.6 });
 
   useEffect(() => {
@@ -83,13 +83,13 @@ function ProjectViewport({
         <div className="relative">
           {/* Workstation Lid (Screen Enclosure) */}
           <div className="border-2 border-zinc-800 bg-zinc-950 px-2 pt-4 pb-2 rounded-t-md shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)]">
-            <div 
+            <div
               ref={viewportRef}
               className="relative aspect-[16/10] overflow-hidden bg-zinc-900"
             >
               <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 opacity-40" />
-              
-              <motion.div 
+
+              <motion.div
                 className="w-full absolute top-0 left-0"
                 initial={{ y: 0 }}
                 animate={isMobile && isInView ? {
@@ -106,9 +106,9 @@ function ProjectViewport({
                 }}
               >
                 <div className="relative w-full">
-                  <Image 
-                    src={image} 
-                    alt={title} 
+                  <Image
+                    src={image}
+                    alt={title}
                     width={1440}
                     height={height}
                     className="w-full h-auto"
@@ -119,10 +119,10 @@ function ProjectViewport({
               </motion.div>
             </div>
           </div>
-          
+
           {/* Hinge Gap */}
           <div className="h-[2px] bg-black w-full" />
-          
+
           {/* Workstation Base (Metallic Body) */}
           <div className="mx-[-4px] h-[14px] rounded-b-md bg-zinc-800 bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800 border-b-[3px] border-zinc-900 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)]" />
         </div>
@@ -136,19 +136,19 @@ function ProjectViewport({
               {impact}
             </p>
           </div>
-          
+
           <div className="flex gap-3 pt-2">
             <Link href={href} className="flex-1">
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 className="w-full bg-white text-black hover:bg-white/90 font-medium uppercase text-[10px] tracking-widest h-10 rounded-none"
               >
                 Launch Live Demo
               </Button>
             </Link>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               className="flex-1 border-white/20 text-white hover:bg-white/5 font-medium uppercase text-[10px] tracking-widest h-10 rounded-none"
             >
               Systems Architecture
@@ -174,9 +174,9 @@ function CaseStudyShowcase() {
             </p>
           </FadeIn>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-24">
-          <ProjectViewport 
+          <ProjectViewport
             title="SwiftMove Movers"
             impact="Scaling Logistics with AI-Driven Dispatch & Real-Time UX."
             image="/images/swiftmove-movers.webp"
@@ -185,7 +185,7 @@ function CaseStudyShowcase() {
             height={5993}
           />
 
-          <ProjectViewport 
+          <ProjectViewport
             title="Whisky Vault"
             impact="A Premium Digital Cellar: High-End E-commerce & Branding."
             image="/images/reserve-whisky.webp"
@@ -194,7 +194,7 @@ function CaseStudyShowcase() {
             height={5650}
           />
 
-          <ProjectViewport 
+          <ProjectViewport
             title="CustomerHub"
             impact="The Intelligence Hub: Advanced SaaS Data Visualization & Sync."
             image="/images/customerhub.webp"
@@ -207,7 +207,7 @@ function CaseStudyShowcase() {
         <FadeIn>
           <div className="pt-16 border-t border-white/10">
             <Link href="/portfolio">
-              <Button 
+              <Button
                 className="w-full bg-white text-black hover:bg-white/90 font-medium py-6 text-sm md:text-base uppercase tracking-[0.1em] transition-all group rounded-none"
               >
                 PROCEED TO FULL REPOSITORY <ArrowRight className="ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform" />
@@ -305,7 +305,7 @@ function ContactMe() {
       timestamp: new Date().toISOString(),
     };
     const leadsCollection = collection(firestore, 'leads');
-    
+
     addDoc(leadsCollection, leadData)
       .then(() => {
         setIsSuccess(true);
@@ -314,13 +314,13 @@ function ContactMe() {
       .catch((serverError) => {
         console.error("Firebase Error:", serverError);
         toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem submitting your message. Please try again.",
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem submitting your message. Please try again.",
         });
       });
   };
-  
+
   const handleCopy = () => {
     navigator.clipboard.writeText('eldworkstudio.contact@gmail.com');
     setCopied(true);
@@ -343,7 +343,7 @@ function ContactMe() {
       </FadeIn>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        
+
         <div className="lg:col-span-1 flex flex-col gap-8 order-last lg:order-first">
           <FadeIn delay={0.2}>
             <div className="relative h-full">
@@ -368,7 +368,7 @@ function ContactMe() {
               </Card>
             </div>
           </FadeIn>
-          
+
           <FadeIn delay={0.4}>
             <Card className="bg-gray-900 border-white/10 p-8 h-full flex flex-col">
               <h3 className="text-lg font-medium mb-3 text-zinc-100 tracking-tight">Just a quick question?</h3>
@@ -410,19 +410,19 @@ function ContactMe() {
               ) : (
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-zinc-400 text-sm font-normal">Your Name</FormLabel>
-                            <FormControl>
-                              <Input {...field} className="bg-white/5 border-white/10 focus:bg-white/10 text-zinc-100 font-normal" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-zinc-400 text-sm font-normal">Your Name</FormLabel>
+                          <FormControl>
+                            <Input {...field} className="bg-white/5 border-white/10 focus:bg-white/10 text-zinc-100 font-normal" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     <FormField
                       control={form.control}
                       name="email"
@@ -507,6 +507,19 @@ export default function Home() {
       });
     }
   };
+
+  // Handle initial hash scroll from external pages
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500); // Delay to allow content/lenis to initialize
+    }
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">

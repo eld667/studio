@@ -9,6 +9,7 @@ import { FirebaseClientProvider } from '@/firebase';
 import SmoothScroll from './SmoothScroll';
 import { AnimatePresence } from 'framer-motion';
 import { Preloader } from './Preloader';
+import { Footer } from '@/components/layout/footer';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -46,6 +47,7 @@ export default function RootLayout({
             {children}
           </FirebaseClientProvider>
           <Toaster />
+          <Footer />
         </SmoothScroll>
       </body>
     </html>

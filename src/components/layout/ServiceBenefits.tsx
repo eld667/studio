@@ -35,25 +35,33 @@ const pillars = [
 
 const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
   const isMobile = useIsMobile();
-  
+
   return (
     <motion.div
       initial="initial"
       whileInView="active"
-      viewport={{ once: false, amount: isMobile ? 0.8 : 0.5 }}
+      viewport={{ once: true, amount: isMobile ? 0.8 : 0.5 }}
       variants={{
         initial: { opacity: 0.4 },
         active: { opacity: 1 }
       }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "group relative py-8 lg:py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-white/[0.02] px-4 -mx-4 rounded-xl"
+        "group relative py-8 lg:py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-white/[0.02] px-4 rounded-xl"
       )}
     >
       <div className="flex gap-4 lg:gap-6">
         <div className="flex flex-col items-center gap-4 mt-1.5">
           <span className="font-mono text-[10px] text-white/20">{pillar.id} /</span>
-          <div className="w-1.5 h-1.5 rounded-full bg-[#007AFF]" />
+          {/* Animated dot that glows when in view */}
+          <motion.div
+            variants={{
+              initial: { scale: 0.8, boxShadow: '0 0 0px rgba(0,122,255,0)' },
+              active: { scale: 1, boxShadow: '0 0 8px rgba(0,122,255,0.5)' }
+            }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="w-1.5 h-1.5 rounded-full bg-[#007AFF]"
+          />
         </div>
         <div className="space-y-3">
           <h3 className="text-lg md:text-xl font-medium text-white tracking-tight flex items-center gap-3">
@@ -71,25 +79,12 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
 export function ServiceBenefits() {
   return (
     <section id="benefits" className="w-full py-16 lg:py-32 bg-[#0A0A0A] relative overflow-hidden">
-      {/* Path of Growth Line Decoration */}
-      <svg className="absolute top-0 left-[45%] w-px h-full opacity-10 pointer-events-none hidden lg:block">
-        <line x1="0" y1="0" x2="0" y2="100%" stroke="url(#growth-gradient)" strokeWidth="2" strokeDasharray="4 4" />
-        <defs>
-          <linearGradient id="growth-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#007AFF" />
-            <stop offset="100%" stopColor="#22C55E" />
-          </linearGradient>
-        </defs>
-      </svg>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-          
+
           {/* Left Side: Sticky Content */}
-          <div className="lg:w-[40%] lg:sticky lg:top-32 lg:h-fit text-center lg:text-left">
-            {/* Background Card */}
-            <div className="absolute -inset-8 bg-white/[0.02] border border-white/[0.05] rounded-[2.5rem] -z-10 hidden lg:block" />
-            
+          <div className="lg:w-[40%] lg:sticky lg:top-[4.5rem] lg:h-fit text-center lg:text-left">
             <FadeIn>
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
                 <div className="relative flex h-2 w-2">
@@ -99,13 +94,13 @@ export function ServiceBenefits() {
                   [ SERVICE BENEFITS ] • FOR GROWING TEAMS • 0% TECH STRESS
                 </span>
               </div>
-              
+
               <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.1] mb-6">
                 A website that works as hard as you do.
               </h2>
-              
+
               <p className="text-sm md:text-base text-white/60 leading-relaxed font-normal mb-8 max-w-md mx-auto lg:mx-0">
-                You’re busy running a business. We build the digital tools that find your customers, book your appointments, and make you look like the leader in your industry.
+                You're busy running a business. We build the digital tools that find your customers, book your appointments, and make you look like the leader in your industry.
               </p>
 
               <div className="flex flex-col items-center lg:items-start gap-4 pt-4">

@@ -3,16 +3,14 @@
 
 import { motion } from 'framer-motion';
 import { FadeIn } from '@/app/FadeIn';
-import { Zap, Layers, ShieldCheck, ArrowRight, Download, Rocket } from 'lucide-react';
+import { Zap, Layers, ShieldCheck, Rocket } from 'lucide-react';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 interface CapabilityProps {
   id: string;
   index: number;
   label: string;
-  refCode: string;
   title: string;
   description: string;
   icon: React.ElementType;
@@ -24,7 +22,6 @@ const capabilities: CapabilityProps[] = [
     id: "performance",
     index: 0,
     label: "CAPABILITY_INDEX_01",
-    refCode: "REF_001",
     title: "Zero Latency",
     description: "Optimizing the critical rendering path to ensure your product feels instantaneous.",
     icon: Zap,
@@ -34,7 +31,6 @@ const capabilities: CapabilityProps[] = [
     id: "design",
     index: 1,
     label: "CAPABILITY_INDEX_02",
-    refCode: "REF_002",
     title: "Atomic Scaling",
     description: "Component-based systems that allow your team to ship features in hours.",
     icon: Layers,
@@ -44,7 +40,6 @@ const capabilities: CapabilityProps[] = [
     id: "integrity",
     index: 2,
     label: "CAPABILITY_INDEX_03",
-    refCode: "REF_003",
     title: "Type-Safe Core",
     description: "Built on rigorous testing, Zod schemas, and future-proof documentation.",
     icon: ShieldCheck,
@@ -54,7 +49,6 @@ const capabilities: CapabilityProps[] = [
     id: "automation",
     index: 3,
     label: "CAPABILITY_INDEX_04",
-    refCode: "REF_004",
     title: "Agentic Workflows",
     description: "Autonomous AI agents that orchestrate complex logic and multi-step operations.",
     icon: Rocket,
@@ -71,32 +65,27 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: capability.index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-[#111111] p-4 md:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#161616] border border-white/10 rounded-sm aspect-square"
+      className="group relative bg-[#111111] p-4 md:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#161616] border border-white/10 hover:border-l-[#007AFF] hover:border-l-2 rounded-sm min-h-[240px] md:min-h-[280px]"
     >
       {/* Internal Corner Accent - Scaled for Mobile */}
       <div className="absolute top-2 left-2 w-2 h-2 md:top-4 md:left-4 md:w-4 md:h-4 border-t border-l border-white/20 pointer-events-none" />
-      
+
       <div className="space-y-4 md:space-y-6">
         <div className="flex items-start justify-between">
           <div className="relative">
             <Icon className="w-4 h-4 md:w-5 md:h-5 text-[#007AFF] transition-transform duration-500 group-hover:scale-110" />
-            <div className="absolute -inset-1 bg-[#007AFF]/20 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse" />
+            <div className="absolute -inset-1 bg-[#007AFF]/20 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
-          <span className="font-mono text-[8px] md:text-[9px] text-white/30 uppercase tracking-widest transition-colors duration-300 group-hover:text-white/90">
-            {capability.refCode}
+          <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest transition-colors duration-300 group-hover:text-white/90">
+            {capability.label}
           </span>
         </div>
-        
+
         <div className="space-y-2 md:space-y-4">
-          <div className="space-y-1">
-            <span className="font-mono text-[8px] md:text-[10px] text-[#007AFF] uppercase tracking-[0.2em] block">
-              {capability.label}
-            </span>
-            <h3 className="text-sm md:text-lg font-medium tracking-tight text-white uppercase italic font-serif">
-              {capability.title}
-            </h3>
-          </div>
-          
+          <h3 className="text-sm md:text-lg font-medium tracking-tight text-white uppercase italic font-serif">
+            {capability.title}
+          </h3>
+
           <p className="text-[10px] md:text-sm leading-relaxed text-white/40 line-clamp-2 md:line-clamp-none">
             {capability.description}
           </p>
@@ -105,7 +94,7 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
 
       <div className="mt-auto pt-4 flex flex-wrap gap-1.5 md:gap-2">
         {capability.tags.map((tag) => (
-          <span key={tag} className="text-[7px] md:text-[8px] font-mono text-zinc-500 border border-white/10 px-1.5 py-0.5 rounded-full bg-white/[0.02] uppercase">
+          <span key={tag} className="text-[10px] font-mono text-zinc-500 border border-white/10 px-1.5 py-0.5 rounded-full bg-white/[0.02] uppercase">
             {tag}
           </span>
         ))}
@@ -143,7 +132,7 @@ export function EldworkStandard() {
         </div>
 
         {/* 2x2 Mobile / 4-Col Desktop Grid */}
-        <div 
+        <div
           className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4"
           style={{ contentVisibility: 'auto' } as React.CSSProperties}
         >
@@ -151,25 +140,6 @@ export function EldworkStandard() {
             <CapabilityCard key={item.id} capability={item} />
           ))}
         </div>
-
-        {/* CTAs */}
-        <FadeIn delay={0.4}>
-          <div className="mt-16 flex flex-col md:flex-row items-center gap-4 pt-12 border-t border-white/[0.06]">
-            <Button 
-              size="lg"
-              className="w-full md:w-auto bg-white text-black hover:bg-zinc-200 font-medium px-8 h-12 rounded-none uppercase text-[10px] tracking-[0.2em] group"
-            >
-              Explore Technical Stack <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button 
-              variant="outline"
-              size="lg"
-              className="w-full md:w-auto border-white/10 text-white/50 hover:text-white hover:border-white/20 font-medium px-8 h-12 rounded-none uppercase text-[10px] tracking-[0.2em]"
-            >
-              <Download className="mr-2 w-3 h-3" /> Process PDF
-            </Button>
-          </div>
-        </FadeIn>
       </div>
     </section>
   );
