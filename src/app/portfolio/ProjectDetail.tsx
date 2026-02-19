@@ -34,10 +34,10 @@ export function ProjectDetail({ project }: { project: Project }) {
     <div className="flex flex-col h-full bg-black text-white font-body">
       {/* Hero Image */}
       <div className="relative aspect-video w-full overflow-hidden">
-        <Image 
-          src={project.image} 
-          alt={project.title} 
-          fill 
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
@@ -47,7 +47,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         {/* Header Info */}
         <section>
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xs font-mono text-blue-400 uppercase tracking-widest px-2 py-1 bg-blue-400/10 border border-blue-400/20 rounded">
+            <span className="text-xs font-mono text-brand uppercase tracking-widest px-2 py-1 bg-brand/10 border border-brand/20 rounded">
               {project.category}
             </span>
             <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest px-2 py-1 bg-emerald-400/10 border border-emerald-400/20 rounded">
@@ -68,8 +68,8 @@ export function ProjectDetail({ project }: { project: Project }) {
               {project.challenge}
             </p>
           </div>
-          <div className="p-6 bg-blue-500/5 border border-blue-500/20 rounded-lg">
-            <h4 className="flex items-center gap-2 text-blue-400 font-mono text-sm mb-4">
+          <div className="p-6 bg-brand/5 border border-brand/20 rounded-lg">
+            <h4 className="flex items-center gap-2 text-brand font-mono text-sm mb-4">
               <Zap className="w-4 h-4" /> //_THE_TECHNICAL_PIVOT
             </h4>
             <p className="text-gray-300 leading-relaxed">
@@ -83,9 +83,9 @@ export function ProjectDetail({ project }: { project: Project }) {
           <h4 className="flex items-center gap-2 text-gray-400 font-mono text-sm uppercase">
             <Cpu className="w-4 h-4" /> Intelligence Layer
           </h4>
-          <div className="p-6 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-emerald-500/10 border border-white/10 rounded-lg backdrop-blur-sm">
+          <div className="p-6 bg-gradient-to-r from-purple-500/10 via-brand/10 to-emerald-500/10 border border-white/10 rounded-lg backdrop-blur-sm">
             <p className="text-gray-200 font-mono text-sm leading-relaxed">
-              <span className="text-blue-400 mr-2">{'>'}</span>
+              <span className="text-brand mr-2">{'>'}</span>
               {project.aiLayer}
             </p>
           </div>
@@ -126,7 +126,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         {/* Sticky CTA */}
         <div className="fixed bottom-0 left-0 right-0 p-8 bg-black/80 backdrop-blur-xl border-t border-white/10 flex gap-4">
           <Link href={project.liveLink} target="_blank" className="flex-grow">
-            <Button className="w-full bg-gradient-to-r from-purple-500 via-blue-500 to-emerald-500 hover:brightness-110 h-12 font-bold transition-all">
+            <Button className="w-full bg-gradient-to-r from-purple-500 via-brand to-emerald-500 hover:brightness-110 h-12 font-bold transition-all">
               <ExternalLink className="mr-2 w-4 h-4" />
               VIEW LIVE DEPLOYMENT
             </Button>

@@ -112,8 +112,8 @@ export default function ServicesPage() {
                                         View Pricing <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
                                     </Button>
                                 </Link>
-                                <Link href="/#contact">
-                                    <Button variant="outline" className="border-white/10 text-white/50 hover:text-white hover:border-white/20 rounded-none h-11 px-8 uppercase text-[10px] tracking-[0.2em]">
+                                <Link href="/contact" className="w-full sm:w-auto">
+                                    <Button size="lg" className="w-full sm:w-auto bg-white text-black hover:bg-zinc-200 font-bold uppercase tracking-widest text-[10px] h-12 rounded-none">
                                         Book a Call
                                     </Button>
                                 </Link>
@@ -245,14 +245,9 @@ export default function ServicesPage() {
 
                         <FadeIn delay={0.2}>
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Link href="/#contact">
+                                <Link href="/contact">
                                     <Button className="bg-white text-black hover:bg-zinc-200 rounded-none h-12 px-10 uppercase text-[10px] tracking-[0.2em] font-medium group">
                                         <Mail className="mr-2 w-3.5 h-3.5" /> Start a Project
-                                    </Button>
-                                </Link>
-                                <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer">
-                                    <Button variant="outline" className="border-white/10 text-white/50 hover:text-white hover:border-white/20 rounded-none h-12 px-10 uppercase text-[10px] tracking-[0.2em]">
-                                        Book a Free Call
                                     </Button>
                                 </Link>
                             </div>

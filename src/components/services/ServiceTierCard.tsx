@@ -27,13 +27,13 @@ export function ServiceTierCard({ name, price, priceNote, description, features,
             className={cn(
                 "group relative flex flex-col bg-white/[0.02] border rounded-sm p-6 lg:p-8 transition-all duration-300 hover:-translate-y-[2px]",
                 highlighted
-                    ? "border-[#007AFF]/30 hover:border-[#007AFF]/50 shadow-[0_0_30px_rgba(0,122,255,0.06)]"
+                    ? "border-brand/30 hover:border-brand/50 shadow-[0_0_30px_hsl(var(--brand)/0.06)]"
                     : "border-white/[0.08] hover:border-white/20"
             )}
         >
             {/* Recommended badge */}
             {highlighted && (
-                <div className="absolute -top-3 left-6 px-3 py-1 bg-[#007AFF] text-[9px] font-mono uppercase tracking-[0.2em] text-white rounded-sm">
+                <div className="absolute -top-3 left-6 px-3 py-1 bg-brand text-[9px] font-mono uppercase tracking-[0.2em] text-white rounded-sm">
                     Recommended
                 </div>
             )}
@@ -64,7 +64,7 @@ export function ServiceTierCard({ name, price, priceNote, description, features,
                 <ul className="space-y-3 flex-1">
                     {features.map((feature, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-white/60">
-                            <Check className="w-3.5 h-3.5 text-[#007AFF] mt-0.5 shrink-0" />
+                            <Check className="w-3.5 h-3.5 text-brand mt-0.5 shrink-0" />
                             <span>{feature}</span>
                         </li>
                     ))}
@@ -73,7 +73,7 @@ export function ServiceTierCard({ name, price, priceNote, description, features,
 
             {/* CTA */}
             <div className="pt-6 mt-auto">
-                <Link href="/#contact">
+                <Link href="/contact">
                     <Button
                         className={cn(
                             "w-full h-11 rounded-none uppercase text-[10px] tracking-[0.2em] font-medium group/btn",

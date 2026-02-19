@@ -10,6 +10,7 @@ import SmoothScroll from './SmoothScroll';
 import { AnimatePresence } from 'framer-motion';
 import { Preloader } from './Preloader';
 import { Footer } from '@/components/layout/footer';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -44,7 +45,9 @@ export default function RootLayout({
             {isLoading && <Preloader />}
           </AnimatePresence>
           <FirebaseClientProvider>
-            {children}
+            <ThemeProvider>
+              {children}
+            </ThemeProvider>
           </FirebaseClientProvider>
           <Toaster />
           <Footer />

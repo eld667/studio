@@ -15,7 +15,7 @@ const categories = ['All Projects', 'Lead Machines', 'Luxury Showcases', 'System
 export function ProjectGrid() {
   const [filter, setFilter] = useState('All Projects');
 
-  const filteredProjects = projectsData.filter(project => 
+  const filteredProjects = projectsData.filter(project =>
     filter === 'All Projects' || project.category === filter
   );
 
@@ -29,8 +29,8 @@ export function ProjectGrid() {
             onClick={() => setFilter(cat)}
             className={cn(
               "px-6 py-2 rounded-full font-mono text-xs transition-all border",
-              filter === cat 
-                ? "bg-blue-500 text-white border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]" 
+              filter === cat
+                ? "bg-brand text-white border-brand shadow-[0_0_15px_hsl(var(--brand)/0.5)]"
                 : "bg-transparent text-gray-500 border-white/10 hover:border-white/30 hover:text-white"
             )}
           >
@@ -53,13 +53,13 @@ export function ProjectGrid() {
             >
               <Sheet>
                 <SheetTrigger asChild>
-                  <button className="group relative w-full text-left overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50 hover:border-blue-500/50 transition-all">
+                  <button className="group relative w-full text-left overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50 hover:border-brand/50 transition-all">
                     {/* Device Mockup Wrapper */}
                     <div className="relative aspect-video w-full overflow-hidden">
-                      <Image 
-                        src={project.image} 
-                        alt={project.title} 
-                        fill 
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -73,7 +73,7 @@ export function ProjectGrid() {
                     <div className="p-6">
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                          <h3 className="text-xl font-bold text-white group-hover:text-brand transition-colors">
                             {project.title}
                           </h3>
                           <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mt-1">
@@ -81,11 +81,11 @@ export function ProjectGrid() {
                           </p>
                         </div>
                         <div className="flex flex-col items-end gap-2">
-                           <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-[10px] bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">
+                          <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-[10px] bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">
                             <Zap className="w-3 h-3" />
                             ⚡ {project.metrics.loadTime} LOAD
                           </div>
-                          <div className="flex items-center gap-1.5 text-blue-300 font-mono text-[10px] bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
+                          <div className="flex items-center gap-1.5 text-brand font-mono text-[10px] bg-brand/10 px-2 py-0.5 rounded border border-brand/20">
                             <Sparkles className="w-3 h-3" />
                             SOUL_BUILD
                           </div>
@@ -95,7 +95,7 @@ export function ProjectGrid() {
                         <div className="flex -space-x-2">
                           {[...Array(3)].map((_, i) => (
                             <div key={i} className="w-6 h-6 rounded-full border border-black bg-zinc-800 flex items-center justify-center">
-                              <Code className="w-3 h-3 text-blue-400" />
+                              <Code className="w-3 h-3 text-brand" />
                             </div>
                           ))}
                         </div>

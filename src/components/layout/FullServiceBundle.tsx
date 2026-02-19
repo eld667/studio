@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FadeIn } from '@/app/FadeIn';
 import { Zap, Globe, Smartphone, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -82,7 +83,7 @@ export function FullServiceBundle() {
       <div className="container relative z-10 mx-auto px-6 max-w-6xl">
         <div className="mb-16 text-center lg:text-left">
           <FadeIn>
-            <span className="font-mono text-xs lg:text-[10px] text-blue-400 tracking-[0.3em] uppercase block mb-4">
+            <span className="font-mono text-xs lg:text-[10px] text-brand tracking-[0.3em] uppercase block mb-4">
               [ FULL SERVICE BUNDLE ] • VERSION 2026.1 • ALL-INCLUSIVE
             </span>
             <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tighter mb-6 leading-tight">
@@ -102,7 +103,7 @@ export function FullServiceBundle() {
             <div className="group relative h-full bg-white/[0.03] backdrop-blur-md border border-white/[0.08] p-6 lg:p-12 rounded-2xl transition-colors hover:border-white/20">
               <div className="flex flex-col h-full justify-between gap-12">
                 <div className="space-y-8">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                  <div className="w-12 h-12 rounded-2xl bg-brand/10 flex items-center justify-center text-brand border border-brand/20">
                     <Zap className="w-6 h-6" />
                   </div>
                   <div className="space-y-4">
@@ -112,7 +113,7 @@ export function FullServiceBundle() {
                     </p>
                   </div>
                   <div className="flex items-start gap-4 pt-4 border-t border-white/[0.05]">
-                    <Smartphone className="w-5 h-5 text-blue-400 mt-1" />
+                    <Smartphone className="w-5 h-5 text-brand mt-1" />
                     <div>
                       <h4 className="text-sm font-medium text-white">Mobile Perfect</h4>
                       <p className="text-xs text-white/40 mt-1">Your site looks stunning on every screen—from iPhone to Desktop.</p>
@@ -122,13 +123,15 @@ export function FullServiceBundle() {
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   <motion.div
-                    animate={{ boxShadow: ["0 0 0px rgba(0,122,255,0)", "0 0 20px rgba(0,122,255,0.2)", "0 0 0px rgba(0,122,255,0)"] }}
+                    animate={{ boxShadow: ["0 0 0px hsl(var(--brand) / 0)", "0 0 20px hsl(var(--brand) / 0.2)", "0 0 0px hsl(var(--brand) / 0)"] }}
                     transition={{ duration: 3, repeat: 3, ease: "easeInOut" }}
                     className="w-full lg:w-auto"
                   >
-                    <Button size="lg" className="w-full lg:w-auto bg-white text-black hover:bg-zinc-200 font-bold uppercase tracking-widest text-xs lg:text-[10px] h-14 px-8 rounded-none">
-                      Claim Your Package
-                    </Button>
+                    <Link href="/services" className="w-full lg:w-auto">
+                      <Button size="lg" className="w-full lg:w-auto bg-white text-black hover:bg-zinc-200 font-bold uppercase tracking-widest text-xs lg:text-[10px] h-14 px-8 rounded-none">
+                        Claim Your Package
+                      </Button>
+                    </Link>
                   </motion.div>
                   <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/30">
                     Starting from €49/mo
@@ -183,7 +186,7 @@ export function FullServiceBundle() {
                 key={i}
                 className={cn(
                   "w-1.5 h-1.5 rounded-full transition-all duration-300",
-                  activeSlide === i ? "bg-blue-400 w-4" : "bg-white/20"
+                  activeSlide === i ? "bg-brand w-4" : "bg-white/20"
                 )}
               />
             ))}

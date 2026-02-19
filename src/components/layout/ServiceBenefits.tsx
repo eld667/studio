@@ -47,7 +47,7 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
       }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "group relative py-8 lg:py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-white/[0.02] px-4 rounded-xl"
+        "group relative py-8 lg:py-12 border-b border-white/[0.06] last:border-0 transition-all duration-300 hover:bg-brand/5 px-4 rounded-xl backdrop-blur-sm"
       )}
     >
       <div className="flex gap-4 lg:gap-6">
@@ -56,11 +56,11 @@ const PillarItem = ({ pillar }: { pillar: typeof pillars[0] }) => {
           {/* Animated dot that glows when in view */}
           <motion.div
             variants={{
-              initial: { scale: 0.8, boxShadow: '0 0 0px rgba(0,122,255,0)' },
-              active: { scale: 1, boxShadow: '0 0 8px rgba(0,122,255,0.5)' }
+              initial: { scale: 0.8, boxShadow: '0 0 0px hsl(var(--brand) / 0)' },
+              active: { scale: 1, boxShadow: '0 0 8px hsl(var(--brand) / 0.5)' }
             }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-1.5 h-1.5 rounded-full bg-[#007AFF]"
+            className="w-1.5 h-1.5 rounded-full bg-brand"
           />
         </div>
         <div className="space-y-3">
@@ -88,7 +88,7 @@ export function ServiceBenefits() {
             <FadeIn>
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
                 <div className="relative flex h-2 w-2">
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
                 </div>
                 <span className="font-mono text-[11px] uppercase tracking-widest text-white/40">
                   [ SERVICE BENEFITS ] • FOR GROWING TEAMS • 0% TECH STRESS
@@ -104,16 +104,18 @@ export function ServiceBenefits() {
               </p>
 
               <div className="flex flex-col items-center lg:items-start gap-4 pt-4">
-                <Link href="/#contact" className="w-full lg:w-auto">
-                  <Button size="lg" className="w-full lg:w-auto bg-white text-black hover:bg-zinc-200 font-bold uppercase tracking-widest text-[10px] h-12 rounded-none">
-                    Let's Grow Your Business
-                  </Button>
-                </Link>
-                <Link href="/#plan" className="mx-auto lg:mx-0">
-                  <button className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors flex items-center gap-2 group">
-                    See Our Pricing <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </Link>
+                <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                  <Link href="/contact">
+                    <Button className="w-full sm:w-auto bg-white text-black hover:bg-zinc-200 rounded-none h-12 px-8 uppercase text-[10px] tracking-widest font-bold">
+                      Let's Grow Your Business
+                    </Button>
+                  </Link>
+                  <Link href="/services">
+                    <Button variant="outline" className="w-full sm:w-auto border-white/10 text-zinc-400 hover:text-white hover:border-white/20 bg-transparent rounded-none h-12 px-8 uppercase text-[10px] tracking-widest">
+                      See Our Pricing <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </FadeIn>
           </div>

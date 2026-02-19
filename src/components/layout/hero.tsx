@@ -52,7 +52,7 @@ export function Hero({ onExploreClick }: HeroProps) {
           left: '15%',
           width: '60%',
           height: '40%',
-          background: 'radial-gradient(ellipse at 30% 50%, rgba(0,122,255,0.08) 0%, rgba(0,122,255,0.03) 40%, transparent 70%)',
+          background: 'radial-gradient(ellipse at 30% 50%, hsla(var(--brand) / 0.08) 0%, hsla(var(--brand) / 0.03) 40%, transparent 70%)',
         }}
       />
 
@@ -83,7 +83,7 @@ export function Hero({ onExploreClick }: HeroProps) {
                     duration: 0.1,
                     ease: "easeOut"
                   }}
-                  className="absolute left-0 top-0 inline-flex text-blue-400 whitespace-nowrap"
+                  className="absolute left-0 top-0 inline-flex text-brand whitespace-nowrap"
                 >
                   {services[index]}
                 </motion.span>
@@ -102,21 +102,25 @@ export function Hero({ onExploreClick }: HeroProps) {
 
         {/* Primary + Secondary Action Buttons */}
         <FadeIn delay={0.8}>
-          <div className="flex flex-col sm:flex-row items-start gap-4 mt-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 w-full sm:w-auto">
             <Button
-              size="lg"
-              onClick={onExploreClick}
-              className="font-medium text-zinc-950 bg-zinc-100 hover:bg-white transition-all rounded-sm px-10 h-12 uppercase text-[10px] tracking-widest shadow-2xl"
+              onClick={() => {
+                const element = document.getElementById('flagship');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="bg-zinc-100 text-black hover:bg-white rounded-none h-12 px-8 uppercase text-xs tracking-[0.2em] font-medium w-full sm:w-auto"
             >
-              Explore the Repository
+              Flagship Operations <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
+
             <Button
               variant="outline"
-              size="lg"
-              onClick={onExploreClick}
-              className="border-white/10 text-white/50 hover:text-white hover:border-white/20 font-medium px-8 h-12 rounded-sm uppercase text-[10px] tracking-[0.2em] group"
+              className="border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 bg-transparent rounded-none h-12 px-8 uppercase text-xs tracking-[0.2em] w-full sm:w-auto"
+              onClick={() => window.location.href = '/portfolio'}
             >
-              View Our Work <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
+              View Full Repository
             </Button>
           </div>
         </FadeIn>

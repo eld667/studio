@@ -68,7 +68,7 @@ export function ProcessTimeline() {
                             >
                                 {/* Step circle */}
                                 <div className="relative z-10 w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/[0.04] border border-white/[0.1] flex items-center justify-center shrink-0 md:mb-5">
-                                    <Icon className="w-4 h-4 md:w-5 md:h-5 text-[#007AFF]" />
+                                    <Icon className="w-4 h-4 md:w-5 md:h-5 text-brand" />
                                 </div>
 
                                 {/* Mobile connecting line */}

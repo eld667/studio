@@ -97,7 +97,7 @@ const LedgerRow = ({ project, index }: { project: Project, index: number }) => {
       <div className="md:col-span-4 flex flex-col justify-center items-start md:items-end text-left md:text-right">
         <div className="flex items-center gap-2 mb-1">
           <span className="font-mono text-[10px] text-white/30 uppercase">Metric:</span>
-          <span className="font-mono text-sm text-blue-500">{project.metric}</span>
+          <span className="font-mono text-sm text-brand">{project.metric}</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="font-mono text-[10px] text-white/30 uppercase">Impact:</span>
@@ -110,7 +110,7 @@ const LedgerRow = ({ project, index }: { project: Project, index: number }) => {
 
 export function EvidenceOfImpact() {
   return (
-    <section id="evidence" className="w-full py-24 bg-[#0A0A0A] relative">
+    <section id="flagship" className="w-full py-20 lg:py-32 relative overflow-hidden">
       {/* Horizontal Scan-Line Background (distinct from FullServiceBundle's dot matrix) */}
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
         style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.5) 39px, rgba(255,255,255,0.5) 40px)', backgroundSize: '100% 40px' }} />

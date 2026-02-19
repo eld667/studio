@@ -5,13 +5,13 @@ import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { FadeIn } from '../FadeIn';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Target, 
-  Sparkles, 
-  Layout, 
-  Code, 
-  Zap, 
-  BarChart3, 
+import {
+  Target,
+  Sparkles,
+  Layout,
+  Code,
+  Zap,
+  BarChart3,
   Users
 } from 'lucide-react';
 import Link from 'next/link';
@@ -86,7 +86,7 @@ function MissionCard({ mission }: { mission: Mission }) {
   return (
     <div className="flex flex-col w-[42vw] md:w-full shrink-0 snap-start group text-left">
       {/* --- KINETIC VIEWPORT --- */}
-      <div 
+      <div
         className="relative aspect-[16/10] w-full overflow-hidden border border-zinc-800 bg-zinc-900 rounded-sm cursor-pointer"
         onMouseEnter={() => setIsScrolling(true)}
         onMouseLeave={() => setIsScrolling(false)}
@@ -170,7 +170,7 @@ function SystemsClosing() {
             <h3 className="text-2xl md:text-4xl font-medium text-zinc-100 uppercase tracking-tighter mb-10">
               READY TO ARCHITECT YOUR GROWTH?
             </h3>
-            <Link href="/#contact">
+            <Link href="/contact">
               <Button className="bg-white text-black hover:bg-zinc-200 font-bold px-10 h-14 rounded-none uppercase tracking-widest text-xs">
                 INITIALIZE PROJECT // START HERE
               </Button>
@@ -196,10 +196,10 @@ export default function PortfolioPage() {
   return (
     <div className="flex flex-col min-h-screen bg-black text-zinc-100 font-sans antialiased selection:bg-zinc-800 selection:text-white">
       <Header onScroll={(e, id) => handleScroll(e, id)} />
-      
+
       <main className="flex-grow pt-32">
         <div className="w-full max-w-7xl mx-auto px-6 mb-32">
-          
+
           {/* --- HERO SECTION --- */}
           <section className="mb-24 text-left">
             <FadeIn>
@@ -232,8 +232,8 @@ export default function PortfolioPage() {
                       onClick={(e) => handleScroll(e, p.id)}
                       className={cn(
                         "whitespace-nowrap py-3 px-4 text-[10px] font-mono uppercase tracking-widest transition-all duration-200 border text-center flex-1",
-                        isActive 
-                          ? "bg-zinc-100 text-black border-zinc-100 shadow-[0_0_20px_rgba(255,255,255,0.1)]" 
+                        isActive
+                          ? "bg-zinc-100 text-black border-zinc-100 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                           : "bg-transparent border-zinc-800 text-zinc-500 hover:bg-zinc-900 hover:border-zinc-700 hover:text-zinc-100"
                       )}
                     >

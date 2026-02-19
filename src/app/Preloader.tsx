@@ -59,12 +59,12 @@ export function Preloader() {
     >
       <motion.div variants={leftGate}>
         <motion.div variants={iconVariants} initial="initial" animate="animate">
-          <ChevronLeft className="w-32 h-32 md:w-64 md:h-64 text-blue-500 [filter:drop-shadow(0_0_30px_rgba(59,130,246,0.6))]" strokeWidth={3} />
+          <ChevronLeft className="w-32 h-32 md:w-64 md:h-64 text-brand [filter:drop-shadow(0_0_30px_hsl(var(--brand)/0.6))]" strokeWidth={3} />
         </motion.div>
       </motion.div>
       <motion.div variants={rightGate}>
         <motion.div variants={iconVariants} initial="initial" animate="animate">
-          <ChevronRight className="w-32 h-32 md:w-64 md:h-64 text-blue-500 [filter:drop-shadow(0_0_30px_rgba(59,130,246,0.6))]" strokeWidth={3} />
+          <ChevronRight className="w-32 h-32 md:w-64 md:h-64 text-brand [filter:drop-shadow(0_0_30px_hsl(var(--brand)/0.6))]" strokeWidth={3} />
         </motion.div>
       </motion.div>
     </motion.div>

@@ -65,7 +65,7 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: capability.index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-[#111111] p-4 md:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#161616] border border-white/10 hover:border-l-[#007AFF] hover:border-l-2 rounded-sm min-h-[240px] md:min-h-[280px]"
+      className="group relative bg-zinc-900/40 bg-brand/5 backdrop-blur-sm p-4 md:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-zinc-900/60 hover:bg-brand/10 border border-white/10 hover:border-l-brand hover:border-l-2 rounded-sm min-h-[240px] md:min-h-[280px]"
     >
       {/* Internal Corner Accent - Scaled for Mobile */}
       <div className="absolute top-2 left-2 w-2 h-2 md:top-4 md:left-4 md:w-4 md:h-4 border-t border-l border-white/20 pointer-events-none" />
@@ -73,8 +73,8 @@ const CapabilityCard = ({ capability }: { capability: CapabilityProps }) => {
       <div className="space-y-4 md:space-y-6">
         <div className="flex items-start justify-between">
           <div className="relative">
-            <Icon className="w-4 h-4 md:w-5 md:h-5 text-[#007AFF] transition-transform duration-500 group-hover:scale-110" />
-            <div className="absolute -inset-1 bg-[#007AFF]/20 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Icon className="w-4 h-4 md:w-5 md:h-5 text-brand transition-transform duration-500 group-hover:scale-110" />
+            <div className="absolute -inset-1 bg-brand/20 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
           <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest transition-colors duration-300 group-hover:text-white/90">
             {capability.label}
@@ -119,7 +119,7 @@ export function EldworkStandard() {
         {/* Section Header */}
         <div className="mb-16 text-left max-w-2xl">
           <FadeIn>
-            <span className="text-[10px] font-mono text-[#007AFF] tracking-[0.3em] uppercase block mb-4">
+            <span className="text-[10px] font-mono text-brand tracking-[0.3em] uppercase block mb-4">
               [ THE_CAPABILITY_MATRIX ]
             </span>
             <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tighter mb-6 leading-tight">

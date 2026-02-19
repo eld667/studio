@@ -32,7 +32,7 @@ const tiers = [
 
 function FeatureIcon({ included }: { included: boolean }) {
     return included ? (
-        <Check className="w-3.5 h-3.5 text-[#007AFF]" />
+        <Check className="w-3.5 h-3.5 text-brand" />
     ) : (
         <Minus className="w-3.5 h-3.5 text-white/10" />
     );
@@ -68,7 +68,7 @@ export function PricingTable() {
                         {tiers.map((tier) => (
                             <div key={tier.name} className={cn(
                                 "p-4 lg:p-5 text-center border-l border-white/[0.06]",
-                                tier.highlighted && "bg-[#007AFF]/[0.04]"
+                                tier.highlighted && "bg-brand/[0.04]"
                             )}>
                                 <span className="text-[11px] font-mono text-white/50 uppercase tracking-[0.15em] block">{tier.name}</span>
                                 <span className="text-lg md:text-xl font-medium text-white mt-1 block">{tier.price}</span>
@@ -95,7 +95,7 @@ export function PricingTable() {
                             </div>
                             <div className={cn(
                                 "p-3 lg:p-4 flex items-center justify-center border-l border-white/[0.04]",
-                                "bg-[#007AFF]/[0.02]"
+                                "bg-brand/[0.02]"
                             )}>
                                 <FeatureIcon included={feature.standard} />
                             </div>
@@ -111,14 +111,14 @@ export function PricingTable() {
                         {tiers.map((tier) => (
                             <div key={tier.name} className={cn(
                                 "p-4 flex items-center justify-center border-l border-white/[0.06]",
-                                tier.highlighted && "bg-[#007AFF]/[0.04]"
+                                tier.highlighted && "bg-brand/[0.04]"
                             )}>
-                                <Link href="/#contact" className="w-full">
+                                <Link href="/contact" className="w-full">
                                     <Button className={cn(
-                                        "w-full h-9 rounded-none uppercase text-[9px] tracking-[0.15em]",
+                                        "w-full h-10 rounded-none uppercase text-[9px] tracking-[0.2em]",
                                         tier.highlighted
                                             ? "bg-white text-black hover:bg-zinc-200"
-                                            : "bg-white/[0.06] text-white/60 hover:bg-white/[0.1] border border-white/10"
+                                            : "bg-white/[0.06] text-white/50 hover:bg-white/[0.1] hover:text-white"
                                     )}>
                                         Choose
                                     </Button>

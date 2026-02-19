@@ -39,9 +39,9 @@ const FeaturePill = ({ feature, index }: { feature: Feature, index: number }) =>
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: "easeOut" }}
-      className="flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs text-blue-200"
+      className="flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs text-brand"
     >
-      <motion.div whileHover={{ scale: 1.2, color: '#93c5fd' }}>
+      <motion.div whileHover={{ scale: 1.2, color: 'hsl(var(--brand))' }}>
         <Icon className="h-3.5 w-3.5" />
       </motion.div>
       <span>{feature.text}</span>
@@ -52,11 +52,11 @@ const FeaturePill = ({ feature, index }: { feature: Feature, index: number }) =>
 
 export function ProjectCard({ title, description, imageUrl, href, features, 'data-ai-hint': dataAiHint }: ProjectCardProps) {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ 
-    target: ref, 
-    offset: ["start end", "end start"] 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
   });
-  
+
   const glowOpacity = useTransform(
     scrollYProgress,
     [0, 0.25, 0.4, 0.6, 0.75, 1],
@@ -65,9 +65,9 @@ export function ProjectCard({ title, description, imageUrl, href, features, 'dat
 
   return (
     <Link href={href} ref={ref} className="relative block rounded-xl">
-      <motion.div 
+      <motion.div
         style={{ opacity: glowOpacity }}
-        className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 blur-md"
+        className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-400 via-brand to-emerald-400 blur-md"
       />
       <div className="relative bg-gray-900 p-6 rounded-xl overflow-hidden h-full transition-all duration-300 ease-in-out">
         <Image

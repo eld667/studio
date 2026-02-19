@@ -8,6 +8,7 @@ import { Menu, X, ArrowRight, Github, Twitter } from "lucide-react";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useTheme } from "@/components/theme-provider";
 
 interface HeaderProps {
   onScroll: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => void;
@@ -21,6 +22,7 @@ const navLinks = [
 const allSectionIds = navLinks.map(l => l.id).concat('contact', 'work');
 
 export function Header({ onScroll }: HeaderProps) {
+  const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
@@ -112,6 +114,13 @@ export function Header({ onScroll }: HeaderProps) {
             </div>
           </Link>
 
+          {/* Theme Switcher Dots */}
+          <div className="flex items-center gap-2 ml-4 md:ml-8 border-l border-white/10 pl-4 md:pl-8 h-5">
+            <button onClick={() => setTheme('blue')} className={`w-3 h-3 rounded-full bg-[#3B82F6] transition-opacity ${theme === 'blue' ? 'opacity-100 ring-2 ring-white/20' : 'opacity-30 hover:opacity-100'}`} aria-label="Blue Theme" />
+            <button onClick={() => setTheme('green')} className={`w-3 h-3 rounded-full bg-[#22c55e] transition-opacity ${theme === 'green' ? 'opacity-100 ring-2 ring-white/20' : 'opacity-30 hover:opacity-100'}`} aria-label="Green Theme" />
+            <button onClick={() => setTheme('red')} className={`w-3 h-3 rounded-full bg-[#ef4444] transition-opacity ${theme === 'red' ? 'opacity-100 ring-2 ring-white/20' : 'opacity-30 hover:opacity-100'}`} aria-label="Red Theme" />
+          </div>
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center" role="navigation" aria-label="Main navigation">
             {/* Group A: Philosophy & Plan */}
@@ -160,6 +169,18 @@ export function Header({ onScroll }: HeaderProps) {
               >
                 Portfolio
                 {pathname === "/portfolio" && (
+                  <motion.span layoutId="activeDot" className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full" />
+                )}
+              </Link>
+              <Link
+                href="/about"
+                className={cn(
+                  "text-sm font-medium text-white/60 hover:text-white transition-colors relative",
+                  pathname === "/about" && "text-white"
+                )}
+              >
+                About
+                {pathname === "/about" && (
                   <motion.span layoutId="activeDot" className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full" />
                 )}
               </Link>

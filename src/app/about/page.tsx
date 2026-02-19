@@ -36,7 +36,7 @@ const values = [
 ];
 
 const colorMap: Record<string, { bg: string; text: string; border: string }> = {
-    blue: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20" },
+    blue: { bg: "bg-brand/10", text: "text-brand", border: "border-brand/20" },
     emerald: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
     purple: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/20" },
     amber: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20" },
@@ -106,7 +106,7 @@ export default function AboutPage() {
                                         transition={{ duration: 0.5, delay: i * 0.1 }}
                                         className="text-center"
                                     >
-                                        <Icon className="w-4 h-4 text-[#007AFF] mx-auto mb-3 opacity-60" />
+                                        <Icon className="w-4 h-4 text-brand mx-auto mb-3 opacity-60" />
                                         <div className="text-2xl md:text-3xl font-medium text-white tracking-tighter mb-1">
                                             {stat.value}
                                         </div>
@@ -219,7 +219,7 @@ export default function AboutPage() {
                         </FadeIn>
                         <FadeIn delay={0.2}>
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Link href="/#contact">
+                                <Link href="/contact">
                                     <Button className="bg-white text-black hover:bg-zinc-200 rounded-none h-11 px-10 uppercase text-[10px] tracking-[0.2em] font-medium group">
                                         Start a Conversation <ArrowRight className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
                                     </Button>

@@ -55,7 +55,7 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
                 <ChevronDown
                     className={cn(
                         "w-4 h-4 text-white/30 transition-transform duration-300 shrink-0",
-                        isOpen && "rotate-180 text-[#007AFF]"
+                        isOpen && "rotate-180 text-brand"
                     )}
                 />
             </button>

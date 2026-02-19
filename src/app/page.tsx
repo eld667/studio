@@ -232,14 +232,14 @@ function ThreeStepPlan() {
       className="w-full max-w-5xl mx-auto py-24 px-6"
     >
       <FadeIn>
-        <h2 className="text-2xl font-medium text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))] tracking-tight text-zinc-100">
+        <h2 className="text-2xl font-medium text-center mb-16 bg-gradient-to-r from-purple-400 via-brand to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_hsl(var(--brand)/0.5))] tracking-tight text-zinc-100">
           Our Simple 3-Step Plan
         </h2>
       </FadeIn>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         <FadeIn>
           <div className="flex flex-col items-center text-center">
-            <ClipboardSignature className="w-12 h-12 text-blue-500 mb-4" />
+            <ClipboardSignature className="w-12 h-12 text-brand mb-4" />
             <h3 className="text-base font-medium mb-2 text-zinc-100 tracking-tight">1. Strategy & Purpose</h3>
             <p className="text-[14px] font-normal text-zinc-400">
               We define your #1 goal and the *exact* purpose of your new site.
@@ -248,7 +248,7 @@ function ThreeStepPlan() {
         </FadeIn>
         <FadeIn delay={0.2}>
           <div className="flex flex-col items-center text-center">
-            <Code className="w-12 h-12 text-blue-500 mb-4" />
+            <Code className="w-12 h-12 text-brand mb-4" />
             <h3 className="text-base font-medium mb-2 text-zinc-100 tracking-tight">2. Premium Build</h3>
             <p className="text-[14px] font-normal text-zinc-400">
               We build your site using high-end, modern tech and our 'Soul' design.
@@ -257,7 +257,7 @@ function ThreeStepPlan() {
         </FadeIn>
         <FadeIn delay={0.4}>
           <div className="flex flex-col items-center text-center">
-            <Rocket className="w-12 h-12 text-blue-500 mb-4" />
+            <Rocket className="w-12 h-12 text-brand mb-4" />
             <h3 className="text-base font-medium mb-2 text-zinc-100 tracking-tight">3. Launch & Capture</h3>
             <p className="text-[14px] font-normal text-zinc-400">
               Your new, purpose-driven website goes live, ready to capture leads.
@@ -337,7 +337,7 @@ function ContactMe() {
       className="w-full max-w-7xl mx-auto py-24 px-6"
     >
       <FadeIn>
-        <h2 className="text-2xl font-medium text-center mb-16 bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_rgba(59,130,246,0.5))] tracking-tight text-zinc-100">
+        <h2 className="text-2xl font-medium text-center mb-16 bg-gradient-to-r from-purple-400 via-brand to-emerald-400 bg-clip-text text-transparent [filter:drop-shadow(0_0_10px_hsl(var(--brand)/0.5))] tracking-tight text-zinc-100">
           Let's Build Your New Website
         </h2>
       </FadeIn>
@@ -347,7 +347,7 @@ function ContactMe() {
         <div className="lg:col-span-1 flex flex-col gap-8 order-last lg:order-first">
           <FadeIn delay={0.2}>
             <div className="relative h-full">
-              <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-purple-500 via-blue-500 to-emerald-500 opacity-20 blur-md" />
+              <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-purple-500 via-brand to-emerald-500 opacity-20 blur-md" />
               <Card className="relative bg-gray-900 border-white/10 p-8 h-full flex flex-col">
                 <h3 className="text-lg font-medium mb-3 text-zinc-100 tracking-tight">Not sure where to start?</h3>
                 <p className="text-[14px] font-normal text-zinc-400 mb-6 flex-grow">
@@ -356,7 +356,7 @@ function ContactMe() {
                 <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="mt-auto">
                   <Button
                     size="lg"
-                    className="w-full font-medium text-primary-foreground bg-gradient-to-r from-purple-400 via-blue-500 to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+                    className="w-full font-medium text-primary-foreground bg-gradient-to-r from-purple-400 via-brand to-emerald-400 transition-all duration-300 ease-in-out drop-shadow-[0_0_5px_rgba(192,132,252,0.7)] drop-shadow-[0_0_10px_hsl(var(--brand)/0.5)] hover:drop-shadow-[0_0_10px_rgba(192,132,252,1)] hover:drop-shadow-[0_0_15px_hsl(var(--brand)/0.8)]"
                   >
                     <Mail className="mr-2 h-5 w-5" />
                     Book a Free Strategy Call

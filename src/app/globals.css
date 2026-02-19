@@ -24,6 +24,17 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
+
+    /* Default Brand Color (Blue) */
+    --brand: 217.2 91.2% 59.8%;
+  }
+
+  [data-theme='green'] {
+    --brand: 142.1 76.2% 36.3%;
+  }
+
+  [data-theme='red'] {
+    --brand: 346.8 77.2% 49.8%;
   }
 
   .dark {
