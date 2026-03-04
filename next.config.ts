@@ -1,47 +1,40 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // High-velocity mode
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
 
-  // 1. ADD REWRITES BLOCK HERE
   async rewrites() {
-    return [
-      {
-        // This makes eldworkstudio.com/client/thevikingmethod 
-        // pull content from your other Vercel project
-        source: '/client/thevikingmethod/:path*',
-        // REPLACE the URL below with your actual Vercel URL from Step 1
-        destination: 'https://the-viking-method.vercel.app/client/thevikingmethod/:path*',
-      },
-    ]
+    return {
+      beforeFiles: [
+        // 1. THE PAGE TUNNEL: Renders the site at eldworkstudio.com/client/thevikingmethod
+        {
+          source: '/client/thevikingmethod/:path*',
+          destination: 'https://thevikingmethod.vercel.app/client/thevikingmethod/:path*',
+        },
+        // 2. THE ASSET TUNNEL: Automatically fixes paths for images in public/image/
+        {
+          source: '/image/:path*',
+          has: [{
+            type: 'header',
+            key: 'referer',
+            value: '.*client/thevikingmethod.*'
+          }],
+          destination: 'https://thevikingmethod.vercel.app/client/thevikingmethod/image/:path*',
+        },
+      ],
+    };
   },
 
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
+      { protocol: 'https', hostname: 'placehold.co' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'picsum.photos' },
     ],
   },
 };
