@@ -9,6 +9,8 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/theme-provider";
+import { createClient } from "@/utils/supabase/client";
+import type { Session } from "@supabase/supabase-js";
 
 interface HeaderProps {
   onScroll: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, id: string) => void;
@@ -25,10 +27,23 @@ export function Header({ onScroll }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   const activeSection = useActiveSection(allSectionIds, undefined, isHome);
+
+  // Track Supabase auth state for smart CTA button
+  useEffect(() => {
+    const supabase = createClient();
+    // Get initial session
+    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    // Subscribe to changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(s);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Scroll-aware header background
   useEffect(() => {
@@ -196,6 +211,13 @@ export function Header({ onScroll }: HeaderProps) {
                   <motion.span layoutId="activeDot" className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full" />
                 )}
               </Link>
+              <div className="w-px h-4 bg-white/20 mx-2" />
+              <Link
+                href={session ? "/dashboard" : "/login"}
+                className="text-sm font-bold text-white uppercase tracking-widest hover:text-brand transition-colors"
+              >
+                {session ? "Go to Dashboard" : "Client Login"}
+              </Link>
             </div>
           </nav>
 
@@ -249,6 +271,7 @@ export function Header({ onScroll }: HeaderProps) {
                 { href: "/portfolio", label: "Portfolio" },
                 { href: "/contact", label: "Contact Us" },
                 { href: "/about", label: "About" },
+                { href: session ? "/dashboard" : "/login", label: session ? "Go to Dashboard" : "Client Login" },
               ].map((link, i) => (
                 <motion.div
                   key={link.href}
