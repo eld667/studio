@@ -11,13 +11,25 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        // 1. THE PAGE TUNNEL: Routes /client/thevikingmethod to the client root
+        // 1. THE PAGE TUNNEL: Maps your subfolder to the client's root
         {
           source: '/client/thevikingmethod/:path*',
           destination: 'https://thevikingmethod.vercel.app/:path*',
         },
 
-        // 2. THE IMAGE OPTIMIZATION TUNNEL: Routes image processing to client server
+        // 2. THE STATIC CHUNK TUNNEL: Fixes the "Plain Text/White Screen" issue
+        // This routes CSS, JS, and font chunks from the client's deployment
+        {
+          source: '/_next/static/:path*',
+          has: [{
+            type: 'header',
+            key: 'referer',
+            value: '.*client/thevikingmethod.*'
+          }],
+          destination: 'https://thevikingmethod.vercel.app/_next/static/:path*',
+        },
+
+        // 3. THE IMAGE OPTIMIZATION TUNNEL: Routes image processing requests
         {
           source: '/_next/image/:path*',
           has: [{
@@ -28,7 +40,7 @@ const nextConfig: NextConfig = {
           destination: 'https://thevikingmethod.vercel.app/_next/image/:path*',
         },
 
-        // 3. THE ASSET TUNNEL: Routes direct public folder requests (like /images/door.webp)
+        // 4. THE PUBLIC ASSET TUNNEL: Routes requests for /images/, /icons/, etc.
         {
           source: '/images/:path*',
           has: [{
