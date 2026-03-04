@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   typescript: {
-    ignoreBuildErrors: true, // High-velocity mode
+    ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -11,17 +11,24 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        // 1. THE PAGE TUNNEL
+        // 1. THE PAGE TUNNEL: Routes /client/thevikingmethod to the client root
         {
           source: '/client/thevikingmethod/:path*',
-          destination: 'https://thevikingmethod.vercel.app/client/thevikingmethod/:path*',
+          destination: 'https://thevikingmethod.vercel.app/:path*',
         },
-        // 2. THE IMAGE OPTIMIZATION TUNNEL (This is what you're missing)
+
+        // 2. THE IMAGE OPTIMIZATION TUNNEL: Routes image processing to client server
         {
-          source: '/client/thevikingmethod/_next/image/:path*',
-          destination: 'https://thevikingmethod.vercel.app/client/thevikingmethod/_next/image/:path*',
+          source: '/_next/image/:path*',
+          has: [{
+            type: 'header',
+            key: 'referer',
+            value: '.*client/thevikingmethod.*'
+          }],
+          destination: 'https://thevikingmethod.vercel.app/_next/image/:path*',
         },
-        // 3. THE PLURAL ASSET TUNNEL (Matches your /images/ folder)
+
+        // 3. THE ASSET TUNNEL: Routes direct public folder requests (like /images/door.webp)
         {
           source: '/images/:path*',
           has: [{
@@ -29,7 +36,7 @@ const nextConfig: NextConfig = {
             key: 'referer',
             value: '.*client/thevikingmethod.*'
           }],
-          destination: 'https://thevikingmethod.vercel.app/client/thevikingmethod/images/:path*',
+          destination: 'https://thevikingmethod.vercel.app/images/:path*',
         },
       ],
     };
