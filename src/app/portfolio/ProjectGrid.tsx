@@ -8,7 +8,29 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ProjectDetail } from './ProjectDetail';
 import { Zap, Sparkles, Smartphone, Code } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import projectsData from './projects.json';
+import projectsDataRaw from './projects.json';
+
+interface Project {
+  id: string;
+  title: string;
+  niche: string;
+  category: string;
+  logic: string;
+  challenge: string;
+  solution: string;
+  metrics: {
+    loadTime: string;
+    performance: number;
+    seo: number;
+    accessibility: number;
+  };
+  techStack: string[];
+  image: string;
+  liveLink: string;
+  aiLayer: string;
+}
+
+const projectsData = projectsDataRaw as unknown as Project[];
 
 const categories = ['All Projects', 'Lead Machines', 'Luxury Showcases', 'System Automations'];
 

@@ -1,10 +1,10 @@
 
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const iconVariants = {
+const iconVariants: Variants = {
   initial: { scale: 1 },
   animate: {
     scale: [1, 1.1, 1],

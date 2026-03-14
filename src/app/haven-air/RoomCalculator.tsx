@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Slider } from '@/components/ui/button'; // Reusing slider if available, else standard
+import { Slider } from '@/components/ui/slider'; // Corrected import
 import { motion } from 'framer-motion';
 
 export function RoomCalculator() {

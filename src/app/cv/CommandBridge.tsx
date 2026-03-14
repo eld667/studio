@@ -47,7 +47,7 @@ const TerminalInput = React.forwardRef<HTMLInputElement, TerminalInputProps>(
           <span className={cn(
             "font-mono text-blue-400 transition-opacity",
             isFocused || hasValue ? 'opacity-100' : 'opacity-0'
-          )}>></span>
+          )}>&gt;</span>
           <input
             ref={ref}
             id={id}
@@ -93,7 +93,7 @@ const TerminalTextarea = React.forwardRef<HTMLTextAreaElement, TerminalTextareaP
            <span className={cn(
             "font-mono text-blue-400 transition-opacity",
             isFocused || hasValue ? 'opacity-100' : 'opacity-0'
-          )}>></span>
+          )}>&gt;</span>
           <textarea
             ref={ref}
             id={id}

@@ -165,9 +165,8 @@ const DashboardUI = () => {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={chartData}>
                     <defs>
-                      <linearGradient id="colorValue" x1="0" x2="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#7C3AED" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#7C3AED" stopOpacity={0}/>
+                      <linearGradient id="colorValue" x1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#7C3AED" stopOpacity={0.1}/>                        <stop offset="95%" stopColor="#7C3AED" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />

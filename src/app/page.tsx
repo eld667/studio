@@ -36,10 +36,12 @@ function ProjectViewport({
   const numericSpeed = parseFloat(speed) || 7;
   const viewportRef = useRef<HTMLDivElement>(null);
   const [viewportHeight, setViewportHeight] = useState(0);
+  const [hasMounted, setHasMounted] = useState(false);
 
   const isInView = useInView(viewportRef, { amount: 0.6 });
 
   useEffect(() => {
+    setHasMounted(true);
     const updateHeight = () => {
       if (viewportRef.current) {
         setViewportHeight(viewportRef.current.offsetHeight);
@@ -68,16 +70,16 @@ function ProjectViewport({
               <motion.div
                 className="w-full absolute top-0 left-0"
                 initial={{ y: 0 }}
-                animate={isMobile && isInView ? {
+                animate={hasMounted && isMobile && isInView ? {
                   y: scrollTarget
                 } : { y: 0 }}
-                whileHover={!isMobile ? {
+                whileHover={hasMounted && !isMobile ? {
                   y: scrollTarget
                 } : undefined}
                 transition={{
                   duration: isMobile ? numericSpeed * 4 : numericSpeed,
                   ease: "linear",
-                  repeat: isMobile && isInView ? Infinity : 0,
+                  repeat: hasMounted && isMobile && isInView ? Infinity : 0,
                   repeatType: "reverse"
                 }}
               >

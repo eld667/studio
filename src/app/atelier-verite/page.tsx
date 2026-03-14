@@ -31,8 +31,8 @@ const formSchema = z.object({
 
 // --- Components ---
 
-const Section = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <section className={cn("relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden", className)}>
+const Section = ({ children, className, id }: { children: React.ReactNode, className?: string, id?: string }) => (
+  <section id={id} className={cn("relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden", className)}>
     {children}
   </section>
 );
